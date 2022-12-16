@@ -110,8 +110,8 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                       padding: EdgeInsets.all(8.w),
                       child: GridView.builder(
+                          physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          cacheExtent: 1500,
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 120.w,
@@ -120,60 +120,38 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisSpacing: 20.w),
                           itemCount: homeController.category!.data!.length,
                           itemBuilder: (BuildContext ctx, index) {
-                            return InkWell(
-                              onTap: () {
-                                // mainCategoriesController.index = index;
-                                // Get.to(() => SubCategoriesScreen(
-                                //     title: mainCategoriesController
-                                //         .categories[index].name!.tr));
-                              },
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.white.withOpacity(0.3)),
+                            print(homeController.category!.data![index].id);
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8.r),
+                                    child: CachedNetworkImage(
+                                        imageUrl: homeController
+                                            .category!.data![index].photo!,
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) =>
+                                            Center(
+                                              child: SizedBox(
+                                                height: 30,
+                                                width: 30,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: kPrimaryColor
+                                                      .withOpacity(0.6),
+                                                ),
+                                              ),
+                                            )),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      AspectRatio(
-                                        aspectRatio: 12 / 10,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.r),
-                                          child: CachedNetworkImage(
-                                              imageUrl: homeController.category!
-                                                  .data![index].photo!,
-                                              fit: BoxFit.cover,
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Center(
-                                                    child: SizedBox(
-                                                      height: 30,
-                                                      width: 30,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: kPrimaryColor
-                                                            .withOpacity(0.6),
-                                                      ),
-                                                    ),
-                                                  )),
-                                        ),
-                                      ),
-                                      Container(
-                                        color: Colors.white,
-                                        height: 50.h,
-                                        padding: EdgeInsets.all(2.r),
-                                        child: Text(
-                                          homeController
-                                              .category!.data![index].name!,
-                                          style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
+                                ),
+                                Text(
+                                  homeController.category!.data![index].name!,
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ],
                             );
                           })),
                 ],
@@ -182,3 +160,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+// mainCategoriesController.index = index;
+// Get.to(() => SubCategoriesScreen(
+//     title: mainCategoriesController
+//         .categories[index].name!.tr));

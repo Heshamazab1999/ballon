@@ -77,11 +77,11 @@ class BottomNavBarScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Obx(() => GestureDetector(
-                      onTap: () {
-                        bottomNavBarController.changeTabIndex(4);
-                      },
-                      child: Expanded(
+                Obx(() => Expanded(
+                  child: GestureDetector(
+                        onTap: () {
+                          bottomNavBarController.changeTabIndex(4);
+                        },
                         child: Container(
                           width: 80.w,
                           decoration: BoxDecoration(
@@ -134,12 +134,12 @@ class BottomNavBarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )),
-                Obx(() => GestureDetector(
-                      onTap: () {
-                        bottomNavBarController.changeTabIndex(3);
-                      },
-                      child: Expanded(
+                )),
+                Obx(() => Expanded(
+                  child: GestureDetector(
+                        onTap: () {
+                          bottomNavBarController.changeTabIndex(3);
+                        },
                         child: Container(
                           width: 80.w,
                           decoration: BoxDecoration(
@@ -191,12 +191,12 @@ class BottomNavBarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )),
-                Obx(() => GestureDetector(
-                      onTap: () {
-                        bottomNavBarController.changeTabIndex(2);
-                      },
-                      child: Expanded(
+                )),
+                Obx(() => Expanded(
+                  child: GestureDetector(
+                        onTap: () {
+                          bottomNavBarController.changeTabIndex(2);
+                        },
                         child: Container(
                           width: 80.w,
                           decoration: BoxDecoration(
@@ -248,12 +248,12 @@ class BottomNavBarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )),
-                Obx(() => GestureDetector(
-                      onTap: () {
-                        bottomNavBarController.changeTabIndex(1);
-                      },
-                      child: Expanded(
+                )),
+                Obx(() => Expanded(
+                  child: GestureDetector(
+                        onTap: () {
+                          bottomNavBarController.changeTabIndex(1);
+                        },
                         child: Container(
                           width: 80.w,
                           decoration: BoxDecoration(
@@ -302,12 +302,12 @@ class BottomNavBarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )),
-                Obx(() => GestureDetector(
-                      onTap: () {
-                        bottomNavBarController.changeTabIndex(0);
-                      },
-                      child: Expanded(
+                )),
+                Obx(() => Expanded(
+                  child: GestureDetector(
+                        onTap: () {
+                          bottomNavBarController.changeTabIndex(0);
+                        },
                         child: Container(
                           width: 80.w,
                           decoration: BoxDecoration(
@@ -359,7 +359,7 @@ class BottomNavBarScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )),
+                )),
               ],
             ),
           ),

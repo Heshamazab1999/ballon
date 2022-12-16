@@ -111,6 +111,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                                   //     (MediaQuery.of(context).size.height / 0.7),
                                 ),
                                 itemBuilder: (context, index) {
+                                  print(controller.listSubCategory[index].id!);
                                   return Container(
                                       decoration: BoxDecoration(
                                         border: Border.all(

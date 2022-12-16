@@ -1,11 +1,12 @@
 import 'package:arrows/modules/home/models/category_model.dart';
+import 'package:arrows/modules/home/models/subCategoryModel.dart';
 import 'package:get/get.dart';
 
 import '../../home/services/home_services.dart';
 
 class HomeController extends GetxController {
   final services = HomeServices();
-  CategoryModel? category;
+  SubCategoryModel? category;
   List homeAds = [].obs;
   List homeAdsImages = [].obs;
   final currentImageIndex = 0.obs;
@@ -31,7 +32,7 @@ class HomeController extends GetxController {
 
     isLoading.value = true;
     await getHomeAd();
-    category = (await services.getMainCategories());
+    category = (await services.getSubCategory());
     homeAdsImages;
     isLoading.value = false;
   }
