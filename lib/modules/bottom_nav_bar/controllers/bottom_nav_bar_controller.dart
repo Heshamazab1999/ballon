@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomNavBarController extends GetxController {
-  RxInt currentIndex = 2.obs;
+  final currentIndex = 2.obs;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void changeTabIndex(int index) {

@@ -67,7 +67,8 @@ class ArrowBottomNavBar extends StatelessWidget {
 
           BottomNavigationBarItem(
               backgroundColor: Colors.white,
-              icon: ImageIcon(
+              icon:
+              ImageIcon(
                 AssetImage("assets/icons/ic_more.png"),
                 color: kPrimaryColor,
               ),

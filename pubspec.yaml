@@ -58,6 +58,7 @@ dependencies:
   internet_connection_checker:
   flutter_local_notifications:
   firebase_core_platform_interface: 4.5.1
+  show_up_animation: ^2.0.0
 
   google_maps_flutter:
     git:
