@@ -30,7 +30,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final CartController cartController = Get.put(CartController());
+    CartController cartController = Get.put(CartController());
   final BottomNavBarController bottomNavBarController =
       Get.put(BottomNavBarController());
   SubCategoriesController subCategoriesController = SubCategoriesController();

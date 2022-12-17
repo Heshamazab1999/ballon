@@ -14,6 +14,7 @@ import '../models/barcode_used.dart';
 class MoreInfoController extends GetxController {
   Info? restaurantMoreInfo = Info();
   List<String> restaurantPhoneNumbers = <String>[].obs;
+  List<String> branchess = <String>[].obs;
   List<BarcodModel> barcods = [];
   final passwordVisible = true.obs;
   final isLoading = false.obs;
@@ -37,18 +38,17 @@ class MoreInfoController extends GetxController {
     if (response.data!.phone3 != "") {
       restaurantPhoneNumbers.add(response.data!.phone3 ?? "");
     }
+    if(response.data!.restaurantName !=''){
+      branchess.add(response.data!.restaurantName??'');
+    }
   }
 
   BarcodModel? barcodModel;
 
   Future getBarcodes() async {
-    // isLoading.value=true;
-    // barcodModel =  await MoreInfoService.getBarcodes('01111292') ;
-    // barcodModel =  await MoreInfoService.getBarcodes(CacheHelper.loginShared!.phone!.substring(1)) ;
     barcodModel = await MoreInfoService.getBarcodes(
         CacheHelper.loginShared!.phone!.substring(1));
     print(barcodModel!.data);
-    // isLoading.value=true;
 
     update();
     return barcodModel;
@@ -57,14 +57,13 @@ class MoreInfoController extends GetxController {
   Future<void> usedBarcodes(BuildContext context, id) async {
     BarCodeUsedBody barcodeUsed2 = await BarCodeUsedBody(
       barcode_id: id,
-      // phone_number:'01111292',
       phone_number: CacheHelper.loginShared!.phone!.substring(1),
     );
     dio.Response? response;
     response = await MoreInfoService.registerBarcodeUsed(barcodeUsed2);
   }
-
   changevisibility() {
+
     passwordVisible.value = !passwordVisible.value;
     update();
   }
