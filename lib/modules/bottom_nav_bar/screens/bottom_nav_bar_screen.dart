@@ -21,7 +21,6 @@ class BottomNavBarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomNavBarController = Get.put(BottomNavBarController());
-    // final cartController = Get.put(CartController());
 
     final List _bodyScreens = [
       NewSubCategoryScreen(),
