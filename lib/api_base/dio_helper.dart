@@ -8,7 +8,7 @@ class DioHelper {
   static String? restaurantName;
   static String? restaurantBranchName;
 
-  static init(String res_name, String branchName) {
+  static init() {
 
 
     dio = Dio(
@@ -17,14 +17,16 @@ class DioHelper {
           receiveDataWhenStatusError: true,
           headers: {
             'Content-Type': 'application/json',
+            "resturant":"y7b42yskv43l_baloons",
+
           }),
     );
-    restaurantBranchName = branchName;
-    restaurantName = res_name;
-    CacheHelper.saveDataToSharedPrefrence(
-        'restaurantBranchName', restaurantBranchName);
-
-    CacheHelper.saveDataToSharedPrefrence('restaurantName', 'y7b42yskv43l_baloons');
+    // restaurantBranchName = branchName;
+    // restaurantName = res_name;
+    // CacheHelper.saveDataToSharedPrefrence(
+    //     'restaurantBranchName', restaurantBranchName);
+    //
+    // CacheHelper.saveDataToSharedPrefrence('restaurantName', 'y7b42yskv43l_baloons');
     // CacheHelper.saveDataToSharedPrefrence('restaurantName', restaurantName);
   }
 

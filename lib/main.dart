@@ -1,3 +1,4 @@
+import 'package:arrows/api_base/dio_helper.dart';
 import 'package:arrows/helpers/shared_prefrences.dart';
 import 'package:arrows/modules/MainBranches/screens/branches_screen.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
@@ -7,7 +8,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
- import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
@@ -21,16 +22,17 @@ Future initialization(BuildContext? context) async {
 }
 
 Future<void> main() async {
-          WidgetsFlutterBinding.ensureInitialized();
-           final GoogleMapsFlutterPlatform mapsImplementation =
-              GoogleMapsFlutterPlatform.instance;
-          if (mapsImplementation is GoogleMapsFlutterAndroid) {
-            mapsImplementation.useAndroidViewSurface = true;
-          }
+  WidgetsFlutterBinding.ensureInitialized();
+  final GoogleMapsFlutterPlatform mapsImplementation =
+      GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = true;
+  }
+  await DioHelper.init();
   await Firebase.initializeApp();
-          if (defaultTargetPlatform == TargetPlatform.android) {
-            AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-          }
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+  }
   String userDeviceToken = await FirebaseMessaging.instance.getToken() ?? "";
   await CacheHelper.onInit();
   await CacheHelper.saveDataToSharedPrefrence("deviceToken", userDeviceToken);
@@ -56,7 +58,6 @@ Future<void> main() async {
     isOpened: true,
   ));
 }
-
 
 class MyApp extends StatelessWidget {
   Locale? language;
@@ -89,7 +90,9 @@ class MyApp extends StatelessWidget {
                 selectedIconTheme: IconThemeData(color: mainColor),
                 selectedLabelStyle: TextStyle(color: mainColor),
                 selectedItemColor: kBottomNavBarSelectedIconColor,
-                unselectedIconTheme: IconThemeData(color: Colors.white,),
+                unselectedIconTheme: IconThemeData(
+                  color: Colors.white,
+                ),
                 unselectedItemColor: mainColor,
                 showSelectedLabels: true,
                 // backgroundColor: Colors.white,
@@ -97,7 +100,6 @@ class MyApp extends StatelessWidget {
                 // type: BottomNavigationBarType.shifting,
               ),
             ),
-
             home: SplashScreen(),
           );
         });

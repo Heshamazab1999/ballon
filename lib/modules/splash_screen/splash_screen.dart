@@ -6,6 +6,7 @@ import 'package:arrows/modules/MainBranches/screens/branches_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../bottom_nav_bar/screens/bottom_nav_bar_screen.dart';
 import '../home/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Duration(seconds: 5),
             () =>
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) =>BranchesScreen())));
+                MaterialPageRoute(builder: (context) =>BottomNavBarScreen())));
   }
 
   @override
