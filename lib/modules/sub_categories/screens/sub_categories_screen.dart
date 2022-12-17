@@ -11,25 +11,30 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../product_details2/product_details.dart';
 
 class SubCategoriesScreen extends StatelessWidget {
-  SubCategoriesScreen({Key? key, required this.title});
+  SubCategoriesScreen({Key? key, required this.title, this.id});
 
   final String? title;
-  final SubCategoriesController subCategoriesController =
-      Get.put(SubCategoriesController());
-  String replaceFarsiNumber(String input) {
-    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const farsi = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-
-    for (int i = 0; i < farsi.length; i++) {
-      input = input.replaceAll(farsi[i], english[i]);
-    }
-    return input;
-  }
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
+    final subCategoriesController = Get.put(SubCategoriesController());
+    subCategoriesController.getProducts(id!);
+
+    String replaceFarsiNumber(String input) {
+      const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const farsi = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+      for (int i = 0; i < farsi.length; i++) {
+        input = input.replaceAll(farsi[i], english[i]);
+      }
+      return input;
+    }
+
     return Scaffold(
         appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
             centerTitle: true,
             title: Text(
               title.toString().tr,
@@ -60,7 +65,7 @@ class SubCategoriesScreen extends StatelessWidget {
                           ),
                         )),
                   )
-                : subCategoriesController.products.isEmpty
+                : Obx(() => subCategoriesController.product.isEmpty
                     ? Center(
                         child: Text(
                         "لا يوجد منتجات",
@@ -71,29 +76,32 @@ class SubCategoriesScreen extends StatelessWidget {
                         () => SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          child:  SmartRefresher(
-                            controller: subCategoriesController.refreshController,
+                          child: SmartRefresher(
+                            controller:
+                                subCategoriesController.refreshController,
                             enablePullUp: true,
                             enablePullDown: false,
                             onLoading: () async {
-                              await subCategoriesController.loadMore();
-                               subCategoriesController.refreshController.loadComplete();},
+                              await subCategoriesController.loadMore(id!);
+                              subCategoriesController.refreshController
+                                  .loadComplete();
+                            },
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 physics: BouncingScrollPhysics(),
                                 itemCount:
-                                subCategoriesController.products.length,
+                                    subCategoriesController.product.length,
                                 itemBuilder: (context, index) {
                                   final translateName =
-                                  CacheHelper.getDataToSharedPrefrence(
-                                      "localeIsArabic"); //
-                                  print(
-                                      subCategoriesController.products.length);
+                                      CacheHelper.getDataToSharedPrefrence(
+                                          "localeIsArabic"); //
+                                  print(subCategoriesController.product.length);
                                   return InkWell(
                                     onTap: () async {
                                       Get.to(() => ProductDetails(
-                                        index: index,
-                                      ));
+                                            data: subCategoriesController
+                                                .product[index],
+                                          ));
                                     },
                                     child: Card(
                                         elevation: 5,
@@ -103,50 +111,50 @@ class SubCategoriesScreen extends StatelessWidget {
                                             side: BorderSide(
                                                 color: mainColor, width: 3),
                                             borderRadius:
-                                            BorderRadius.circular(15)),
+                                                BorderRadius.circular(15)),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                              MainAxisAlignment.end,
                                           children: [
                                             Expanded(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     subCategoriesController
-                                                        .products[index]
-                                                        .name ??
+                                                            .product[index]
+                                                            .name ??
                                                         "",
                                                     style: TextStyle(
                                                       fontSize:
-                                                      subCategoriesController
-                                                          .products[
-                                                      index]
-                                                          .availability ==
-                                                          0
-                                                          ? 22.sp
-                                                          : 18.sp,
+                                                          subCategoriesController
+                                                                      .product[
+                                                                          index]
+                                                                      .availability ==
+                                                                  0
+                                                              ? 22.sp
+                                                              : 18.sp,
                                                       color: subCategoriesController
-                                                          .products[
-                                                      index]
-                                                          .availability ==
-                                                          1
+                                                                  .product[
+                                                                      index]
+                                                                  .availability ==
+                                                              1
                                                           ? Colors.black
                                                           : Colors.grey,
                                                       decoration:
-                                                      subCategoriesController
-                                                          .products[
-                                                      index]
-                                                          .availability ==
-                                                          0
-                                                          ? TextDecoration
-                                                          .lineThrough
-                                                          : null,
+                                                          subCategoriesController
+                                                                      .product[
+                                                                          index]
+                                                                      .availability ==
+                                                                  0
+                                                              ? TextDecoration
+                                                                  .lineThrough
+                                                              : null,
                                                       fontWeight:
-                                                      FontWeight.w600,
+                                                          FontWeight.w600,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                   ),
                                                   Container(
@@ -155,20 +163,20 @@ class SubCategoriesScreen extends StatelessWidget {
                                                         color: Colors.white,
                                                         borderRadius: translateName
                                                             ? BorderRadius.only(
-                                                            bottomRight:
-                                                            Radius
-                                                                .circular(
-                                                                15))
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                            15))
                                                             : BorderRadius.only(
-                                                            bottomLeft: Radius
-                                                                .circular(
-                                                                15))),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        15))),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment.end,
+                                                          MainAxisAlignment.end,
                                                       children: [
                                                         Text(
-                                                          "${replaceFarsiNumber(subCategoriesController.products[index].sizes![0].price ?? "")} ",
+                                                          "${replaceFarsiNumber(subCategoriesController.product[index].price.toString() ?? "")} ",
                                                           style: TextStyle(
                                                               fontSize: 25.sp),
                                                         ),
@@ -177,10 +185,11 @@ class SubCategoriesScreen extends StatelessWidget {
                                                           'Price',
                                                           style: TextStyle(
                                                               color:
-                                                              kPrimaryColor,
+                                                                  kPrimaryColor,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .bold,fontSize: 20.sp),
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20.sp),
                                                         ),
                                                         SizedBox(width: 20.w),
                                                       ],
@@ -193,26 +202,30 @@ class SubCategoriesScreen extends StatelessWidget {
                                               borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(15),
                                                   bottomLeft:
-                                                  Radius.circular(15)),
+                                                      Radius.circular(15)),
                                               child: CachedNetworkImage(
-                                                height: 120.h,
-                                                width: 150.w,
-                                                imageUrl:
-                                                subCategoriesController
-                                                    .products[index]
-                                                    .photo ??
-                                                    "",
-                                                fit: BoxFit.cover,
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                    Icon(
-                                                      Icons
-                                                          .image_not_supported_sharp,
-                                                      size: 60,
-                                                      color: kPrimaryColor
-                                                          .withOpacity(0.6),
-                                                    ),
-                                              ),
+                                                  height: 120.h,
+                                                  width: 150.w,
+                                                  imageUrl:
+                                                      subCategoriesController
+                                                              .product[index]
+                                                              .photo ??
+                                                          "",
+                                                  fit: BoxFit.cover,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Center(
+                                                            child: SizedBox(
+                                                              height: 30,
+                                                              width: 30,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                color: kPrimaryColor
+                                                                    .withOpacity(
+                                                                        0.6),
+                                                              ),
+                                                            ),
+                                                          )),
                                             ),
                                           ],
                                         )),
@@ -220,6 +233,6 @@ class SubCategoriesScreen extends StatelessWidget {
                                 }),
                           ),
                         ),
-                      ))));
+                      )))));
   }
 }

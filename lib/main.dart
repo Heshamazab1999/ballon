@@ -79,12 +79,12 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Saudagar',
               scaffoldBackgroundColor: Colors.white,
               iconTheme: IconThemeData(color: kPrimaryColor, size: 33),
-              appBarTheme: AppBarTheme(
-                color: mainColor,
-                systemOverlayStyle:
-                    SystemUiOverlayStyle(statusBarColor: mainColor),
-                shadowColor: mainColor,
-              ),
+              // appBarTheme: AppBarTheme(
+              //   color: mainColor,
+              //   systemOverlayStyle:
+              //       SystemUiOverlayStyle(statusBarColor: mainColor),
+              //   shadowColor: mainColor,
+              // ),
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 selectedIconTheme: IconThemeData(color: mainColor),
                 selectedLabelStyle: TextStyle(color: mainColor),

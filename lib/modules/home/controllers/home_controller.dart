@@ -1,3 +1,4 @@
+import 'package:arrows/modules/home/models/ProductModel.dart';
 import 'package:arrows/modules/home/models/category_model.dart';
 import 'package:arrows/modules/home/models/subCategoryModel.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,8 @@ class HomeController extends GetxController {
     print(homeAds);
     print(homeAdsImages);
   }
+
+
 
   @override
   Future<void> onInit() async {

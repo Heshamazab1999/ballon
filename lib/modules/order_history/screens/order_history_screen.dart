@@ -16,11 +16,12 @@ import '../../../components/custom_button.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   OrderHistoryScreen({Key? key}) : super(key: key);
-  final OrderHistoryController orderHistoryController =
-      Get.put(OrderHistoryController());
+
 
   @override
   Widget build(BuildContext context) {
+    final  orderHistoryController =
+    Get.put(OrderHistoryController());
     orderHistoryController.geHistoryData();
     orderHistoryController.dbRef == null
         ? orderHistoryController.hide.value = true

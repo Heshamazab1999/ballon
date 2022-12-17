@@ -1,4 +1,5 @@
 import 'package:arrows/constants/colors.dart';
+import 'package:arrows/modules/sub_categories/screens/sub_categories_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -112,52 +113,61 @@ class NewSubCategoryScreen extends StatelessWidget {
                                 ),
                                 itemBuilder: (context, index) {
                                   print(controller.listSubCategory[index].id!);
-                                  return Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color:
-                                                Colors.white.withOpacity(0.3)),
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              child: CachedNetworkImage(
-                                                  imageUrl: controller
-                                                      .listSubCategory[index]
-                                                      .photo!,
-                                                  fit: BoxFit.cover,
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Center(
-                                                            child: SizedBox(
-                                                              height: 30,
-                                                              width: 30,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                color: kPrimaryColor
-                                                                    .withOpacity(
-                                                                        0.6),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => SubCategoriesScreen(
+                                          id: controller
+                                              .listSubCategory[index].id!,
+                                          title: controller
+                                              .listSubCategory[index].name!));
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.white
+                                                  .withOpacity(0.3)),
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                                child: CachedNetworkImage(
+                                                    imageUrl: controller
+                                                        .listSubCategory[index]
+                                                        .photo!,
+                                                    fit: BoxFit.cover,
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Center(
+                                                              child: SizedBox(
+                                                                height: 30,
+                                                                width: 30,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: kPrimaryColor
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          )),
+                                                            )),
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            controller
-                                                .listSubCategory[index].name!,
-                                            style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ],
-                                      ));
+                                            Text(
+                                              controller
+                                                  .listSubCategory[index].name!,
+                                              style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
+                                        )),
+                                  );
                                 },
                               )))
               ])));

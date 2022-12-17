@@ -1,6 +1,6 @@
 import 'package:arrows/constants/colors.dart';
-import 'package:arrows/modules/bottom_nav_bar/controllers/bottom_nav_bar_controller.dart';
 import 'package:arrows/modules/home/controllers/home_controller.dart';
+import 'package:arrows/modules/sub_categories/screens/sub_categories_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../../../components/arrows_app_bar.dart';
-import '../../../components/custom_main_screen_card.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -20,9 +20,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.put(HomeController());
-
-    final bottomNavBarController = Get.put(BottomNavBarController());
-    PageController pageController = PageController(initialPage: 0);
+    //
+    // final bottomNavBarController = Get.put(BottomNavBarController());
+    // PageController pageController = PageController(initialPage: 0);
 
     return Scaffold(
       appBar: ArrowsAppBar(
@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 120.w,
-                                  childAspectRatio: 6 / 9,
+                                  childAspectRatio: 6 / 7,
                                   crossAxisSpacing: 10.w,
                                   mainAxisSpacing: 20.w),
                           itemCount: homeController.category!.data!.length,
@@ -125,24 +125,37 @@ class HomeScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    child: CachedNetworkImage(
-                                        imageUrl: homeController
-                                            .category!.data![index].photo!,
-                                        fit: BoxFit.cover,
-                                        errorWidget: (context, url, error) =>
-                                            Center(
-                                              child: SizedBox(
-                                                height: 30,
-                                                width: 30,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.6),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      // await homeController.getProducts(
+                                      //     homeController
+                                      //         .category!.data![index].id!);
+                                      Get.to(() => SubCategoriesScreen(
+                                            id: homeController
+                                                .category!.data![index].id,
+                                            title: homeController
+                                                .category!.data![index].name!,
+                                          ));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      child: CachedNetworkImage(
+                                          imageUrl: homeController
+                                              .category!.data![index].photo!,
+                                          fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: kPrimaryColor
+                                                        .withOpacity(0.6),
+                                                  ),
                                                 ),
-                                              ),
-                                            )),
+                                              )),
+                                    ),
                                   ),
                                 ),
                                 Text(

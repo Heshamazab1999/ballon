@@ -1,798 +1,977 @@
-import 'package:arrows/components/custom_cart_button.dart';
-import 'package:arrows/components/field_title.dart';
 import 'package:arrows/constants/colors.dart';
-import 'package:arrows/modules/product_details/controllers/product_details_controller.dart';
+import 'package:arrows/modules/home/models/ProductModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../components/custom_radio_button.dart';
-import '../../components/loading_spinner.dart';
-import '../../constants/styles.dart';
-import '../../helpers/shared_prefrences.dart';
-import '../sign_up/screens/sign_up_screen.dart';
-import '../sub_categories/controllers/sub_categories_controller.dart';
-import '../sub_categories/models/SubCategories.dart';
+import 'package:octo_image/octo_image.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 
 class ProductDetails extends StatelessWidget {
-  late final int index;
-   ProductDetails({Key? key, required this.index}) : super(key: key);
-   final SubCategoriesController subCategoriesController =
-      Get.put(SubCategoriesController());
-  final productDetailsController = Get.put(ProductDetailsController());
+  const ProductDetails({Key? key, this.data}) : super(key: key);
+  final ProductData? data;
 
   @override
   Widget build(BuildContext context) {
-    final messageController=TextEditingController();
-
-    subCategoriesController.productPrice.value = double.parse(
-            subCategoriesController.products[index].sizes![0].price!);
-    subCategoriesController.totalPrice.value =
-        subCategoriesController.productPrice.value;
-    subCategoriesController.orderCounter.value=1;
-    subCategoriesController.sizeDropDownValue =
-    subCategoriesController.products[index].sizes![0];
-    /**added****/
-    // productDetailsController.value =
-    // subCategoriesController.products[index].sizes![0];
-    /**added****/
-    productDetailsController.otherAddition.value = List.filled(productDetailsController.drinks!.length, false);
-     return  WillPopScope(
-        onWillPop: ()async{
-      return disposeMethod();
-    },
-    child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        backgroundColor: mainColor,
-        centerTitle: true,
-        title: Text("${subCategoriesController.products[index].name!.tr}",
-            style: TextStyle(color: kPrimaryColor)),
+        elevation: 0,
+        backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {
-            Get.back();
-            subCategoriesController.dispose();
-            subCategoriesController.onClose();
-          },
-          icon: Icon(Icons.arrow_back_ios, color: kPrimaryColor),
-        ),
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios, color: mainColor)),
+        title: Text(data!.name!, style: TextStyle(color: mainColor)),
+        centerTitle: true,
       ),
-      backgroundColor: kPrimaryColor,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-                SizedBox(height: 2.h),
-                Container(
-              width: MediaQuery.of(context).size.width - 10,
-              height: 300.h,
-              decoration:
-                  BoxDecoration(border: Border.all(color: mainColor, width: 2)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(0.r),
-                child: CachedNetworkImage(
+            Container(
+                clipBehavior: Clip.antiAlias,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2.5,
+                decoration: BoxDecoration(
+                  border: Border.all(color: mainColor, width: 3),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: OctoImage(
+                  image: CachedNetworkImageProvider(
+                    data!.photo!,
+                  ),
+                  placeholderBuilder: OctoPlaceholder.blurHash(
+                      'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
+                      fit: BoxFit.cover),
+                  errorBuilder: (context, url, error) {
+                    return BlurHash(hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
+                  },
                   fit: BoxFit.cover,
-                  width: ScreenUtil().screenWidth,
-                  imageUrl: subCategoriesController.products[index].photo
-                          .toString() ,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                      color: mainColor,
-                        value: downloadProgress.progress),
-                  ),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.image_not_supported_sharp,
-                    size: 60,
-                    color: kPrimaryColor.withOpacity(0.6),),),),),
-                GetBuilder<SubCategoriesController>(
-                init: SubCategoriesController(),
-                builder: (controller) =>    Obx(() => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('   ${'price'.tr} : ',
-                    style: TextStyle(fontSize: 20.sp, color: mainColor),
-                  ),
-                  subCategoriesController.totalPrice.value == 0
-                      ? Text("   ${subCategoriesController.products[index].sizes![0].price}  ${'coin_jordan'.tr}    ",
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: mainColor,
-                          ),
-                        )
-                      : Text(
-                          "   ${subCategoriesController.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: mainColor,
-                          ),
-                        ),
-                ],
-              ),
-        ),),
-            SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Wrap(alignment:WrapAlignment.start,
-            children: [
+                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Text(
-                  "   ${'order_content'.tr}" + ' :  ',
+                  '   ${'price'.tr} : ',
                   style: TextStyle(fontSize: 20.sp, color: mainColor),
                 ),
-                (subCategoriesController.products[index].components!.isEmpty ||
-                        subCategoriesController.products[index].components ==
-                            null)
-                    ? SizedBox()
-                    : Wrap(alignment:WrapAlignment.spaceBetween,
-                        children: [
-                          ...List.generate(
-                            subCategoriesController
-                                .products[index].components!.length,
-                            (item) {
-                              return  Padding(
-                              padding: EdgeInsets.only(left: 18.0, right: 18,bottom: 5.h),
-                              child: Text.rich(
-                                TextSpan(
-                                  text: subCategoriesController
-                                      .products[index].components![item].name!,
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    color: mainColor,
-                                  ),
-                                ),
-                              ),
-                            );}
-                          ),
-                        ],
-                      ),
+                Text(data!.price.toString()),
+                Text(data!.name.toString()),
               ],
             ),
-            ),
             Container(
-              width: 300.w,
-              height: 50.h,
+              padding: EdgeInsets.all(4),
+              height: 50,
+              width: 250,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
                 color: mainColor,
-                borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 6),
+                  GestureDetector(
+                    onTap: () {},
                     child: Container(
-                      width: 40.w,
-                      height: 40.h,
+                      width: 45,
+                      height: 45,
                       decoration: BoxDecoration(
-                        color: kPrimaryColor,
+                        border: Border.all(color: Colors.white, width: 1),
                         shape: BoxShape.circle,
+                        color: Colors.grey.shade800,
                       ),
-                      child: IconButton(
-                        hoverColor: Colors.transparent,
-                        padding:  EdgeInsets.only(bottom: 15),
-                        color: kPrimaryColor,
-                        icon: Icon(
-                          Icons.minimize_outlined,
-                          color: mainColor,
-                          size: 20.sp,
-
-                        ), onPressed: () {
-                          subCategoriesController.decreaseOrderCounter(index);
-                        },
-                      ),
+                      child: Icon(Icons.remove, color: Colors.white, size: 25),
                     ),
                   ),
-                  GetBuilder<SubCategoriesController>(
-                    init: SubCategoriesController(),
-                    builder: (controller) => Obx(() => Text(
-                          '${controller.orderCounter.toString()}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),
-                        )),
-                  ),
-                  GetBuilder<SubCategoriesController>(
-                    init: SubCategoriesController(),
-                    builder: (controller) => Align(
-                      alignment: AlignmentDirectional(-0.6, 0.05),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 2, 5, 2),
-                        child: Container(
-                          width: 40.w,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            hoverColor: Colors.transparent,
-                            iconSize: 22,
-                            padding:  EdgeInsets.only(bottom: 1),
-
-                            color: kPrimaryColor,
-                            icon: Icon(
-                              Icons.add,
-                              color: mainColor,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              controller.increaseOrderCounter(controller.products[index].availability!);
-                              CacheHelper.saveDataToSharedPrefrence('limit', controller.products[index].availability!);
-                            },
-                          ),
-                        ),
+                  Text("|",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 45,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 1),
+                        shape: BoxShape.circle,
+                        color: Colors.grey.shade800,
                       ),
+                      child: Icon(Icons.add, color: Colors.white, size: 25),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Material(
-              color: mainColor,
-              borderRadius: BorderRadius.circular(20.r),
-              child: Padding(
-                padding: EdgeInsets.only(left: 18.0.w, right: 18.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /************************************sizes*********************************/
-                    Obx(() => (subCategoriesController.products[index].sizes) !=
-                     null ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      FieldTitle(title: 'pick_size'.tr,),
-                      GetBuilder<ProductDetailsController>(
-                        init: ProductDetailsController(),
-                        builder: (controller) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  color: mainColor,
-                                  border: Border.all(color: kPrimaryColor),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child:  Obx(()=> DropdownButton<Sizes>(
-                                iconSize: 24.sp,
-                                underline: SizedBox(),
-                                style: TextStyle(color: kPrimaryColor),
-                                isExpanded: true,
-                                 items: subCategoriesController
-                                    .products[index].sizes!
-                                    .map((item) {
-                                return    DropdownMenuItem<Sizes>(
-                                      value: item,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(width: 20.w,),
-                                          Text(item.size ?? "", style: TextStyle(fontSize: 16.sp),),
-                                          SizedBox(width: 15.w,),
-                                          Text(
-                                            "(${item.price})",
-                                            style: TextStyle(fontSize: 16.sp),
-                                          ),
-                                          SizedBox(width: 20.w,),
-                                        ],
-                                      ));
-                                }).toList(),
-                                value:  productDetailsController.value!=null?productDetailsController.value:subCategoriesController.products[index].sizes![0],
-                                onChanged: (newValue) {
-                                  /*****anotherTry****/
-
-                                  Sizes size = newValue as Sizes;
-                                  // productDetailsController.change(newValue);
-
-                                  productDetailsController.selectedSize = size;
-                                  print(' product price at begining =${subCategoriesController.productPrice.value}');
-                                  print(' product price newValue =${size.price}');
-                                  productDetailsController.change(size);
-                                  productDetailsController.change( productDetailsController.selectedSize);
-
-                                  if(double.parse(size.price.toString())== double.parse(subCategoriesController.productPrice.value.toString())){
-                                    print('they are the same');
-                                  }
-                                  else{
-                                    print('they are not the same');
-                                    // print(double.parse(size.price.toString())-double.parse(subCategoriesController.productPrice.value.toString()));
-                                  subCategoriesController.totalPrice.value -=
-                                  (double.parse(subCategoriesController.productPrice.value.toString())
-                                      *subCategoriesController.orderCounter.value);
-                                  print('subCategoriesController.totalPrice.value after min ${subCategoriesController.totalPrice.value}');
-                                    subCategoriesController.totalPrice.value +=
-                                    (double.parse(size.price.toString())
-                                        *subCategoriesController.orderCounter.value);
-                                    print('subCategoriesController.totalPrice.value after add ${subCategoriesController.totalPrice.value}');
-                                    subCategoriesController.productPrice.value==size.price ;
-                                    subCategoriesController.productPrice.value =double.parse(size.price !);
-                                    print('--------------new value of productPrice.value ${subCategoriesController.productPrice.value}');
-                                    print('--------------new value of size.price ${size.price}');
-                                    subCategoriesController.sizeDropDownValue==size;
-                                    productDetailsController.selectedSize==size;
-
-                                    print('--------------new value of sizeDropDownValue ${subCategoriesController.sizeDropDownValue}');
-                                    print('--------------new value ofproductDetailsController.selectedSiz${productDetailsController.selectedSize}');
-
-                                    CacheHelper.saveDataToSharedPrefrence('selectedSize', productDetailsController.value.size);
-                                    CacheHelper.saveDataToSharedPrefrence('selectedPrice', size.price);
-                                      var x= CacheHelper.getDataToSharedPrefrence('selectedSize');
-                                       print(subCategoriesController.sizeDropDownValue);
-                                    print("{{{{{$x}}}}}}}}");
-                                    productDetailsController.value=subCategoriesController.sizeDropDownValue;
-                                    subCategoriesController.update();
-                                    productDetailsController.change(size);
-                                  }
-                                  /*****anotherTry****/
-
-
-                                  // subCategoriesController.selectSize(newValue,index);
-
-
-                                  // if (subCategoriesController.productPrice.value != size.price) {
-                                  //
-                                  //   print('total4 ${subCategoriesController.totalPrice.value - ( subCategoriesController.productPrice.value*subCategoriesController.orderCounter.value)+(double.parse(size.price!)*subCategoriesController.orderCounter.value)}');
-                                  //  var y=subCategoriesController.totalPrice.value - ( subCategoriesController.productPrice.value*subCategoriesController.orderCounter.value)+(double.parse(size.price!)*subCategoriesController.orderCounter.value);
-                                  //   print('total5 ${subCategoriesController.totalPrice.value -=  y}');
-                                  //
-                                  //   // if (subCategoriesController.products[index].sizes!.first.price != size.price) {
-                                  //   subCategoriesController.productPrice.value=double.parse(newValue.price!) ;
-                                  //   subCategoriesController.products[index].sizes!.first.price!=newValue.price;
-                                  //   var total =subCategoriesController.totalPrice.value + (double.parse(size.price!)*subCategoriesController.orderCounter.value);
-                                  //   print('total1   ${total}');
-                                  //   total -= ((double.parse(newValue.price!)*subCategoriesController.orderCounter.value));
-                                  //   print('total2  ${total}');
-                                  //   subCategoriesController.totalPrice.value -= total-(double.parse(size.price!)+ double.parse(newValue.price!)*subCategoriesController.orderCounter.value );
-                                  //   print('total3  ${subCategoriesController.totalPrice.value }');
-                                  //     // subCategoriesController.totalPrice.value=subCategoriesController.totalPrice.value-double.parse(newValue.price!);
-                                  //   subCategoriesController.products[index].sizes!.first.price == size.price;
-                                  //   /********rightSoultion***************/
-                                  //   // Sizes size = newValue as Sizes;
-                                  //   //                                 if (subCategoriesController.products[index].sizes!.first.price != size.price) {
-                                  //   //                                   size.price==newValue.price;
-                                  //   //
-                                  //   //                                 var total =subCategoriesController.totalPrice.value + (double.parse(size.price!)*subCategoriesController.orderCounter.value);
-                                  //   //                                 print('total1   ${total}');
-                                  //   //
-                                  //   //                                 total -= ((double.parse(newValue.price!)*subCategoriesController.orderCounter.value));
-                                  //   //                                 print('total2  ${total}');
-                                  //   //                                 subCategoriesController.totalPrice.value -= total-(double.parse(size.price!)+double.parse(newValue.price!)*subCategoriesController.orderCounter.value );
-                                  //   //                                 print('total3  ${subCategoriesController.totalPrice.value-double.parse(newValue.price!)}');
-                                  //   //                                 subCategoriesController.totalPrice.value=subCategoriesController.totalPrice.value-double.parse(newValue.price!);
-                                  //   //                                 subCategoriesController.products[index].sizes!.first.price == size.price;
-                                  //   /********rightSoultion***************/
-                                  //   subCategoriesController.products[index].sizes!.first.price == size.price;
-                                  //   print('------------------');
-                                  //   print(size.price);
-                                  //   subCategoriesController.sizesList.add(Sizes(size:newValue.size,price: newValue.price ));
-                                  //   print('##########${newValue.price}');
-                                  //   CacheHelper.saveDataToSharedPrefrence('selectedSize', size.size);
-                                  //   var x= CacheHelper.getDataToSharedPrefrence('selectedSize');
-                                  //   print(subCategoriesController.products[index].sizes!.first.price);
-                                  //   print('---------selectedSize-----$x----');
-                                  //   subCategoriesController.productPrice.value==size.price;
-                                  //   // subCategoriesController.productPrice.value=size.price;
-                                  //   print('total 4 total price=${subCategoriesController.productPrice.value}');
-                                  // }
-                                  // /***new***/
-                                  // // productDetailsController.value=productDetailsController.selectedSize;
-                                  // else{
-                                  //   return;
-                                  // }
-
-
-    },
-  // value: productDetailsController.value,
-                              )));
-                        }), ],
-                    ) : SizedBox(),),
-                    /************************************Componants*********************************/
-                Obx(() => (subCategoriesController.products[index].components!.isNotEmpty &&(subCategoriesController.products[index].components )!=null)
-                 ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [    FieldTitle(title: 'order_content'.tr),
-                    GetBuilder<ProductDetailsController>(
-                      builder: (controller) {
-                        return ListView.builder(
-                            itemCount: subCategoriesController
-                                .products[index].components!.length,
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                             itemBuilder: (_, i) {
-                              controller.component.value = List.filled(subCategoriesController.products[index].components!.length, true);
-
-                              subCategoriesController.listOfPComponents.add(Components(
-                                  id: num.tryParse( subCategoriesController
-                                      .products[index].components![i].toString()),
-                                  ));
-                              return Obx(() => CheckboxListTile(
-                                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                  dense:true,
-                                   contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-                                  checkColor: mainColor,
-                                  selectedTileColor: mainColor,
-                                  activeColor: kPrimaryColor,
-
-                                  // value:   subCategoriesController.products[index].components![i],
-                                  value:   controller.component[i], //list
-                                  controlAffinity: ListTileControlAffinity.leading,
-                                  title: Text(
-                                    '${subCategoriesController.products[index].components![i].name!.tr}',
-                                    style: TextStyle(
-                                        color: kPrimaryColor, fontSize: 18.sp),
-                                  ),
-                                  onChanged: (bool? value) {
-                                    print(value);
-                                     controller.component[i] = value!;
-                                    print(controller.component[i]);
-
-                                    controller.component[i] ?
-
-                                    subCategoriesController.listOfPComponents.add(subCategoriesController.products[index].components![i] )
-                                    : subCategoriesController.listOfPComponents.removeAt(i);
-
-                                    print(subCategoriesController.listOfPComponents.length);
-                                    subCategoriesController.products[index].components;
-                               subCategoriesController.listOfPComponents;
-
-                                  }),
-                              );
-                            });
-                      },
-                    ),
-                    ]):SizedBox()),
-                    /************************************Types*********************************/
-
-                        Obx(() => (subCategoriesController.products[index].spices!.isNotEmpty &&(subCategoriesController.products[index].spices )!=null)
-                            ? Column( crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FieldTitle(
-                                  title: 'type'.tr,
-                                ),
-                            GetBuilder<SubCategoriesController>(
-                                        init: SubCategoriesController(),
-                                        builder: (controller) => Obx(() =>
-                                            ListView.builder(
-                                                itemCount: controller
-                                                    .products[index]
-                                                    .spices!
-                                                    .length,
-                                                physics:
-                                                    ClampingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                padding: null,
-                                                itemBuilder: (_, i) {
-                                                  controller.valueGroupType.value =
-                                                      List.filled(controller.products[index].spices!.length, 0);
-                                                  return CustomRadioButton(
-                                                      isPayment: false,
-                                                      isDrinks: false,
-                                                      controller: controller,
-                                                      value: controller.products[index].spices![i].name!.tr,
-                                                      onChanged: (v) {
-                                                        controller.selectTypeRadioButton(v);
-                                                        subCategoriesController
-                                                            .addToSpices(
-                                                                controller.products[index].spices![i].id!,
-                                                                controller.products[index].spices![i]);
-                                                        print(v);
-                                                      },
-                                                      textOfTheRadio: controller.products[index].spices![i].name!.tr);
-                                                },),),),
-
-                              ],
-                            ) : SizedBox(),
-                    ),
-                    /************************************FreeDrinks*********************************/
-                        Obx(() => ((subCategoriesController.products[index].drinks!.isNotEmpty) &&(subCategoriesController.products[index].drinks )!=null)
-                            ?
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FieldTitle(
-                                  title: 'drinks'.tr,
-                                ),
-                                SizedBox(
-                                  child:GetBuilder<SubCategoriesController>(
-                                          init: SubCategoriesController(),
-                                          builder: (controller) {
-                                            return ListView.builder(
-                                                itemCount:
-                                                    subCategoriesController
-                                                        .products[index]
-                                                        .drinks!
-                                                        .length,
-                                                physics:
-                                                    ClampingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder: (_, i) {
-                                                  controller.valueGroupType
-                                                          .value =
-                                                      List.filled(
-                                                          controller
-                                                              .products[index]
-                                                              .drinks!
-                                                              .length,
-                                                          0);
-                                                  return CustomRadioButton(
-                                                      isDrinks: true,
-                                                      isPayment: false,
-
-                                                      controller:
-                                                          subCategoriesController,
-                                                      value:
-                                                          subCategoriesController
-                                                              .products[index]
-                                                              .drinks![i]
-                                                              .name.toString(),
-                                                      onChanged: (v) {
-                                                        subCategoriesController.selectDrinkRadioButton(v);
-
-                                                      },
-                                                      textOfTheRadio:
-                                                          subCategoriesController
-                                                              .products[index]
-                                                              .drinks![i]
-                                                              .name.toString());
-                                                });
-                                          }),
-                                ),
-                              ],
-                            )
-                          : SizedBox(),
-                    ),
-                    /************************************Souces*********************************/
-                        Obx(() => (subCategoriesController.products[index].sauces!.isNotEmpty &&(subCategoriesController.products[index].sauces )!=null)
-                            ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FieldTitle(
-                                  title: 'sauces'.tr,
-                                ),
-                                Text(
-                                  '(${'choose_only_4_items'.tr})',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                                GetBuilder<ProductDetailsController>(
-                                  builder: (controller) {
-                                    controller.suaces.value = List.filled(
-                                        subCategoriesController
-                                            .products[index].sauces!.length,
-                                        false);
-                                    return ListView.builder(
-                                        itemCount: subCategoriesController
-                                            .products[index].sauces!.length,
-                                        shrinkWrap: true,
-                                        physics: ClampingScrollPhysics(),
-                                        itemBuilder: (context, i) {
-                                          controller.suaces.value = List.filled(
-                                              subCategoriesController
-                                                  .products[index]
-                                                  .sauces!
-                                                  .length,
-                                              false);
-                                          return Obx(() => CheckboxListTile(
-                                              checkColor: mainColor,
-                                              selectedTileColor: mainColor,
-                                              activeColor: kPrimaryColor,
-                                              value: controller.suaces[i],
-                                              controlAffinity:
-                                                  ListTileControlAffinity
-                                                      .leading,
-                                              title: Text(
-                                                subCategoriesController
-                                                    .products[index]
-                                                    .sauces![i]
-                                                    .name!
-                                                    .tr,
-                                                style: TextStyle(
-                                                    color: kPrimaryColor,
-                                                    fontSize: 18.sp),
-                                              ),
-                                              onChanged: (bool? value) {
-                                                print(value);
-                                                controller.suaces[i] = value!;
-                                                subCategoriesController
-                                                    .addToSouces(
-                                                        controller.suaces[i],
-                                                        subCategoriesController
-                                                            .products[index]
-                                                            .sauces![i]);
-                                                print(subCategoriesController
-                                                    .listOfSouces.length);
-                                              }));
-                                        });
-                                  },
-                                ),
-                              ],
-                            )
-                          : SizedBox(),
-                    ),
-                    /************************************generalextra*********************************/
-                    Obx(() => (subCategoriesController.products[index].additional!.isNotEmpty &&(subCategoriesController.products[index].additional )!=null)
-                          ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FieldTitle(
-                                  title: 'general_extras'.tr,
-                                ),
-                                GetBuilder<ProductDetailsController>(
-                                  builder: (controller) {
-                                    return Obx(() => ListView.builder(
-                                        itemCount: subCategoriesController
-                                            .products[index].additional!.length,
-                                        shrinkWrap: true,
-                                        physics: ClampingScrollPhysics(),
-                                        itemBuilder: (context, i) {
-                                          controller.addition.value =
-                                              List.filled(
-                                                  subCategoriesController
-                                                      .products[index]
-                                                      .additional!
-                                                      .length,
-                                                  false);
-                                          return Obx(() => ListTileTheme(
-                                              dense: true,
-                                              contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-                                              child:CheckboxListTile(
-                                              contentPadding: EdgeInsets.all(0),
-                                                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                                  checkColor: mainColor,
-                                              selectedTileColor: mainColor,
-                                              activeColor: kPrimaryColor,
-                                              value: controller.addition[i],
-                                              controlAffinity:
-                                                  ListTileControlAffinity
-                                                      .leading,
-                                              title: Text(
-                                                "${subCategoriesController.products[index].additional![i].addition} =${subCategoriesController.products[index].additional![i].price}",
-                                                style: TextStyle(
-                                                    color: kPrimaryColor,
-                                                    fontSize: 18.sp),
-                                              ),
-                                              onChanged: (bool? value) {
-                                                controller.addition[i] = value!;
-                                                subCategoriesController
-                                                    .addToPublicAddition(
-                                                        controller.addition[i],
-                                                        subCategoriesController
-                                                            .products[index]
-                                                            .additional![i]);
-
-                                                print('**************${subCategoriesController.listOfPublicAdditional[i].price}');
-                                              })));
-                                        }));
-                                  },
-                                ),
-                              ],
-                            )
-                          : SizedBox(),
-                    ),
-                    /************************************extra*********************************/
-                    Obx(() => (productDetailsController.drinks!.isNotEmpty &&(productDetailsController.drinks )!=null)
-               ? Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [ FieldTitle(title: 'extras'.tr,),
-                    GetBuilder<ProductDetailsController>(
-                      init: ProductDetailsController(),
-                      builder: (controller) {
-                        return Obx(() => ListView.builder(
-                            itemCount: controller.drinks!.length,
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            itemBuilder: (context, i) {
-                              return Obx(() => CheckboxListTile(
-                                  checkColor: mainColor,
-                                  selectedTileColor: mainColor,
-                                  activeColor: kPrimaryColor,
-                                  value: controller.otherAddition[i],
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                  title: Text(
-                                    "${controller.drinks![i].name} = ${controller.drinks![i].price}",
-                                    style: TextStyle(
-                                        color: kPrimaryColor, fontSize: 18.sp),
-                                  ),
-                                  onChanged: (bool? value) {
-                                    controller.otherAddition[i] = value!;
-                                    subCategoriesController.addToDrinks(
-                                        controller.otherAddition[i],
-                                        controller.drinks![i]);
-                                    // subCategoriesController.addToOtherAdditional(
-                                    //     num.parse(controller.drinks![i].id.toString()),
-                                    //     controller.drinks![i]
-                                    // );
-
-
-                                  }));
-                            }));
-                      },
-                    ),   ],
-                )
-                    : SizedBox(),),
-
-
-                    // Padding(
-                    //   padding: EdgeInsets.all(15.w),
-                    //   child: TextField(
-                    //     cursorColor: kPrimaryColor,
-                    //     // controller:  messageController,
-                    //     maxLines: 2,
-                    //     style: TextStyle(color: kPrimaryColor),
-                    //     decoration:
-                    //     InputDecoration(
-                    //
-                    //       hintText: 'write_a_note'.tr,
-                    //       hintStyle: TextStyle(fontSize: 14.sp,color: kPrimaryColor),
-                    //       border: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //           color: Colors.red,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(8.r),
-                    //       ),
-                    //       focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //           color: kPrimaryColor,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(8.r),
-                    //       ),
-                    //       enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //           color: kPrimaryColor,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(8.r),
-                    //       ),
-                    //       disabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //           color: kPrimaryColor,
-                    //         ),
-                    //         borderRadius: BorderRadius.circular(8.r),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
-
-                    // TextFormField(),
-                    /************************************addToCart*********************************/
-                    GetBuilder<SubCategoriesController>(
-                      init: SubCategoriesController(),
-                      builder: (subCategoriesController) {
-                        return CustomCartButton(
-                            text: 'add_to_cart',
-                            isCart: true,
-                            color: kPrimaryColor,
-                            textColor: mainColor,
-                            onPressed: () async {
-                              if (await subCategoriesController
-                                      .products[index].availability ==
-                                  0) {
-                                Get.defaultDialog(
-                                    content: Text('الوجبة غير متوفرة'),
-                                    title: '');
-                              }
-                              else if (CacheHelper.loginShared == null) {
-                                showLoaderDialog(context);
-                                Get.offAll(SignUpScreen());
-                              }
-                              else {    await subCategoriesController.validateForm(index);}});
-                      },
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
+            SizedBox(
+              height: 10,
             ),
-
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 3,
+              decoration: BoxDecoration(
+                  color: mainColor, borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                children: [
+                  Text(
+                    ": Description",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  Text(
+                    data!.name!,
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      onChanged: (v) {},
+                      decoration: InputDecoration(
+                          hintText: "Write Notes",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  BorderSide(color: Colors.black54, width: 3)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  BorderSide(color: Colors.black54, width: 3))),
+                    ),
+                  ),
+                  Center(
+                    child: SizedBox(
+                      height: 45,
+                      width: 300,
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              backgroundColor: Colors.white),
+                          onPressed: () {},
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Add to cart",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 15)),
+                              Icon(
+                                Icons.shopping_cart_outlined,
+                                color: Colors.black,
+                              ),
+                            ],
+                          )),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
-      ),
     );
   }
+}
 
-disposeMethod() {
-  print('yamosaheellll');
-  Get.back();
-  subCategoriesController.dispose();
-  subCategoriesController.onClose();
-  // productDetailsController.dispose();
-  // productDetailsController.onClose();
-
-}}
-
-
+// import 'package:arrows/components/custom_cart_button.dart';
+// import 'package:arrows/components/field_title.dart';
+// import 'package:arrows/constants/colors.dart';
+// import 'package:arrows/modules/product_details/controllers/product_details_controller.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:get/get.dart';
+// import '../../components/custom_radio_button.dart';
+// import '../../components/loading_spinner.dart';
+// import '../../constants/styles.dart';
+// import '../../helpers/shared_prefrences.dart';
+// import '../sign_up/screens/sign_up_screen.dart';
+// import '../sub_categories/controllers/sub_categories_controller.dart';
+// import '../sub_categories/models/SubCategories.dart';
+//
+// class ProductDetails extends StatelessWidget {
+//   late final int index;
+//    ProductDetails({Key? key, required this.index}) : super(key: key);
+//    final SubCategoriesController subCategoriesController =
+//       Get.put(SubCategoriesController());
+//   final productDetailsController = Get.put(ProductDetailsController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final messageController=TextEditingController();
+//
+//     subCategoriesController.productPrice.value = double.parse(
+//             subCategoriesController.products[index].sizes![0].price!);
+//     subCategoriesController.totalPrice.value =
+//         subCategoriesController.productPrice.value;
+//     subCategoriesController.orderCounter.value=1;
+//     subCategoriesController.sizeDropDownValue =
+//     subCategoriesController.products[index].sizes![0];
+//     /**added****/
+//     // productDetailsController.value =
+//     // subCategoriesController.products[index].sizes![0];
+//     /**added****/
+//     productDetailsController.otherAddition.value = List.filled(productDetailsController.drinks!.length, false);
+//      return  WillPopScope(
+//         onWillPop: ()async{
+//       return disposeMethod();
+//     },
+//     child: Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: mainColor,
+//         centerTitle: true,
+//         title: Text("${subCategoriesController.products[index].name!.tr}",
+//             style: TextStyle(color: kPrimaryColor)),
+//         leading: IconButton(
+//           onPressed: () {
+//             Get.back();
+//             subCategoriesController.dispose();
+//             subCategoriesController.onClose();
+//           },
+//           icon: Icon(Icons.arrow_back_ios, color: kPrimaryColor),
+//         ),
+//       ),
+//       backgroundColor: kPrimaryColor,
+//       body: SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//                 SizedBox(height: 2.h),
+//                 Container(
+//               width: MediaQuery.of(context).size.width - 10,
+//               height: 300.h,
+//               decoration:
+//                   BoxDecoration(border: Border.all(color: mainColor, width: 2)),
+//               child: ClipRRect(
+//                 borderRadius: BorderRadius.circular(0.r),
+//                 child: CachedNetworkImage(
+//                   fit: BoxFit.cover,
+//                   width: ScreenUtil().screenWidth,
+//                   imageUrl: subCategoriesController.products[index].photo
+//                           .toString() ,
+//                   progressIndicatorBuilder: (context, url, downloadProgress) =>
+//                       Center(
+//                     child: CircularProgressIndicator(
+//                       color: mainColor,
+//                         value: downloadProgress.progress),
+//                   ),
+//                   errorWidget: (context, url, error) => Icon(
+//                     Icons.image_not_supported_sharp,
+//                     size: 60,
+//                     color: kPrimaryColor.withOpacity(0.6),),),),),
+//                 GetBuilder<SubCategoriesController>(
+//                 init: SubCategoriesController(),
+//                 builder: (controller) =>    Obx(() => Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Text('   ${'price'.tr} : ',
+//                     style: TextStyle(fontSize: 20.sp, color: mainColor),
+//                   ),
+//                   subCategoriesController.totalPrice.value == 0
+//                       ? Text("   ${subCategoriesController.products[index].sizes![0].price}  ${'coin_jordan'.tr}    ",
+//                           style: TextStyle(
+//                             fontSize: 20.sp,
+//                             color: mainColor,
+//                           ),
+//                         )
+//                       : Text(
+//                           "   ${subCategoriesController.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
+//                           style: TextStyle(
+//                             fontSize: 20.sp,
+//                             color: mainColor,
+//                           ),
+//                         ),
+//                 ],
+//               ),
+//         ),),
+//             SizedBox(
+//           width: MediaQuery.of(context).size.width,
+//           child: Wrap(alignment:WrapAlignment.start,
+//             children: [
+//                 Text(
+//                   "   ${'order_content'.tr}" + ' :  ',
+//                   style: TextStyle(fontSize: 20.sp, color: mainColor),
+//                 ),
+//                 (subCategoriesController.products[index].components!.isEmpty ||
+//                         subCategoriesController.products[index].components ==
+//                             null)
+//                     ? SizedBox()
+//                     : Wrap(alignment:WrapAlignment.spaceBetween,
+//                         children: [
+//                           ...List.generate(
+//                             subCategoriesController
+//                                 .products[index].components!.length,
+//                             (item) {
+//                               return  Padding(
+//                               padding: EdgeInsets.only(left: 18.0, right: 18,bottom: 5.h),
+//                               child: Text.rich(
+//                                 TextSpan(
+//                                   text: subCategoriesController
+//                                       .products[index].components![item].name!,
+//                                   style: TextStyle(
+//                                     fontSize: 18.sp,
+//                                     color: mainColor,
+//                                   ),
+//                                 ),
+//                               ),
+//                             );}
+//                           ),
+//                         ],
+//                       ),
+//               ],
+//             ),
+//             ),
+//             Container(
+//               width: 300.w,
+//               height: 50.h,
+//               decoration: BoxDecoration(
+//                 color: mainColor,
+//                 borderRadius: BorderRadius.circular(30),
+//               ),
+//               child: Row(
+//                 mainAxisSize: MainAxisSize.max,
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Padding(
+//                     padding: EdgeInsetsDirectional.fromSTEB(5, 2, 0, 6),
+//                     child: Container(
+//                       width: 40.w,
+//                       height: 40.h,
+//                       decoration: BoxDecoration(
+//                         color: kPrimaryColor,
+//                         shape: BoxShape.circle,
+//                       ),
+//                       child: IconButton(
+//                         hoverColor: Colors.transparent,
+//                         padding:  EdgeInsets.only(bottom: 15),
+//                         color: kPrimaryColor,
+//                         icon: Icon(
+//                           Icons.minimize_outlined,
+//                           color: mainColor,
+//                           size: 20.sp,
+//
+//                         ), onPressed: () {
+//                           subCategoriesController.decreaseOrderCounter(index);
+//                         },
+//                       ),
+//                     ),
+//                   ),
+//                   GetBuilder<SubCategoriesController>(
+//                     init: SubCategoriesController(),
+//                     builder: (controller) => Obx(() => Text(
+//                           '${controller.orderCounter.toString()}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp),
+//                         )),
+//                   ),
+//                   GetBuilder<SubCategoriesController>(
+//                     init: SubCategoriesController(),
+//                     builder: (controller) => Align(
+//                       alignment: AlignmentDirectional(-0.6, 0.05),
+//                       child: Padding(
+//                         padding: EdgeInsetsDirectional.fromSTEB(0, 2, 5, 2),
+//                         child: Container(
+//                           width: 40.w,
+//                           height: 40.h,
+//                           decoration: BoxDecoration(
+//                             color: kPrimaryColor,
+//                             shape: BoxShape.circle,
+//                           ),
+//                           child: IconButton(
+//                             hoverColor: Colors.transparent,
+//                             iconSize: 22,
+//                             padding:  EdgeInsets.only(bottom: 1),
+//
+//                             color: kPrimaryColor,
+//                             icon: Icon(
+//                               Icons.add,
+//                               color: mainColor,
+//                               size: 20,
+//                             ),
+//                             onPressed: () {
+//                               controller.increaseOrderCounter(controller.products[index].availability!);
+//                               CacheHelper.saveDataToSharedPrefrence('limit', controller.products[index].availability!);
+//                             },
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             Material(
+//               color: mainColor,
+//               borderRadius: BorderRadius.circular(20.r),
+//               child: Padding(
+//                 padding: EdgeInsets.only(left: 18.0.w, right: 18.w),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     /************************************sizes*********************************/
+//                     Obx(() => (subCategoriesController.products[index].sizes) !=
+//                      null ? Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                       FieldTitle(title: 'pick_size'.tr,),
+//                       GetBuilder<ProductDetailsController>(
+//                         init: ProductDetailsController(),
+//                         builder: (controller) {
+//                             return Container(
+//                               width: MediaQuery.of(context).size.width,
+//                               decoration: BoxDecoration(
+//                                   color: mainColor,
+//                                   border: Border.all(color: kPrimaryColor),
+//                                   borderRadius: BorderRadius.circular(10)),
+//                               child:  Obx(()=> DropdownButton<Sizes>(
+//                                 iconSize: 24.sp,
+//                                 underline: SizedBox(),
+//                                 style: TextStyle(color: kPrimaryColor),
+//                                 isExpanded: true,
+//                                  items: subCategoriesController
+//                                     .products[index].sizes!
+//                                     .map((item) {
+//                                 return    DropdownMenuItem<Sizes>(
+//                                       value: item,
+//                                       child: Row(
+//                                         children: [
+//                                           SizedBox(width: 20.w,),
+//                                           Text(item.size ?? "", style: TextStyle(fontSize: 16.sp),),
+//                                           SizedBox(width: 15.w,),
+//                                           Text(
+//                                             "(${item.price})",
+//                                             style: TextStyle(fontSize: 16.sp),
+//                                           ),
+//                                           SizedBox(width: 20.w,),
+//                                         ],
+//                                       ));
+//                                 }).toList(),
+//                                 value:  productDetailsController.value!=null?productDetailsController.value:subCategoriesController.products[index].sizes![0],
+//                                 onChanged: (newValue) {
+//                                   /*****anotherTry****/
+//
+//                                   Sizes size = newValue as Sizes;
+//                                   // productDetailsController.change(newValue);
+//
+//                                   productDetailsController.selectedSize = size;
+//                                   print(' product price at begining =${subCategoriesController.productPrice.value}');
+//                                   print(' product price newValue =${size.price}');
+//                                   productDetailsController.change(size);
+//                                   productDetailsController.change( productDetailsController.selectedSize);
+//
+//                                   if(double.parse(size.price.toString())== double.parse(subCategoriesController.productPrice.value.toString())){
+//                                     print('they are the same');
+//                                   }
+//                                   else{
+//                                     print('they are not the same');
+//                                     // print(double.parse(size.price.toString())-double.parse(subCategoriesController.productPrice.value.toString()));
+//                                   subCategoriesController.totalPrice.value -=
+//                                   (double.parse(subCategoriesController.productPrice.value.toString())
+//                                       *subCategoriesController.orderCounter.value);
+//                                   print('subCategoriesController.totalPrice.value after min ${subCategoriesController.totalPrice.value}');
+//                                     subCategoriesController.totalPrice.value +=
+//                                     (double.parse(size.price.toString())
+//                                         *subCategoriesController.orderCounter.value);
+//                                     print('subCategoriesController.totalPrice.value after add ${subCategoriesController.totalPrice.value}');
+//                                     subCategoriesController.productPrice.value==size.price ;
+//                                     subCategoriesController.productPrice.value =double.parse(size.price !);
+//                                     print('--------------new value of productPrice.value ${subCategoriesController.productPrice.value}');
+//                                     print('--------------new value of size.price ${size.price}');
+//                                     subCategoriesController.sizeDropDownValue==size;
+//                                     productDetailsController.selectedSize==size;
+//
+//                                     print('--------------new value of sizeDropDownValue ${subCategoriesController.sizeDropDownValue}');
+//                                     print('--------------new value ofproductDetailsController.selectedSiz${productDetailsController.selectedSize}');
+//
+//                                     CacheHelper.saveDataToSharedPrefrence('selectedSize', productDetailsController.value.size);
+//                                     CacheHelper.saveDataToSharedPrefrence('selectedPrice', size.price);
+//                                       var x= CacheHelper.getDataToSharedPrefrence('selectedSize');
+//                                        print(subCategoriesController.sizeDropDownValue);
+//                                     print("{{{{{$x}}}}}}}}");
+//                                     productDetailsController.value=subCategoriesController.sizeDropDownValue;
+//                                     subCategoriesController.update();
+//                                     productDetailsController.change(size);
+//                                   }
+//                                   /*****anotherTry****/
+//
+//
+//                                   // subCategoriesController.selectSize(newValue,index);
+//
+//
+//                                   // if (subCategoriesController.productPrice.value != size.price) {
+//                                   //
+//                                   //   print('total4 ${subCategoriesController.totalPrice.value - ( subCategoriesController.productPrice.value*subCategoriesController.orderCounter.value)+(double.parse(size.price!)*subCategoriesController.orderCounter.value)}');
+//                                   //  var y=subCategoriesController.totalPrice.value - ( subCategoriesController.productPrice.value*subCategoriesController.orderCounter.value)+(double.parse(size.price!)*subCategoriesController.orderCounter.value);
+//                                   //   print('total5 ${subCategoriesController.totalPrice.value -=  y}');
+//                                   //
+//                                   //   // if (subCategoriesController.products[index].sizes!.first.price != size.price) {
+//                                   //   subCategoriesController.productPrice.value=double.parse(newValue.price!) ;
+//                                   //   subCategoriesController.products[index].sizes!.first.price!=newValue.price;
+//                                   //   var total =subCategoriesController.totalPrice.value + (double.parse(size.price!)*subCategoriesController.orderCounter.value);
+//                                   //   print('total1   ${total}');
+//                                   //   total -= ((double.parse(newValue.price!)*subCategoriesController.orderCounter.value));
+//                                   //   print('total2  ${total}');
+//                                   //   subCategoriesController.totalPrice.value -= total-(double.parse(size.price!)+ double.parse(newValue.price!)*subCategoriesController.orderCounter.value );
+//                                   //   print('total3  ${subCategoriesController.totalPrice.value }');
+//                                   //     // subCategoriesController.totalPrice.value=subCategoriesController.totalPrice.value-double.parse(newValue.price!);
+//                                   //   subCategoriesController.products[index].sizes!.first.price == size.price;
+//                                   //   /********rightSoultion***************/
+//                                   //   // Sizes size = newValue as Sizes;
+//                                   //   //                                 if (subCategoriesController.products[index].sizes!.first.price != size.price) {
+//                                   //   //                                   size.price==newValue.price;
+//                                   //   //
+//                                   //   //                                 var total =subCategoriesController.totalPrice.value + (double.parse(size.price!)*subCategoriesController.orderCounter.value);
+//                                   //   //                                 print('total1   ${total}');
+//                                   //   //
+//                                   //   //                                 total -= ((double.parse(newValue.price!)*subCategoriesController.orderCounter.value));
+//                                   //   //                                 print('total2  ${total}');
+//                                   //   //                                 subCategoriesController.totalPrice.value -= total-(double.parse(size.price!)+double.parse(newValue.price!)*subCategoriesController.orderCounter.value );
+//                                   //   //                                 print('total3  ${subCategoriesController.totalPrice.value-double.parse(newValue.price!)}');
+//                                   //   //                                 subCategoriesController.totalPrice.value=subCategoriesController.totalPrice.value-double.parse(newValue.price!);
+//                                   //   //                                 subCategoriesController.products[index].sizes!.first.price == size.price;
+//                                   //   /********rightSoultion***************/
+//                                   //   subCategoriesController.products[index].sizes!.first.price == size.price;
+//                                   //   print('------------------');
+//                                   //   print(size.price);
+//                                   //   subCategoriesController.sizesList.add(Sizes(size:newValue.size,price: newValue.price ));
+//                                   //   print('##########${newValue.price}');
+//                                   //   CacheHelper.saveDataToSharedPrefrence('selectedSize', size.size);
+//                                   //   var x= CacheHelper.getDataToSharedPrefrence('selectedSize');
+//                                   //   print(subCategoriesController.products[index].sizes!.first.price);
+//                                   //   print('---------selectedSize-----$x----');
+//                                   //   subCategoriesController.productPrice.value==size.price;
+//                                   //   // subCategoriesController.productPrice.value=size.price;
+//                                   //   print('total 4 total price=${subCategoriesController.productPrice.value}');
+//                                   // }
+//                                   // /***new***/
+//                                   // // productDetailsController.value=productDetailsController.selectedSize;
+//                                   // else{
+//                                   //   return;
+//                                   // }
+//
+//
+//     },
+//   // value: productDetailsController.value,
+//                               )));
+//                         }), ],
+//                     ) : SizedBox(),),
+//                     /************************************Componants*********************************/
+//                 Obx(() => (subCategoriesController.products[index].components!.isNotEmpty &&(subCategoriesController.products[index].components )!=null)
+//                  ? Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [    FieldTitle(title: 'order_content'.tr),
+//                     GetBuilder<ProductDetailsController>(
+//                       builder: (controller) {
+//                         return ListView.builder(
+//                             itemCount: subCategoriesController
+//                                 .products[index].components!.length,
+//                             shrinkWrap: true,
+//                             physics: ClampingScrollPhysics(),
+//                              itemBuilder: (_, i) {
+//                               controller.component.value = List.filled(subCategoriesController.products[index].components!.length, true);
+//
+//                               subCategoriesController.listOfPComponents.add(Components(
+//                                   id: num.tryParse( subCategoriesController
+//                                       .products[index].components![i].toString()),
+//                                   ));
+//                               return Obx(() => CheckboxListTile(
+//                                   visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+//                                   dense:true,
+//                                    contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+//                                   checkColor: mainColor,
+//                                   selectedTileColor: mainColor,
+//                                   activeColor: kPrimaryColor,
+//
+//                                   // value:   subCategoriesController.products[index].components![i],
+//                                   value:   controller.component[i], //list
+//                                   controlAffinity: ListTileControlAffinity.leading,
+//                                   title: Text(
+//                                     '${subCategoriesController.products[index].components![i].name!.tr}',
+//                                     style: TextStyle(
+//                                         color: kPrimaryColor, fontSize: 18.sp),
+//                                   ),
+//                                   onChanged: (bool? value) {
+//                                     print(value);
+//                                      controller.component[i] = value!;
+//                                     print(controller.component[i]);
+//
+//                                     controller.component[i] ?
+//
+//                                     subCategoriesController.listOfPComponents.add(subCategoriesController.products[index].components![i] )
+//                                     : subCategoriesController.listOfPComponents.removeAt(i);
+//
+//                                     print(subCategoriesController.listOfPComponents.length);
+//                                     subCategoriesController.products[index].components;
+//                                subCategoriesController.listOfPComponents;
+//
+//                                   }),
+//                               );
+//                             });
+//                       },
+//                     ),
+//                     ]):SizedBox()),
+//                     /************************************Types*********************************/
+//
+//                         Obx(() => (subCategoriesController.products[index].spices!.isNotEmpty &&(subCategoriesController.products[index].spices )!=null)
+//                             ? Column( crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 FieldTitle(
+//                                   title: 'type'.tr,
+//                                 ),
+//                             GetBuilder<SubCategoriesController>(
+//                                         init: SubCategoriesController(),
+//                                         builder: (controller) => Obx(() =>
+//                                             ListView.builder(
+//                                                 itemCount: controller
+//                                                     .products[index]
+//                                                     .spices!
+//                                                     .length,
+//                                                 physics:
+//                                                     ClampingScrollPhysics(),
+//                                                 shrinkWrap: true,
+//                                                 padding: null,
+//                                                 itemBuilder: (_, i) {
+//                                                   controller.valueGroupType.value =
+//                                                       List.filled(controller.products[index].spices!.length, 0);
+//                                                   return CustomRadioButton(
+//                                                       isPayment: false,
+//                                                       isDrinks: false,
+//                                                       controller: controller,
+//                                                       value: controller.products[index].spices![i].name!.tr,
+//                                                       onChanged: (v) {
+//                                                         controller.selectTypeRadioButton(v);
+//                                                         subCategoriesController
+//                                                             .addToSpices(
+//                                                                 controller.products[index].spices![i].id!,
+//                                                                 controller.products[index].spices![i]);
+//                                                         print(v);
+//                                                       },
+//                                                       textOfTheRadio: controller.products[index].spices![i].name!.tr);
+//                                                 },),),),
+//
+//                               ],
+//                             ) : SizedBox(),
+//                     ),
+//                     /************************************FreeDrinks*********************************/
+//                         Obx(() => ((subCategoriesController.products[index].drinks!.isNotEmpty) &&(subCategoriesController.products[index].drinks )!=null)
+//                             ?
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 FieldTitle(
+//                                   title: 'drinks'.tr,
+//                                 ),
+//                                 SizedBox(
+//                                   child:GetBuilder<SubCategoriesController>(
+//                                           init: SubCategoriesController(),
+//                                           builder: (controller) {
+//                                             return ListView.builder(
+//                                                 itemCount:
+//                                                     subCategoriesController
+//                                                         .products[index]
+//                                                         .drinks!
+//                                                         .length,
+//                                                 physics:
+//                                                     ClampingScrollPhysics(),
+//                                                 shrinkWrap: true,
+//                                                 itemBuilder: (_, i) {
+//                                                   controller.valueGroupType
+//                                                           .value =
+//                                                       List.filled(
+//                                                           controller
+//                                                               .products[index]
+//                                                               .drinks!
+//                                                               .length,
+//                                                           0);
+//                                                   return CustomRadioButton(
+//                                                       isDrinks: true,
+//                                                       isPayment: false,
+//
+//                                                       controller:
+//                                                           subCategoriesController,
+//                                                       value:
+//                                                           subCategoriesController
+//                                                               .products[index]
+//                                                               .drinks![i]
+//                                                               .name.toString(),
+//                                                       onChanged: (v) {
+//                                                         subCategoriesController.selectDrinkRadioButton(v);
+//
+//                                                       },
+//                                                       textOfTheRadio:
+//                                                           subCategoriesController
+//                                                               .products[index]
+//                                                               .drinks![i]
+//                                                               .name.toString());
+//                                                 });
+//                                           }),
+//                                 ),
+//                               ],
+//                             )
+//                           : SizedBox(),
+//                     ),
+//                     /************************************Souces*********************************/
+//                         Obx(() => (subCategoriesController.products[index].sauces!.isNotEmpty &&(subCategoriesController.products[index].sauces )!=null)
+//                             ? Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 FieldTitle(
+//                                   title: 'sauces'.tr,
+//                                 ),
+//                                 Text(
+//                                   '(${'choose_only_4_items'.tr})',
+//                                   style: TextStyle(fontWeight: FontWeight.w600),
+//                                 ),
+//                                 GetBuilder<ProductDetailsController>(
+//                                   builder: (controller) {
+//                                     controller.suaces.value = List.filled(
+//                                         subCategoriesController
+//                                             .products[index].sauces!.length,
+//                                         false);
+//                                     return ListView.builder(
+//                                         itemCount: subCategoriesController
+//                                             .products[index].sauces!.length,
+//                                         shrinkWrap: true,
+//                                         physics: ClampingScrollPhysics(),
+//                                         itemBuilder: (context, i) {
+//                                           controller.suaces.value = List.filled(
+//                                               subCategoriesController
+//                                                   .products[index]
+//                                                   .sauces!
+//                                                   .length,
+//                                               false);
+//                                           return Obx(() => CheckboxListTile(
+//                                               checkColor: mainColor,
+//                                               selectedTileColor: mainColor,
+//                                               activeColor: kPrimaryColor,
+//                                               value: controller.suaces[i],
+//                                               controlAffinity:
+//                                                   ListTileControlAffinity
+//                                                       .leading,
+//                                               title: Text(
+//                                                 subCategoriesController
+//                                                     .products[index]
+//                                                     .sauces![i]
+//                                                     .name!
+//                                                     .tr,
+//                                                 style: TextStyle(
+//                                                     color: kPrimaryColor,
+//                                                     fontSize: 18.sp),
+//                                               ),
+//                                               onChanged: (bool? value) {
+//                                                 print(value);
+//                                                 controller.suaces[i] = value!;
+//                                                 subCategoriesController
+//                                                     .addToSouces(
+//                                                         controller.suaces[i],
+//                                                         subCategoriesController
+//                                                             .products[index]
+//                                                             .sauces![i]);
+//                                                 print(subCategoriesController
+//                                                     .listOfSouces.length);
+//                                               }));
+//                                         });
+//                                   },
+//                                 ),
+//                               ],
+//                             )
+//                           : SizedBox(),
+//                     ),
+//                     /************************************generalextra*********************************/
+//                     Obx(() => (subCategoriesController.products[index].additional!.isNotEmpty &&(subCategoriesController.products[index].additional )!=null)
+//                           ? Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 FieldTitle(
+//                                   title: 'general_extras'.tr,
+//                                 ),
+//                                 GetBuilder<ProductDetailsController>(
+//                                   builder: (controller) {
+//                                     return Obx(() => ListView.builder(
+//                                         itemCount: subCategoriesController
+//                                             .products[index].additional!.length,
+//                                         shrinkWrap: true,
+//                                         physics: ClampingScrollPhysics(),
+//                                         itemBuilder: (context, i) {
+//                                           controller.addition.value =
+//                                               List.filled(
+//                                                   subCategoriesController
+//                                                       .products[index]
+//                                                       .additional!
+//                                                       .length,
+//                                                   false);
+//                                           return Obx(() => ListTileTheme(
+//                                               dense: true,
+//                                               contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+//                                               child:CheckboxListTile(
+//                                               contentPadding: EdgeInsets.all(0),
+//                                                   visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+//                                                   checkColor: mainColor,
+//                                               selectedTileColor: mainColor,
+//                                               activeColor: kPrimaryColor,
+//                                               value: controller.addition[i],
+//                                               controlAffinity:
+//                                                   ListTileControlAffinity
+//                                                       .leading,
+//                                               title: Text(
+//                                                 "${subCategoriesController.products[index].additional![i].addition} =${subCategoriesController.products[index].additional![i].price}",
+//                                                 style: TextStyle(
+//                                                     color: kPrimaryColor,
+//                                                     fontSize: 18.sp),
+//                                               ),
+//                                               onChanged: (bool? value) {
+//                                                 controller.addition[i] = value!;
+//                                                 subCategoriesController
+//                                                     .addToPublicAddition(
+//                                                         controller.addition[i],
+//                                                         subCategoriesController
+//                                                             .products[index]
+//                                                             .additional![i]);
+//
+//                                                 print('**************${subCategoriesController.listOfPublicAdditional[i].price}');
+//                                               })));
+//                                         }));
+//                                   },
+//                                 ),
+//                               ],
+//                             )
+//                           : SizedBox(),
+//                     ),
+//                     /************************************extra*********************************/
+//                     Obx(() => (productDetailsController.drinks!.isNotEmpty &&(productDetailsController.drinks )!=null)
+//                ? Column(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [ FieldTitle(title: 'extras'.tr,),
+//                     GetBuilder<ProductDetailsController>(
+//                       init: ProductDetailsController(),
+//                       builder: (controller) {
+//                         return Obx(() => ListView.builder(
+//                             itemCount: controller.drinks!.length,
+//                             shrinkWrap: true,
+//                             physics: ClampingScrollPhysics(),
+//                             itemBuilder: (context, i) {
+//                               return Obx(() => CheckboxListTile(
+//                                   checkColor: mainColor,
+//                                   selectedTileColor: mainColor,
+//                                   activeColor: kPrimaryColor,
+//                                   value: controller.otherAddition[i],
+//                                   controlAffinity:
+//                                       ListTileControlAffinity.leading,
+//                                   title: Text(
+//                                     "${controller.drinks![i].name} = ${controller.drinks![i].price}",
+//                                     style: TextStyle(
+//                                         color: kPrimaryColor, fontSize: 18.sp),
+//                                   ),
+//                                   onChanged: (bool? value) {
+//                                     controller.otherAddition[i] = value!;
+//                                     subCategoriesController.addToDrinks(
+//                                         controller.otherAddition[i],
+//                                         controller.drinks![i]);
+//                                     // subCategoriesController.addToOtherAdditional(
+//                                     //     num.parse(controller.drinks![i].id.toString()),
+//                                     //     controller.drinks![i]
+//                                     // );
+//
+//
+//                                   }));
+//                             }));
+//                       },
+//                     ),   ],
+//                 )
+//                     : SizedBox(),),
+//
+//
+//                     // Padding(
+//                     //   padding: EdgeInsets.all(15.w),
+//                     //   child: TextField(
+//                     //     cursorColor: kPrimaryColor,
+//                     //     // controller:  messageController,
+//                     //     maxLines: 2,
+//                     //     style: TextStyle(color: kPrimaryColor),
+//                     //     decoration:
+//                     //     InputDecoration(
+//                     //
+//                     //       hintText: 'write_a_note'.tr,
+//                     //       hintStyle: TextStyle(fontSize: 14.sp,color: kPrimaryColor),
+//                     //       border: OutlineInputBorder(
+//                     //         borderSide: BorderSide(
+//                     //           color: Colors.red,
+//                     //         ),
+//                     //         borderRadius: BorderRadius.circular(8.r),
+//                     //       ),
+//                     //       focusedBorder: OutlineInputBorder(
+//                     //         borderSide: BorderSide(
+//                     //           color: kPrimaryColor,
+//                     //         ),
+//                     //         borderRadius: BorderRadius.circular(8.r),
+//                     //       ),
+//                     //       enabledBorder: OutlineInputBorder(
+//                     //         borderSide: BorderSide(
+//                     //           color: kPrimaryColor,
+//                     //         ),
+//                     //         borderRadius: BorderRadius.circular(8.r),
+//                     //       ),
+//                     //       disabledBorder: OutlineInputBorder(
+//                     //         borderSide: BorderSide(
+//                     //           color: kPrimaryColor,
+//                     //         ),
+//                     //         borderRadius: BorderRadius.circular(8.r),
+//                     //       ),
+//                     //     ),
+//                     //   ),
+//                     // ),
+//
+//
+//                     // TextFormField(),
+//                     /************************************addToCart*********************************/
+//                     GetBuilder<SubCategoriesController>(
+//                       init: SubCategoriesController(),
+//                       builder: (subCategoriesController) {
+//                         return CustomCartButton(
+//                             text: 'add_to_cart',
+//                             isCart: true,
+//                             color: kPrimaryColor,
+//                             textColor: mainColor,
+//                             onPressed: () async {
+//                               if (await subCategoriesController
+//                                       .products[index].availability ==
+//                                   0) {
+//                                 Get.defaultDialog(
+//                                     content: Text('الوجبة غير متوفرة'),
+//                                     title: '');
+//                               }
+//                               else if (CacheHelper.loginShared == null) {
+//                                 showLoaderDialog(context);
+//                                 Get.offAll(SignUpScreen());
+//                               }
+//                               else {    await subCategoriesController.validateForm(index);}});
+//                       },
+//                     ),
+//                     SizedBox(height: 20),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//           ],
+//         ),
+//       ),
+//       ),
+//     );
+//   }
+//
+// disposeMethod() {
+//   print('yamosaheellll');
+//   Get.back();
+//   subCategoriesController.dispose();
+//   subCategoriesController.onClose();
+//   // productDetailsController.dispose();
+//   // productDetailsController.onClose();
+//
+// }}
+//
+//

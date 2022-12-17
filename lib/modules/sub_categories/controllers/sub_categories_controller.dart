@@ -1,5 +1,6 @@
 import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
+import 'package:arrows/modules/home/models/ProductModel.dart';
 import 'package:arrows/modules/main_category/controllers/main_categories_controller.dart';
 import 'package:arrows/modules/more_info/models/BarcodModel.dart';
 import 'package:arrows/modules/sub_categories/models/SubCategories.dart';
@@ -16,15 +17,14 @@ import '../../product_details/controllers/product_details_controller.dart';
 import '../../product_details/models/drinks_model.dart';
 
 class SubCategoriesController extends GetxController {
+  final services = SubCategoriesService();
   int mainCategoryId = 0;
   late final String restaurantName;
-  // List<NewCartModel2> products = <NewCartModel2>[].obs;
   List<Products> products = <Products>[].obs;
-  int page = 0;
+  final pageNumber = 0.obs;
   final isFirstLoadRunning = false.obs;
   final hasNextPage = true.obs;
-  final messageController=TextEditingController();
-  final isLoadMoreRunning = false.obs;
+  final messageController = TextEditingController();
   final RefreshController refreshController = RefreshController();
   Sizes sizeDropDownValue = Sizes();
   final drinkRadioButtonSelectedValue = ''.obs;
@@ -32,25 +32,34 @@ class SubCategoriesController extends GetxController {
   final valueGroupType = <int>[].obs;
   List<Sizes> sizesList = [];
   List<Drink> other_additional = [];
-  SubCategories? subCategories;
- var  value;
-  Future getSubCategories() async {
+
+  // SubCategories? subCategories;
+  ProductModel? productModel;
+  final product = <ProductData>[].obs;
+
+  var value;
+
+  getProducts(int id) async {
     isFirstLoadRunning.value = true;
-    products.clear();
-    subCategories =
-        await SubCategoriesService.getSubCategories(mainCategoryId, page);
-    products.assignAll(subCategories!.data!);
+    productModel = await services.getProducts(id, pageNumber.value);
+    if (productModel!.statusCode == 204) {
+      product == [];
+      print("204");
+    } else {
+      product.assignAll(await productModel!.data!);
+      print(product.length);
+    }
     isFirstLoadRunning.value = false;
   }
 
-
-  loadMore() async {
-    if (subCategories!.data!.isNotEmpty) {
-      page++;
-      subCategories =
-          await SubCategoriesService.getSubCategories(mainCategoryId, page);
-      products.addAll(subCategories!.data!);
+  loadMore(int id) async {
+    if (product.isNotEmpty) {
+      pageNumber.value++;
+      productModel = await services.getProducts(id, pageNumber.value);
+      product.addAll(await productModel!.data!);
+      print(product.length);
       print("loading");
+      print(pageNumber.value);
     } else {
       print("no subcategories");
     }
@@ -58,7 +67,7 @@ class SubCategoriesController extends GetxController {
 
   @override
   dispose() {
-     // refreshController;
+    // refreshController;
     // totalPrice.value=0;
     // orderCounter.value=1;
     // listOfPComponents;
@@ -81,7 +90,7 @@ class SubCategoriesController extends GetxController {
     // totalPrice.value=0;
     // orderCounter.value=1;
     // orderPrice.value;
-     // refreshController;
+    // refreshController;
     //   listOfPComponents;
     // isFirstLoadRunning ;
     // hasNextPage ;
@@ -97,19 +106,19 @@ class SubCategoriesController extends GetxController {
     update();
   }
 
-
   @override
   Future<void> onInit() async {
     super.onInit();
 
-    final MainCategoriesController mainCategoriesController =
-        Get.put(MainCategoriesController());
-    mainCategoryId = mainCategoriesController
-            .categories[mainCategoriesController.index].id ??
-        0;
-    getSubCategories();
+    // final MainCategoriesController mainCategoriesController =
+    //     Get.put(MainCategoriesController());
+    // mainCategoryId = mainCategoriesController
+    //         .categories[mainCategoriesController.index].id ??
+    //     0;
+    // getSubCategories();
+  }
 
-  } selectDrinkRadioButton(var v) {
+  selectDrinkRadioButton(var v) {
     drinkRadioButtonSelectedValue.value = v;
     print('this is the value of the drinks radio button selected $v');
 
@@ -133,7 +142,6 @@ class SubCategoriesController extends GetxController {
   final listOfSouces = <Sauces>[].obs;
   final listOfPublicAdditional = <Additional>[];
   List<Components> listOfPComponents = [];
-
 
   final listOfPSpices = <Spices>[];
 
@@ -205,8 +213,6 @@ class SubCategoriesController extends GetxController {
           colorText: mainColor);
     }
   }
-
-
 
   addToSouces(bool value, Sauces item) {
     if (value == true) {
@@ -288,7 +294,7 @@ class SubCategoriesController extends GetxController {
             dismissDirection: DismissDirection.startToEnd,
             barBlur: 10,
             colorText: mainColor);
-      }  else {
+      } else {
         validateForm2(index);
       }
     } catch (on) {
@@ -317,57 +323,57 @@ class SubCategoriesController extends GetxController {
 
   validateForm3(index) async {
     try {
-      if (products[index].sauces!.isNotEmpty && listOfSouces.isEmpty ) {
-
-          Get.snackbar('error'.tr, 'you_should_select_some_sauces'.tr,
-              snackPosition: SnackPosition.TOP,
-              backgroundColor: kPrimaryColor,
-              duration: Duration(seconds: 2),
-              dismissDirection: DismissDirection.startToEnd,
-              barBlur: 10,
-              colorText: mainColor);
-        }
-        else if (products[index].sauces!.isNotEmpty &&listOfSouces.length > 4) {
-          Get.snackbar('error'.tr, 'you_should_selectـonlyـ4ـtypes'.tr,
-              snackPosition: SnackPosition.TOP,
-              backgroundColor: kPrimaryColor,
-              duration: Duration(seconds: 2),
-              dismissDirection: DismissDirection.startToEnd,
-              barBlur: 10,
-              colorText: mainColor);
-        }
-        else {
-        await  addToCart(index);
-        }
-
-
+      if (products[index].sauces!.isNotEmpty && listOfSouces.isEmpty) {
+        Get.snackbar('error'.tr, 'you_should_select_some_sauces'.tr,
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: kPrimaryColor,
+            duration: Duration(seconds: 2),
+            dismissDirection: DismissDirection.startToEnd,
+            barBlur: 10,
+            colorText: mainColor);
+      } else if (products[index].sauces!.isNotEmpty &&
+          listOfSouces.length > 4) {
+        Get.snackbar('error'.tr, 'you_should_selectـonlyـ4ـtypes'.tr,
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: kPrimaryColor,
+            duration: Duration(seconds: 2),
+            dismissDirection: DismissDirection.startToEnd,
+            barBlur: 10,
+            colorText: mainColor);
+      } else {
+        await addToCart(index);
+      }
     } catch (on) {
       printError(info: 'error');
     }
   }
 
   addToCart(index) async {
-    DateFormat dateFormat =
-    DateFormat("dd-MM-yyyy HH:mm:ss");
+    DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
     String dateID = await dateFormat.format(DateTime.now());
     NewCartModel2 oneProduct = NewCartModel2();
     var x = CacheHelper.getDataToSharedPrefrence('selectedSize');
 
     CacheHelper.saveDataToSharedPrefrence('dateOfTheOrder', dateID);
     oneProduct = NewCartModel2(
-      id: dateID ,
-      additional: listOfPublicAdditional.isNotEmpty?listOfPublicAdditional:[],
+      id: dateID,
+      additional:
+          listOfPublicAdditional.isNotEmpty ? listOfPublicAdditional : [],
       drinks: drinkRadioButtonSelectedValue.value.toString(),
       name: products[index].name,
       components: products[index].components!,
-      price:productPrice.value.toString(),
+      price: productPrice.value.toString(),
       sizes: sizeDropDownValue.size.toString(),
       photo: products[index].photo,
-      spices:   typeRadioButtonSelectedValue.value.isNotEmpty?typeRadioButtonSelectedValue.value:
-          products[0].spices!.isNotEmpty?products[0].spices!.first.name.toString():'',
-      sauces: listOfSouces.value.isNotEmpty?listOfSouces.value:[],
+      spices: typeRadioButtonSelectedValue.value.isNotEmpty
+          ? typeRadioButtonSelectedValue.value
+          : products[0].spices!.isNotEmpty
+              ? products[0].spices!.first.name.toString()
+              : '',
+      sauces: listOfSouces.value.isNotEmpty ? listOfSouces.value : [],
       quantity: orderCounter.value.toString(),
-      category: products[index].categoryId.toString(),message: messageController.text,
+      category: products[index].categoryId.toString(),
+      message: messageController.text,
       other_additional: other_additional,
       total_price: totalPrice.value.toStringAsFixed(2),
     );

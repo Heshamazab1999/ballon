@@ -1,7 +1,8 @@
 enum Endpoint {
   getHomeAds,
   getMainCategories,
-  getSubCategories,
+  getProducts,
+  subCategories,
   getAllDrinks,
   getBranchesAddresses,
   getRestaurantFees,
@@ -15,15 +16,16 @@ enum Endpoint {
 Map<Endpoint, String> endpoint = {
   Endpoint.getHomeAds: "ads",
   Endpoint.getMainCategories: "categories",
-  Endpoint.getSubCategories: "categories/products/",
+  Endpoint.subCategories: "subcategories",
+  Endpoint.getProducts: "categories/products/",
   Endpoint.getAllDrinks: "drinks",
   Endpoint.getBranchesAddresses: "branches",
   Endpoint.getRestaurantFees: "accounts",
   Endpoint.getRestaurantMoreInfo: "socials",
   Endpoint.getDiscount: "coupons/discount",
-  Endpoint.getCouponUsed : 'coupons/used',
-  Endpoint.getBarcodes : 'barcodes/',
-  Endpoint.getBarcodesUsed :'usedbarcode/create',
+  Endpoint.getCouponUsed: 'coupons/used',
+  Endpoint.getBarcodes: 'barcodes/',
+  Endpoint.getBarcodesUsed: 'usedbarcode/create',
 };
 
 const String moreInfo = "categories";
