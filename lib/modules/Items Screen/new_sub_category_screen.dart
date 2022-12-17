@@ -49,23 +49,20 @@ class NewSubCategoryScreen extends StatelessWidget {
                           return Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                child: Obx(
-                                  () => TextButton(
+                                padding:   EdgeInsets.fromLTRB(8, 2, 8, 2),
+                                child: Obx(() => TextButton(
                                       onPressed: () {
                                         controller.onTap(index);
-                                        // controller.changeScreens(index);
-                                        // controller.isClicked(index);
-                                      },
+                                         controller.selected(index);},
                                       style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(0),
+                                                BorderRadius.circular(20.sp),
                                           ),
                                           backgroundColor:
-                                              controller.checkIsClicked.value
-                                                  ? Colors.grey
-                                                  : Colors.white12,
+                                          controller.selectedIndex.value == index
+                                              ?Colors.grey.shade300
+                                              : Colors.transparent,
                                           elevation: 0,
                                           minimumSize:
                                               const Size(double.infinity, 55)),
@@ -76,11 +73,14 @@ class NewSubCategoryScreen extends StatelessWidget {
                                       )),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              Obx(()=>Container(
+                                margin: EdgeInsets.fromLTRB(5.h, 0, 10, 0),
                                 height: 1,
                                 width: double.infinity,
-                                color: Colors.grey,
+                                color:controller.selectedIndex.value == index
+                                    ? Colors.transparent:Colors.grey.shade300
+
+                              )
                               )
                             ],
                           );
@@ -102,7 +102,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                         child: controller.listSubCategory.isEmpty
                             ? Center(child: Text("no data"))
                             : GridView.builder(
-                                padding: const EdgeInsets.all(0),
+                                padding:   EdgeInsets.only(top: 10.h,right: 5.w,left: 5.w),
                                 itemCount: controller.listSubCategory.length,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -122,6 +122,8 @@ class NewSubCategoryScreen extends StatelessWidget {
                                               .listSubCategory[index].name!));
                                     },
                                     child: Container(
+                                        padding:   EdgeInsets.only( right: 2.w,left: 2.w),
+
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                               color: Colors.white

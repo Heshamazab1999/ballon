@@ -50,14 +50,14 @@ class SubCategoriesScreen extends StatelessWidget {
             child: Obx(() => subCategoriesController.isFirstLoadRunning.value
                 ? Center(
                     child: Container(
-                        width: 40,
-                        height: 40,
+                        width: 40.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle, color: mainColor),
                         child: Center(
                           child: SizedBox(
-                            width: 20,
-                            height: 20,
+                            width: 20.w,
+                            height: 20.h,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                               color: kPrimaryColor,
@@ -68,7 +68,7 @@ class SubCategoriesScreen extends StatelessWidget {
                 : Obx(() => subCategoriesController.product.isEmpty
                     ? Center(
                         child: Text(
-                        "لا يوجد منتجات",
+                        "لا يوجد منتجات".tr,
                         style:
                             TextStyle(fontSize: 20.sp, color: kSecondaryColor),
                       ))
