@@ -9,8 +9,7 @@ class NewSubCategoryController extends GetxController {
   final loading = false.obs;
   final listSubCategory = <SubCategories>[].obs;
   int? currentIndex;
-
-  int contNo = 1;
+   int contNo = 1;
   final checkIsClicked = false.obs;
   String imgPath = 'assets/images/Artboard5.png';
 
@@ -52,7 +51,6 @@ class NewSubCategoryController extends GetxController {
     },
   ];
 
-  Color btnColor = Colors.white;
 
   isClicked(index) {
     checkIsClicked.value = !checkIsClicked.value;
@@ -77,7 +75,15 @@ class NewSubCategoryController extends GetxController {
   onTap(int index) {
     load.value = true;
     listSubCategory.value = category!.data![index].subCategories!;
-    print(listSubCategory.length);
+     print(listSubCategory.length);
     load.value = false;
   }
+
+  final selectedIndex = 0.obs;
+  final check = false.obs;
+
+  selected(int index) {
+    selectedIndex.value = index;
+  }
+
 }

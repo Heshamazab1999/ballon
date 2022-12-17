@@ -1,11 +1,7 @@
-import 'package:arrows/components/arrows_app_bar.dart';
-import 'package:arrows/components/arrows_bottom_nav_bar.dart';
 import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/bottom_nav_bar/controllers/bottom_nav_bar_controller.dart';
-import 'package:arrows/modules/cart/controllers/cart_controller.dart';
 import 'package:arrows/modules/cart/screens/cart_screen.dart';
 import 'package:arrows/modules/home/screens/home_screen.dart';
-import 'package:arrows/modules/main_category/screens/main_categories_screen.dart';
 import 'package:arrows/modules/more_info/screens/more_info_screen.dart';
 import 'package:arrows/modules/order_history/screens/order_history_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,9 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:arrows/constants/more_info_constants.dart';
 import 'package:show_up_animation/show_up_animation.dart';
-
 import '../../../helpers/connectivity.dart';
 import '../../Items Screen/new_sub_category_screen.dart';
+
+
 
 class BottomNavBarScreen extends StatelessWidget {
   BottomNavBarScreen({Key? key}) : super(key: key);
@@ -72,8 +69,10 @@ class BottomNavBarScreen extends StatelessWidget {
         bottomNavigationBar: Material(
           elevation: 2,
           child: Container(
+            padding: EdgeInsets.only(bottom: 5.h),
+            margin: EdgeInsets.only(bottom: 10.h),
             width: double.infinity,
-            height: 50,
+            height: 60.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -84,11 +83,12 @@ class BottomNavBarScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 80.w,
+                          padding: EdgeInsets.only(top: 5.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 4
-                                    ? Colors.pinkAccent.shade100
+                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -142,11 +142,13 @@ class BottomNavBarScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 80.w,
+                          padding: EdgeInsets.only(top: 5.h),
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 3
-                                    ? Colors.pinkAccent.shade100
+                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -199,11 +201,13 @@ class BottomNavBarScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 80.w,
+                          padding: EdgeInsets.only(top: 5.h),
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 2
-                                    ? Colors.pinkAccent.shade100
+                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -256,11 +260,13 @@ class BottomNavBarScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 80.w,
+                          padding: EdgeInsets.only(top: 5.h),
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 1
-                                    ? Colors.pinkAccent.shade100
+                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -310,11 +316,13 @@ class BottomNavBarScreen extends StatelessWidget {
                         },
                         child: Container(
                           width: 80.w,
+                          padding: EdgeInsets.only(top: 5.h),
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 0
-                                    ? Colors.pinkAccent.shade100
+                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
                           child: Column(
