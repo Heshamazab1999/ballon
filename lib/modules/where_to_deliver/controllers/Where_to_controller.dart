@@ -83,19 +83,6 @@ final isFramedValue=false.obs;
   }
   /******i commented it maybe it's cousing the issue*******/
 
-  // Future<void> getAllUserAddressees() async{
-  //   dbref = FirebaseDatabase.instance
-  //       .reference()
-  //       .child("DeliveryList")
-  //       // child('branch1')
-  //       // .child('-NCAoy4evO1S9m0g8hvh')
-  //   .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
-  //       // .child(CacheHelper.loginShared!.phone.toString())
-  //   // .child("user_address_list");
-  //
-  //       // .child(CacheHelper.getDataToSharedPrefrence('userID') )
-  //       .child("area");
-  // }
    final selectedAreaPrice = ''.obs;
 
 
@@ -105,13 +92,10 @@ final isFramedValue=false.obs;
   RxList<DeliveryAreaModel>? deliveryAreaList = [
     DeliveryAreaModel(id: '0', area: 'neighbourhood'.tr  , price: '0'),].obs;
   DeliveryAreaModel? selectedDropDownValue;
-  // DeliveryAreaModel? selectedDropDownValue;
 
   Future<void> getDeliveryList()async{
-    // deliveryAreaList!.clear();
-    var ref =  await FirebaseDatabase.instance.reference().child('DeliveryList')
-    // .child('branch1')
-    // .child('-NCAoy4evO1S9m0g8hvh')
+     var ref =  await FirebaseDatabase.instance.reference().child('DeliveryList')
+
         .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'));
       ref.once().then((DataSnapshot snapshot){
       print(snapshot.value);

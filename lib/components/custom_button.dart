@@ -39,7 +39,7 @@ class Button extends StatelessWidget {
       margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
       child: ElevatedButton(onPressed:onPressed, child: Text(text, style: TextStyle(color: isFramed?mainColor:kPrimaryColor,fontSize: fontSize?.sp),),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(isFramed?kPrimaryColor:mainColor),
+              backgroundColor: MaterialStateProperty.all<Color>(isFramed?Colors.white:mainColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
