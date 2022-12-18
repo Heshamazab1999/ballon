@@ -55,6 +55,7 @@ bool   wallet=false;
     await getRestaurantFees();
     totalPrice.value;
     discountResponse;
+    totalPoints;
     getUserPoints();
    await getSystemPoints();
 

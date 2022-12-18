@@ -34,14 +34,8 @@ class MoreInfoScreen extends StatefulWidget {
 }
 
 class _MoreInfoScreenState extends State<MoreInfoScreen>  with TickerProviderStateMixin {
-  final WhereToController whereToController = Get.put(WhereToController());
   ScrollController _scrollController = ScrollController();
 
-  final  moreInfoController = Get.put(MoreInfoController());
-
-  final CartController cartController = Get.put(CartController());
-
-  final SignUpController signUpController = Get.put(SignUpController());
 
   bool isFABExtended = false;
 
@@ -49,7 +43,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>  with TickerProviderSta
   MainBranchesController mainBranchesController=Get.put(MainBranchesController());
   @override
   void initState() {
-    cartController.totalPoints;
+    // cartController.totalPoints;
     transitionAnimationController =
         BottomSheet.createAnimationController(this);
     transitionAnimationController.duration = Duration(seconds: 1);
@@ -80,6 +74,12 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>  with TickerProviderSta
   }
   @override
   Widget build(BuildContext context) {
+    final  moreInfoController = Get.put(MoreInfoController());
+
+    final  cartController = Get.put(CartController());
+    final  whereToController = Get.put(WhereToController());
+
+    final  signUpController = Get.put(SignUpController());
 
     Future.delayed(const Duration(seconds: 1), () {
       CacheHelper.getDataToSharedPrefrence("localeIsArabic");
