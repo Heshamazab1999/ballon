@@ -2,8 +2,6 @@ import 'package:arrows/helpers/shared_prefrences.dart';
 import 'package:arrows/modules/bottom_nav_bar/screens/bottom_nav_bar_screen.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
 import 'package:arrows/modules/cart/models/copoun_response_model.dart';
-import 'package:arrows/modules/sign_up/models/user_model.dart';
-import 'package:arrows/modules/sub_categories/models/SubCategories.dart';
 import 'package:arrows/modules/where_to_deliver/models/branches_addresses_model.dart';
 import 'package:arrows/modules/where_to_deliver/models/delivery_area_model.dart';
 import 'package:arrows/modules/where_to_deliver/models/firebase_address_model.dart';
@@ -15,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/colors.dart';
-import '../../../shared_object/firebase_order_model.dart';
 
 
 class WhereToController extends GetxController {

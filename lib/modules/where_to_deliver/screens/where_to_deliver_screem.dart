@@ -31,7 +31,7 @@ Future _mapFuture = Future.delayed(Duration(milliseconds: 250), () => true);
 
 class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
   final WhereToController whereToController = Get.put(WhereToController());
-   Set<Marker> markers = {};
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -59,238 +59,241 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
             SizedBox(
               height: 10.h,
             ),
-           Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  // Obx(() {
-                  //   return
-                  FutureBuilder(
-                    future: whereToController.getAllBranchAddresses(),
-                    builder: (context, snapShot) => Expanded(
-                      child:    Button(
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 10.w,
+                ),
+                // Obx(() {
+                //   return
+                FutureBuilder(
+                  future: whereToController.getAllBranchAddresses(),
+                  builder: (context, snapShot) => Expanded(
+                    child: Button(
                         text: "  ${'receive_from'.tr} :",
                         size: 150,
                         fontSize: 18.sp,
-                        height:!landScape ? Get.height/20.h : 100.h,
-                          isFramed: whereToController.showPickUpBranches.value
-                              ? false
-                              : true,
-                          onPressed: () async {
-                            PostedOrder.order.address =
-                                null;
-                            PostedOrder.order.branch =
-                                await whereToController.branches.first.name;
-                            whereToController.showPickUpBranches.value = true;
-                            print('%%%%%5${whereToController.showPickUpBranches.value}');
-
-                          }),
-                    ),
+                        height: !landScape ? Get.height / 20.h : 100.h,
+                        isFramed: whereToController.showPickUpBranches.value
+                            ? false
+                            : true,
+                        onPressed: () async {
+                          PostedOrder.order.address = null;
+                          PostedOrder.order.branch =
+                              await whereToController.branches.first.name;
+                          whereToController.showPickUpBranches.value = true;
+                          print(
+                              '%%%%%5${whereToController.showPickUpBranches.value}');
+                        }),
                   ),
+                ),
 
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  FutureBuilder(
-                      future: whereToController.getAllUserAddresseesv,
-                      builder: (context, snapShot) => Expanded(
-                            child:Button(
+                SizedBox(
+                  width: 10.w,
+                ),
+                FutureBuilder(
+                    future: whereToController.getAllUserAddresseesv,
+                    builder: (context, snapShot) => Expanded(
+                          child: Button(
                             size: 150,
-                        fontSize: 14,
-                        height:!landScape ? Get.height/20.h : 100.h,
-                              isFramed:
-                                  whereToController.showPickUpBranches.value
-                                      ? true
-                                      : false,
-
-                              text: "  ${'deliver_to'.tr} :",
-                              onPressed: () async {
-                                try {
-                                  PostedOrder.order.branch = null;
-                                  whereToController.showPickUpBranches.value =
-                                      false;
-                                  whereToController.showPickUpBranches.value=false;
-                                  (whereToController.selectedUserAddress !=
-                                              null &&
-                                          whereToController.selectedUserAddress
-                                              .address!.isNotEmpty)
-                                      ? PostedOrder.order.address =
-                                          whereToController.selectedUserAddress
-                                      : printError(
-                                          info: 'mnnnnnnnvnnnnnvvnvnvnvn');
-                                } catch (e) {
-                                  print(e);
-                                }
-                              },
-                            ),
-                          )),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                ],
-              ),
-
-
+                            fontSize: 14,
+                            height: !landScape ? Get.height / 20.h : 100.h,
+                            isFramed: whereToController.showPickUpBranches.value
+                                ? true
+                                : false,
+                            text: "  ${'deliver_to'.tr} :",
+                            onPressed: () async {
+                              try {
+                                PostedOrder.order.branch = null;
+                                whereToController.showPickUpBranches.value =
+                                    false;
+                                whereToController.showPickUpBranches.value =
+                                    false;
+                                (whereToController.selectedUserAddress !=
+                                            null &&
+                                        whereToController.selectedUserAddress
+                                            .address!.isNotEmpty)
+                                    ? PostedOrder.order.address =
+                                        whereToController.selectedUserAddress
+                                    : printError(
+                                        info: 'mnnnnnnnvnnnnnvvnvnvnvn');
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                          ),
+                        )),
+                SizedBox(
+                  width: 10.w,
+                ),
+              ],
+            ),
             Obx(
-                  () => (whereToController.showPickUpBranches.value)
-                  ?
-            FutureBuilder(
-                    future: whereToController.getAllBranchAddresses(),
-                    builder: (context, snapShot) => Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "  ${'receive_from'.tr} :",
-                          style: TextStyle(fontSize: 20.sp, color: mainColor),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(15.w),
-                          child: Container(
-                            padding: EdgeInsets.only(top: 15.h),
-                            width: ScreenUtil().screenWidth,
-                            decoration: BoxDecoration(
-                              color: mainColor,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
+              () => (whereToController.showPickUpBranches.value)
+                  ? FutureBuilder(
+                      future: whereToController.getAllBranchAddresses(),
+                      builder: (context, snapShot) => Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "  ${'receive_from'.tr} :",
+                            style: TextStyle(fontSize: 20.sp, color: mainColor),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(15.w),
+                            child: Container(
+                              padding: EdgeInsets.only(top: 15.h),
+                              width: ScreenUtil().screenWidth,
+                              decoration: BoxDecoration(
                                 color: mainColor,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: mainColor,
+                                ),
                               ),
-                            ),
-                            child: (snapShot.connectionState ==
-                                    ConnectionState.waiting)
-                                ? Center(
-                                    child: CupertinoActivityIndicator(
-                                      radius: 20,
-                                      color: kPrimaryColor,
-                                    ),
-                                  )
-                                : Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0.sp),
-                                        child: Row(
-
-                                          children: [
-                                            InkWell(
-                                            onTap: () {
-                          MapUtils.openMap(
-                          double.parse(
-                           CacheHelper.getDataToSharedPrefrence('restaurantBranchLat') ??
-                          ""),
-                          double.parse(
-
-                           CacheHelper.getDataToSharedPrefrence('restaurantBranchLng') ??
-                          ""));
-                          },
-                            child:   Icon(
-                              Icons.location_on_sharp,
-                              size: 25.r,
-                              color:   Colors.white,
-                            ),
-                          ), Text('${'branch'.tr}  :  ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
-                                            ),
-                                            Text(
+                              child: (snapShot.connectionState ==
+                                      ConnectionState.waiting)
+                                  ? Center(
+                                      child: CupertinoActivityIndicator(
+                                        radius: 20,
+                                        color: kPrimaryColor,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0.sp),
+                                          child: Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  MapUtils.openMap(
+                                                      double.parse(CacheHelper
+                                                              .getDataToSharedPrefrence(
+                                                                  'restaurantBranchLat') ??
+                                                          ""),
+                                                      double.parse(CacheHelper
+                                                              .getDataToSharedPrefrence(
+                                                                  'restaurantBranchLng') ??
+                                                          ""));
+                                                },
+                                                child: Icon(
+                                                  Icons.location_on_sharp,
+                                                  size: 25.r,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${'branch'.tr}  :  ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.sp,
+                                                    color: Colors.white),
+                                              ),
+                                              Text(
                                                 '${CacheHelper.getDataToSharedPrefrence('restaurantBranchName')}',
                                                 // '${whereToController.branches.first.name}',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
-                                            ),
-                                          ],
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.sp,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 8.0.h,
-                                            left: 8.w,
-                                            right: 8.w),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '${'your_address'.tr}  :  ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
-                                            ),
-                                            Container(
-                                                // color: Colors.green,
-                                                width:Get.width/2.w,
-                                                child: Text(
-                                                  '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}',
-                                                  style: TextStyle(
-                                                      fontSize: 20.sp,color: Colors.white),
-                                                )),
-                                          ],
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: 8.0.h,
+                                              left: 8.w,
+                                              right: 8.w),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${'your_address'.tr}  :  ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.sp,
+                                                    color: Colors.white),
+                                              ),
+                                              Container(
+                                                  // color: Colors.green,
+                                                  width: Get.width / 2.w,
+                                                  child: Text(
+                                                    '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}',
+                                                    style: TextStyle(
+                                                        fontSize: 20.sp,
+                                                        color: Colors.white),
+                                                  )),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                : whereToController.dbref == null
-                    ? SizedBox()
-                    : GetBuilder<WhereToController>(
-                        builder: (whereToController) =>
-                            Container(
-                              decoration: CommonStyles.customBoxDecoration,
-                               margin: EdgeInsets.only(top: 20.h),
-                              width: ScreenUtil().screenWidth,
-                              child: FirebaseAnimatedList(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  query: whereToController.dbref,
-                                  itemBuilder: (
-                                    BuildContext context,
-                                    DataSnapshot snapshot,
-                                    Animation<double> animation,
-                                    int index,
-                                  ) {
-                                    return Obx(()=>RadioListTile(
-                                        groupValue:
-                                            whereToController.radioValue.value,
-                                        value: snapshot.value.toString(),
-                                        onChanged: (onChanged) async {
-                                          whereToController.radioValue.value =
-                                              snapshot.value.toString();
-                                          PostedOrder.order.address =
-                                              UserAddress.fromJson(
-                                                  snapshot.value
-                                                      as Map<dynamic, dynamic>);
-                                          whereToController
-                                                  .selectedUserAddress =
-                                              UserAddress.fromJson(
-                                                  snapshot.value
-                                                      as Map<dynamic, dynamic>);
-                                          // whereToController.selectedAreaPrice =snapshot.value!['branch1']['price'];
-                                          whereToController
-                                                  .selectedAreaPrice.value =
-                                              snapshot.value['user_area']
-                                                  ['price'];
-                                          var x = await CacheHelper
-                                              .saveDataToSharedPrefrence(
-                                                  'dropdownAreaPrice',
-                                                  snapshot.value['user_area']
-                                                      ['price']);
-                                          print(whereToController
-                                              .selectedAreaPrice.value);
-                                        },
-                                        title: Text(
-                                          "${snapshot.value["address"]} - ${snapshot.value['user_area']['area'] ?? ""}",
-                                          style: TextStyle(fontSize: 14.sp),
-                                        )));
-                                  }),
-                            )),),
-
+                        ],
+                      ),
+                    )
+                  : whereToController.dbref == null
+                      ? SizedBox()
+                      : GetBuilder<WhereToController>(
+                          builder: (whereToController) => Container(
+                                decoration: CommonStyles.customBoxDecoration,
+                                margin: EdgeInsets.only(top: 20.h),
+                                width: ScreenUtil().screenWidth,
+                                child: FirebaseAnimatedList(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    query: whereToController.dbref,
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      DataSnapshot snapshot,
+                                      Animation<double> animation,
+                                      int index,
+                                    ) {
+                                      return Obx(() => RadioListTile(
+                                          groupValue: whereToController
+                                              .radioValue.value,
+                                          value: snapshot.value.toString(),
+                                          onChanged: (onChanged) async {
+                                            whereToController.radioValue.value =
+                                                snapshot.value.toString();
+                                            PostedOrder.order.address =
+                                                UserAddress.fromJson(snapshot
+                                                        .value
+                                                    as Map<dynamic, dynamic>);
+                                            whereToController
+                                                    .selectedUserAddress =
+                                                UserAddress.fromJson(snapshot
+                                                        .value
+                                                    as Map<dynamic, dynamic>);
+                                            // whereToController.selectedAreaPrice =snapshot.value!['branch1']['price'];
+                                            whereToController
+                                                    .selectedAreaPrice.value =
+                                                snapshot.value['user_area']
+                                                    ['price'];
+                                            var x = await CacheHelper
+                                                .saveDataToSharedPrefrence(
+                                                    'dropdownAreaPrice',
+                                                    snapshot.value['user_area']
+                                                        ['price']);
+                                            print(whereToController
+                                                .selectedAreaPrice.value);
+                                          },
+                                          title: Text(
+                                            "${snapshot.value["address"]} - ${snapshot.value['user_area']['area'] ?? ""}",
+                                            style: TextStyle(fontSize: 14.sp),
+                                          )));
+                                    }),
+                              )),
+            ),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -304,16 +307,12 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         ? SizedBox()
                         : Button(
                             text: "add_new_address".tr,
-
-
-                      isFramed: true,
-                      fontSize: 20.sp,
-
-                      size: Get.width/2.w,
-                      height:Get.height/20.h,
-
-                      onPressed: () async {
-                              Future.delayed(Duration(seconds:2), () {
+                            isFramed: true,
+                            fontSize: 20.sp,
+                            size: Get.width / 2.w,
+                            height: Get.height / 20.h,
+                            onPressed: () async {
+                              Future.delayed(Duration(seconds: 2), () {
                                 // setState(() {
                                 Navigator.push(
                                     context,
@@ -324,87 +323,87 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                             },
                           ),
                   ),
-              // Container(
-              //   width: Get.width/2.4.w,
-              //   height:  Get.height/20.h,
-              //   margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
-              //   child:  ElevatedButton(onPressed:(){
-              //     if (whereToController.showPickUpBranches.value) {
-              //       CacheHelper.saveDataToSharedPrefrence(
-              //           'dropDownValuePrice',
-              //           whereToController.selectedDropDownValue?.price);
-              //       /**************KK****/
-              //       if (whereToController.branchDropDownValue!.name ==
-              //           "اختار الفرع") {
-              //         Get.defaultDialog(
-              //             title: "",
-              //             content: Text(
-              //               "برجاء اختر الفرع",
-              //               style: TextStyle(fontSize: 14.sp),
-              //             ));
-              //       } else {
-              //         Get.to(() => ReceiptScreen(
-              //             selectedAreaPrice: whereToController
-              //                 .selectedDropDownValue?.price));
-              //       }
-              //       /**************KK****/
-              //     } else {
-              //       if (whereToController.radioValue.value == "") {
-              //         Get.defaultDialog(
-              //             title: "",
-              //             content: Text(
-              //               "please_choose_branch".tr,
-              //               style: TextStyle(fontSize: 14.sp),
-              //             ));
-              //       } else {
-              //         Get.to(() => ReceiptScreen(
-              //             selectedAreaPrice: (whereToController
-              //                 .selectedAreaPrice.value != null)
-              //                 ? '${whereToController.selectedAreaPrice.value}'
-              //                 : 0.0));
-              //       }
-              //     }
-              //   }, child: Text('check_out'.tr, style: TextStyle(color:  Colors.white,fontSize: 19.sp),),
-              //     style: ButtonStyle(
-              //         backgroundColor: MaterialStateProperty.all<Color>(  Colors.blueAccent.withOpacity(.8),),
-              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              //             RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(10.0),
-              //                 side: BorderSide(color:Colors.blueAccent,width: 2)
-              //             )
-              //         )
-              //     )
-              // ),
-              // ),
-     Button(
-    isFramed: true,
-    text: 'check_out'.tr,
-    fontSize: 20.sp,
-
-    size: Get.width/2.w,
-    height:Get.height/20.h,
-
-
-    onPressed: ()async {
-
+                  // Container(
+                  //   width: Get.width/2.4.w,
+                  //   height:  Get.height/20.h,
+                  //   margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
+                  //   child:  ElevatedButton(onPressed:(){
+                  //     if (whereToController.showPickUpBranches.value) {
+                  //       CacheHelper.saveDataToSharedPrefrence(
+                  //           'dropDownValuePrice',
+                  //           whereToController.selectedDropDownValue?.price);
+                  //       /**************KK****/
+                  //       if (whereToController.branchDropDownValue!.name ==
+                  //           "اختار الفرع") {
+                  //         Get.defaultDialog(
+                  //             title: "",
+                  //             content: Text(
+                  //               "برجاء اختر الفرع",
+                  //               style: TextStyle(fontSize: 14.sp),
+                  //             ));
+                  //       } else {
+                  //         Get.to(() => ReceiptScreen(
+                  //             selectedAreaPrice: whereToController
+                  //                 .selectedDropDownValue?.price));
+                  //       }
+                  //       /**************KK****/
+                  //     } else {
+                  //       if (whereToController.radioValue.value == "") {
+                  //         Get.defaultDialog(
+                  //             title: "",
+                  //             content: Text(
+                  //               "please_choose_branch".tr,
+                  //               style: TextStyle(fontSize: 14.sp),
+                  //             ));
+                  //       } else {
+                  //         Get.to(() => ReceiptScreen(
+                  //             selectedAreaPrice: (whereToController
+                  //                 .selectedAreaPrice.value != null)
+                  //                 ? '${whereToController.selectedAreaPrice.value}'
+                  //                 : 0.0));
+                  //       }
+                  //     }
+                  //   }, child: Text('check_out'.tr, style: TextStyle(color:  Colors.white,fontSize: 19.sp),),
+                  //     style: ButtonStyle(
+                  //         backgroundColor: MaterialStateProperty.all<Color>(  Colors.blueAccent.withOpacity(.8),),
+                  //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //             RoundedRectangleBorder(
+                  //                 borderRadius: BorderRadius.circular(10.0),
+                  //                 side: BorderSide(color:Colors.blueAccent,width: 2)
+                  //             )
+                  //         )
+                  //     )
+                  // ),
+                  // ),
+                  Button(
+                    isFramed: true,
+                    text: 'check_out'.tr,
+                    fontSize: 20.sp,
+                    size: Get.width / 2.w,
+                    height: Get.height / 20.h,
+                    onPressed: () async {
                       if (whereToController.showPickUpBranches.value) {
                         CacheHelper.saveDataToSharedPrefrence(
                             'dropDownValuePrice',
                             whereToController.selectedDropDownValue?.price);
                         /**************KK****/
-                        if (whereToController.branchDropDownValue!.name ==
-                            "اختار الفرع") {
-                          Get.defaultDialog(
-                              title: "",
-                              content: Text(
-                                "برجاء اختر الفرع",
-                                style: TextStyle(fontSize: 14.sp),
-                              ));
-                        } else {
-                          Get.to(() => ReceiptScreen(
-                              selectedAreaPrice: whereToController
-                                  .selectedDropDownValue?.price));
-                        }
+                        Get.to(() => ReceiptScreen(
+                            selectedAreaPrice: whereToController
+                                .selectedDropDownValue?.price));
+                        // if (whereToController.branchDropDownValue!.name ==
+                        //     "اختار الفرع") {
+                        //   Get.defaultDialog(
+                        //       title: "",
+                        //       content: Text(
+                        //         "برجاء اختر الفرع",
+                        //         style: TextStyle(fontSize: 14.sp),
+                        //       ));
+                        // }
+                        // else {
+                        //   Get.to(() => ReceiptScreen(
+                        //       selectedAreaPrice: whereToController
+                        //           .selectedDropDownValue?.price));
+                        // }
                         /**************KK****/
                       } else {
                         if (whereToController.radioValue.value == "") {
@@ -417,14 +416,14 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         } else {
                           Get.to(() => ReceiptScreen(
                               selectedAreaPrice: (whereToController
-                                          .selectedAreaPrice.value != null)
+                                          .selectedAreaPrice.value !=
+                                      null)
                                   ? '${whereToController.selectedAreaPrice.value}'
                                   : 0.0));
                         }
                       }
                     },
                   ),
-
                 ],
               ),
             ),
