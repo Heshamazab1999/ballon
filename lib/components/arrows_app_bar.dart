@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../modules/search_screen.dart';
+import '../modules/search/search_screen.dart';
 
 class ArrowsAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
