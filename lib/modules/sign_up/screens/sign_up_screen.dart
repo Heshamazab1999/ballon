@@ -76,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
                           child:Container(
                             width: 348.w,
                             child:  TextFormField(
-                              style: TextStyle(color: kPrimaryColor,fontSize: 16.sp),
+                              style: TextStyle(color: kPrimaryColor,fontSize: 18.sp,fontWeight: FontWeight.bold ),
                               keyboardType: TextInputType.name,
 
 
@@ -100,7 +100,7 @@ class SignUpScreen extends StatelessWidget {
 
                                 isDense: true,
                                 // Added this
-                                contentPadding: EdgeInsets.all(13.w),
+                                contentPadding: EdgeInsets.all(20.w),
                                 hintStyle: TextStyle(color: mainColor, fontSize: 16.sp),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(

@@ -25,7 +25,7 @@ class Assets {
   static const String iconsTrack = 'assets/icons/track.png';
   static const String iconsWallet = 'assets/icons/wallet.png';
   static const String imagesAddUser = 'assets/images/add-user.png';
-  static const String imagesCheckMark = 'assets/images/check-mark.png';
+   static const String imagesCheckMark = 'assets/images/check-mark.png';
   static const String imagesClosed = 'assets/images/closed.jpeg';
   static const String imagesCloud = 'assets/images/cloud.png';
   static const String imagesDemo1024 = 'assets/images/demo_1024.png';

@@ -43,9 +43,7 @@ class AddNewAddress extends StatelessWidget {
         return disposeMethod();
       },
       child: Scaffold(
-        // resizeToAvoidBottomInset: true,
-
-        backgroundColor: kPrimaryColor,
+        // backgroundColor: kPrimaryColor,
         appBar: ArrowsAppBar(
           "specify_address".tr,
         ),
@@ -71,7 +69,7 @@ class AddNewAddress extends StatelessWidget {
                                     'loading map..',
                                     style: TextStyle(
                                         fontFamily: 'Avenir-Medium',
-                                        color: Colors.grey[400]),
+                                        color: Colors.white),
                                   ),
                                 ),
                               )
@@ -150,24 +148,24 @@ class AddNewAddress extends StatelessWidget {
                   GetBuilder<MapController>(
                     init: MapController(),
                     builder: (controller) => Container(
-                      padding: EdgeInsets.all(10.sp),
+                      padding: EdgeInsets.all(5.sp),
                       margin: EdgeInsets.only(
                         top: 10.h,
                       ),
                       child: Center(
                         // child: MapController.initialPosition == null  ? Text('loading ')
-                        child: mapController.isLoading.value==true   ? Text('loading... ',style: TextStyle(fontSize: 14.sp),)
+                        child: mapController.isLoading.value==true   ? Text('loading... ',style: TextStyle(fontSize: 14.sp,  color: Colors.white),)
                           :Text(
                                 '${mapController.address.street}${mapController.address.administrativeArea}${mapController.address.country}'
                                     .tr,
                                 style: TextStyle(
-                                    color: kPrimaryColor,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.sp),
                               )
 
                       ),
-                      height: 70.h,
+                      height: 60.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
@@ -199,9 +197,9 @@ class AddNewAddress extends StatelessWidget {
                             Expanded(
                               child: Container(
                                 width: ScreenUtil.defaultSize.width,
-                                height: !landScape ? Get.height/12.h : 60.h,
+                                height: !landScape ? Get.height/17.h : 40.h,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
+                                    horizontal: 10.w, vertical: 5.h),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -210,16 +208,14 @@ class AddNewAddress extends StatelessWidget {
                                     )),
                                 child: GetBuilder<WhereToController>(
                                     builder: (whereToController) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: SizedBox(
+                                  return  SizedBox(
                                       child: DropdownButton<dynamic>(
                                           underline: SizedBox(),
                                           isExpanded: true,
                                           borderRadius:
                                               BorderRadius.circular(8.r),
                                           style: TextStyle(
-                                              fontSize: 11.sp,
+                                              fontSize: 18.sp,
                                               color: kPrimaryColor),
                                           items: whereToController
                                               .deliveryAreaList!
@@ -229,8 +225,8 @@ class AddNewAddress extends StatelessWidget {
                                                 '${element.area}'.tr,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 12.sp,
-                                                     color: kPrimaryColor),
+                                                    fontSize: 18.sp,
+                                                     color: mainColor),
                                               ),
                                               value: element,
                                             );
@@ -246,7 +242,7 @@ class AddNewAddress extends StatelessWidget {
                                             print(whereToController
                                                 .selectedDropDownValue?.price);
                                           }),
-                                    ),
+
                                   );
                                 }),
                               ),
@@ -318,178 +314,6 @@ class AddNewAddress extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 250.w,
-                  //   decoration: CommonStyles.customBoxDecoration,
-                  //   child: TextButton(
-                  //     style: TextButton.styleFrom(
-                  //       backgroundColor: mainColor,
-                  //     ),
-                  //     onPressed: () async {
-                  //       LocationPermission permission =
-                  //           await Geolocator.checkPermission();
-                  //       if (whereToController.areaNumber.text.isEmpty &&
-                  //           whereToController.buildNumber.text.isEmpty &&
-                  //           whereToController.floorNumber.text.isEmpty) {
-                  //         Get.defaultDialog(title: '', content: Text('data'.tr),);
-                  //       }
-                  //       else if (whereToController.selectedDropDownValue!.id == '0') {
-                  //         Get.defaultDialog(
-                  //             content: Text('neighbourhood'.tr), title: "");}
-                  //       else if ((permission == LocationPermission.denied || permission == LocationPermission.deniedForever) && whereToController.addressTextController.text.isEmpty) {
-                  //         Get.defaultDialog(title: "", content: Text("enter_address".tr));}
-                  //       else if ((permission == LocationPermission.denied || permission == LocationPermission.deniedForever) && whereToController.addressTextController.text.isNotEmpty) {
-                  //
-                  //         var newAddress=UserAddress();
-                  //         newAddress = UserAddress(
-                  //             address: whereToController.addressTextController.text,
-                  //             buildNumber: whereToController.buildNumber.text,
-                  //             floorNumber: whereToController.floorNumber.text,
-                  //             areaNumber: whereToController.areaNumber.text,
-                  //             landmark:whereToController.addressTextController.text,
-                  //             lat: "",
-                  //             lng: "",
-                  //             area: whereToController.selectedDropDownValue);
-                  //
-                  //         var user = User(
-                  //             password: CacheHelper.loginShared!.password,
-                  //             phone: CacheHelper.loginShared!.phone,
-                  //             name: CacheHelper.loginShared!.name,
-                  //             userDeviceToken:CacheHelper.loginShared!.userDeviceToken,
-                  //             points:cartController.totalPoints!=null?cartController.totalPoints.toString():0.toString(),
-                  //             address: addAddressController.addresses);
-                  //
-                  //         await FirebaseDatabase.instance
-                  //             .reference()
-                  //             .child("Users")
-                  //             .child(CacheHelper.getDataToSharedPrefrence('userID'))
-                  //             .child("user_address_list")
-                  //             .get()
-                  //             .then((  snapshot) {
-                  //         if (snapshot.exists) {
-                  //           for (Map<dynamic, dynamic> data in snapshot.value) {
-                  //             addAddressController.addresses
-                  //                 .add(UserAddress.fromJson(data));
-                  //           }}
-                  //
-                  //         addAddressController.addresses.add(newAddress);
-                  //         });
-                  //         ///adds to the index 0 only
-                  //         FirebaseDatabase.instance
-                  //             .reference()
-                  //             .child("Users")
-                  //             .child(CacheHelper.getDataToSharedPrefrence('userID'))
-                  //             .set(user.toJson());
-                  //         CacheHelper.saveDataToSharedPrefrence(
-                  //             'dropDownValuePrice',
-                  //             whereToController.selectedDropDownValue?.price);
-                  //         whereToController.buildNumber.clear();
-                  //         whereToController.floorNumber.clear();
-                  //         whereToController.landscape.clear();
-                  //         whereToController.areaNumber.clear();
-                  //         addAddressController.addresses.clear();
-                  //         whereToController.addressTextController.clear();
-                  //
-                  //
-                  //         Get.to(ReceiptScreen(
-                  //             selectedAreaPrice:
-                  //                 CacheHelper.getDataToSharedPrefrence(
-                  //                     'dropDownValuePrice')));
-                  //
-                  //
-                  //       }
-                  //       /*****the previous was the same*****/
-                  //       else if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-                  //         addAddressController.addresses.clear();
-                  //         Position position =
-                  //             await GeoLocatorHelper.determinePosition();
-                  //         addAddressController.location =
-                  //             'Lat: ${position.latitude}, Long: ${position.longitude}';
-                  //         await GeoLocatorHelper.getAddressFromLatLong(
-                  //             position);
-                  //         print(position.latitude);
-                  //
-                  //         var   newAddress = UserAddress(
-                  //             // address:GeoLocatorHelper.address,
-                  //             address:'${mapController.address.street}${mapController.address.administrativeArea}${mapController.address.country}',
-                  //             buildNumber: whereToController.buildNumber.text,
-                  //             floorNumber: whereToController.floorNumber.text,
-                  //             landmark: whereToController.addressTextController.text,
-                  //             areaNumber: whereToController.areaNumber.text,
-                  //             lat: position.latitude.toString(),
-                  //             lng: position.longitude.toString(),
-                  //             area: whereToController.selectedDropDownValue);
-                  //
-                  //         var user = User(
-                  //             password: CacheHelper.loginShared!.password,
-                  //             phone: CacheHelper.loginShared!.phone,
-                  //             name: CacheHelper.loginShared!.name,
-                  //             points:cartController.totalPoints!=null?cartController.totalPoints.toString():0.toString(),
-                  //             address: addAddressController.addresses);
-                  //
-                  //              CacheHelper.loginShared!.address=addAddressController.addresses;
-                  //
-                  //         await FirebaseDatabase.instance
-                  //             .reference()
-                  //             .child("Users")
-                  //             .child(CacheHelper.getDataToSharedPrefrence('userID'))
-                  //             // .child(CacheHelper.getDataToSharedPrefrence('userID'))
-                  //              .child("user_address_list")
-                  //             .get()
-                  //             .then((  snapshot) {
-                  //           if (snapshot.exists) {
-                  //             for (Map<dynamic, dynamic> data in snapshot.value) {
-                  //               addAddressController.addresses
-                  //                   .add(UserAddress.fromJson(data));
-                  //             }
-                  //           }
-                  //          });
-                  //         addAddressController.addresses.add(newAddress);
-                  //
-                  //         ///adds to the index 0 only
-                  //
-                  //          await FirebaseDatabase.instance
-                  //             .reference()
-                  //             .child("Users")
-                  //             .child(CacheHelper.getDataToSharedPrefrence(
-                  //                 'userID'))
-                  //
-                  //               .set(user.toJson()).then((value) {
-                  //
-                  //            return    Get.snackbar('Done', 'an  address added successfully ',
-                  //                snackPosition: SnackPosition.TOP,
-                  //                backgroundColor: kPrimaryColor,
-                  //                duration: Duration(seconds: 2),
-                  //                dismissDirection: DismissDirection.startToEnd,
-                  //                barBlur: 10,
-                  //                colorText: mainColor);
-                  //          });
-                  //         CacheHelper.saveDataToSharedPrefrence(
-                  //             'dropDownValuePrice',
-                  //             whereToController.selectedDropDownValue?.price);
-                  //
-                  //         whereToController.buildNumber.clear();
-                  //         whereToController.floorNumber.clear();
-                  //         whereToController.landscape.clear();
-                  //         whereToController.addresses.clear();
-                  //         whereToController.areaNumber.clear();
-                  //         whereToController.addressTextController.clear();
-                  //         whereToController.update();
-                  //         Get.off(ReceiptScreen(selectedAreaPrice: CacheHelper.getDataToSharedPrefrence('dropDownValuePrice')));
-                  //
-                  //         disposeMethod();}
-                  //       },
-                  //
-                  //     child: Text(
-                  //       "add_address".tr,
-                  //       style: TextStyle(
-                  //           color: kPrimaryColor,
-                  //           fontWeight: FontWeight.bold,
-                  //           fontSize: 16.sp),
-                  //     ),
-                  //
-                  // ),
-                  // ),
                   Button(
                     text: 'add_address'.tr,
                     size: 250,

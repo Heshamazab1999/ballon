@@ -19,7 +19,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../components/custom_button.dart';
 import '../../../helpers/map_launch_helper.dart';
-import '../controllers/map_controller.dart';
 
 class WhereToDeliverScreen extends StatefulWidget {
   WhereToDeliverScreen({Key? key}) : super(key: key);
@@ -54,11 +53,11 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
               child: Text(
                 "checkOut_onOrder_title".tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.sp, color: mainColor),
+                style: TextStyle(fontSize: 18.sp, color: kPrimaryColor),
               ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
            Row(
                 mainAxisSize: MainAxisSize.max,
@@ -75,19 +74,18 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                       child:    Button(
                         text: "  ${'receive_from'.tr} :",
                         size: 150,
-                        fontSize: 14,
+                        fontSize: 18.sp,
                         height:!landScape ? Get.height/20.h : 100.h,
                           isFramed: whereToController.showPickUpBranches.value
                               ? false
                               : true,
                           onPressed: () async {
                             PostedOrder.order.address =
-                                null; //this is the cause of the crashing
+                                null;
                             PostedOrder.order.branch =
-                                await whereToController.branches[1].name;
+                                await whereToController.branches.first.name;
                             whereToController.showPickUpBranches.value = true;
-                            print(
-                                '%%%%%5${whereToController.showPickUpBranches.value}');
+                            print('%%%%%5${whereToController.showPickUpBranches.value}');
 
                           }),
                     ),
@@ -135,8 +133,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                 ],
               ),
 
-            // Obx(() {
-            //   return
+
             Obx(
                   () => (whereToController.showPickUpBranches.value)
                   ?
@@ -148,9 +145,8 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                       children: [
                         Text(
                           "  ${'receive_from'.tr} :",
-                          style: TextStyle(fontSize: 14.sp, color: mainColor),
+                          style: TextStyle(fontSize: 20.sp, color: mainColor),
                         ),
-                        //الاستلام من الفرع
                         Padding(
                           padding: EdgeInsets.all(15.w),
                           child: Container(
@@ -192,15 +188,17 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                             child:   Icon(
                               Icons.location_on_sharp,
                               size: 25.r,
-                              color: kPrimaryColor,
+                              color:   Colors.white,
                             ),
-                          ),  Text('${'branch'.tr}  :',
+                          ), Text('${'branch'.tr}  :  ',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,fontSize: 14.sp),
+                                                  fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
                                             ),
                                             Text(
-                                                '${whereToController.branches[1].name}', style: TextStyle(
-                                                fontWeight: FontWeight.bold,fontSize: 14.sp),
+                                                '${CacheHelper.getDataToSharedPrefrence('restaurantBranchName')}',
+                                                // '${whereToController.branches.first.name}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
                                             ),
                                           ],
                                         ),
@@ -217,17 +215,17 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '${'your_address'.tr}  :',
+                                              '${'your_address'.tr}  :  ',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,fontSize: 14.sp),
+                                                  fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
                                             ),
                                             Container(
                                                 // color: Colors.green,
-                                                width:Get.width/1.5.w,
+                                                width:Get.width/2.w,
                                                 child: Text(
-                                                  '${CacheHelper.getDataToSharedPrefrence('restaurantBranchName')}',
+                                                  '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}',
                                                   style: TextStyle(
-                                                      fontSize: 16.sp),overflow:TextOverflow.ellipsis ,
+                                                      fontSize: 20.sp,color: Colors.white),
                                                 )),
                                           ],
                                         ),
@@ -245,8 +243,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         builder: (whereToController) =>
                             Container(
                               decoration: CommonStyles.customBoxDecoration,
-                              // height: ScreenUtil().screenHeight,
-                              margin: EdgeInsets.only(top: 20.h),
+                               margin: EdgeInsets.only(top: 20.h),
                               width: ScreenUtil().screenWidth,
                               child: FirebaseAnimatedList(
                                   physics: NeverScrollableScrollPhysics(),
@@ -307,12 +304,15 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         ? SizedBox()
                         : Button(
                             text: "add_new_address".tr,
-                            size: 250,
-                            height: Get.height/20.h,
-                      fontSize: 14,
+
 
                       isFramed: true,
-                            onPressed: () async {
+                      fontSize: 20.sp,
+
+                      size: Get.width/2.w,
+                      height:Get.height/20.h,
+
+                      onPressed: () async {
                               Future.delayed(Duration(seconds:2), () {
                                 // setState(() {
                                 Navigator.push(
@@ -324,18 +324,73 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                             },
                           ),
                   ),
-                  Button(
-                    text: "check_out".tr,
-                    isFramed: false,
-                      size: 250,
-                    height: Get.height/20.h,
-                    fontSize: 14,
-                    onPressed: () {
+              // Container(
+              //   width: Get.width/2.4.w,
+              //   height:  Get.height/20.h,
+              //   margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
+              //   child:  ElevatedButton(onPressed:(){
+              //     if (whereToController.showPickUpBranches.value) {
+              //       CacheHelper.saveDataToSharedPrefrence(
+              //           'dropDownValuePrice',
+              //           whereToController.selectedDropDownValue?.price);
+              //       /**************KK****/
+              //       if (whereToController.branchDropDownValue!.name ==
+              //           "اختار الفرع") {
+              //         Get.defaultDialog(
+              //             title: "",
+              //             content: Text(
+              //               "برجاء اختر الفرع",
+              //               style: TextStyle(fontSize: 14.sp),
+              //             ));
+              //       } else {
+              //         Get.to(() => ReceiptScreen(
+              //             selectedAreaPrice: whereToController
+              //                 .selectedDropDownValue?.price));
+              //       }
+              //       /**************KK****/
+              //     } else {
+              //       if (whereToController.radioValue.value == "") {
+              //         Get.defaultDialog(
+              //             title: "",
+              //             content: Text(
+              //               "please_choose_branch".tr,
+              //               style: TextStyle(fontSize: 14.sp),
+              //             ));
+              //       } else {
+              //         Get.to(() => ReceiptScreen(
+              //             selectedAreaPrice: (whereToController
+              //                 .selectedAreaPrice.value != null)
+              //                 ? '${whereToController.selectedAreaPrice.value}'
+              //                 : 0.0));
+              //       }
+              //     }
+              //   }, child: Text('check_out'.tr, style: TextStyle(color:  Colors.white,fontSize: 19.sp),),
+              //     style: ButtonStyle(
+              //         backgroundColor: MaterialStateProperty.all<Color>(  Colors.blueAccent.withOpacity(.8),),
+              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //             RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(10.0),
+              //                 side: BorderSide(color:Colors.blueAccent,width: 2)
+              //             )
+              //         )
+              //     )
+              // ),
+              // ),
+     Button(
+    isFramed: true,
+    text: 'check_out'.tr,
+    fontSize: 20.sp,
+
+    size: Get.width/2.w,
+    height:Get.height/20.h,
+
+
+    onPressed: ()async {
+
                       if (whereToController.showPickUpBranches.value) {
                         CacheHelper.saveDataToSharedPrefrence(
                             'dropDownValuePrice',
                             whereToController.selectedDropDownValue?.price);
-
                         /**************KK****/
                         if (whereToController.branchDropDownValue!.name ==
                             "اختار الفرع") {
@@ -362,8 +417,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         } else {
                           Get.to(() => ReceiptScreen(
                               selectedAreaPrice: (whereToController
-                                          .selectedAreaPrice.value !=
-                                      null)
+                                          .selectedAreaPrice.value != null)
                                   ? '${whereToController.selectedAreaPrice.value}'
                                   : 0.0));
                         }

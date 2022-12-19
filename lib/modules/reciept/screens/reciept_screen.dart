@@ -1,20 +1,12 @@
-import 'package:arrows/components/arrows_app_bar.dart';
-import 'package:arrows/components/loading_spinner.dart';
+
 import 'package:arrows/constants/colors.dart';
 import 'package:arrows/helpers/shared_prefrences.dart';
 import 'package:arrows/modules/add_address/controllers/add_address_controller.dart';
-import 'package:arrows/modules/bottom_nav_bar/screens/bottom_nav_bar_screen.dart';
-import 'package:arrows/modules/cart/controllers/cart_controller.dart';
-import 'package:arrows/modules/cart/models/copoun_response_model.dart';
-import 'package:arrows/modules/cart/models/coupon_used_model.dart';
-import 'package:arrows/modules/cart/services/coupon_used_body.dart';
+ import 'package:arrows/modules/cart/controllers/cart_controller.dart';
+ import 'package:arrows/modules/cart/services/coupon_used_body.dart';
 import 'package:arrows/modules/cart/services/coupon_used_service.dart';
 import 'package:arrows/modules/more_info/controllers/more_info_controller.dart';
-import 'package:arrows/modules/more_info/screens/more_info_screen.dart';
-import 'package:arrows/modules/payment/payment_screens/payment_screen.dart';
-import 'package:arrows/modules/product_details2/model/ProductDetailsModel.dart';
-import 'package:arrows/modules/sub_categories/controllers/sub_categories_controller.dart';
-import 'package:arrows/modules/where_to_deliver/controllers/Where_to_controller.dart';
+ import 'package:arrows/modules/where_to_deliver/controllers/Where_to_controller.dart';
 import 'package:arrows/shared_object/order_model.dart';
 import 'package:arrows/shared_object/posted_order.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -24,9 +16,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:arrows/modules/payment/payment_controllers/payment_controller.dart';
-
-import '../../more_info/models/barcode_used.dart';
-import '../../more_info/services/more_info_service.dart';
 
 
 
@@ -62,8 +51,9 @@ class ReceiptScreen extends StatelessWidget {
     print(cartController.totalPrice.value);
 
       return Scaffold(
+        backgroundColor: Colors.white,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.h), child: CustomAppBar(context)),
+          preferredSize: Size.fromHeight(100.h), child: CustomAppBar(context),),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -75,9 +65,11 @@ class ReceiptScreen extends StatelessWidget {
                   height: !landScape ? 350.h : 1300.h,
                   margin: EdgeInsets.only(top: 10.h, right: 10.w, left: 10.w),
                   decoration: BoxDecoration(
+                      color: Colors.white70,
+                      // color: Colors.blueAccent.withOpacity(.8),
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       border: Border.all(
-                        color: mainColor,
+                        color: Colors.blueAccent.withOpacity(.8),
                         width: 3,
                       )),
                   child: Column(
@@ -85,20 +77,32 @@ class ReceiptScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
+                        height: 40.h,
                           width: double.infinity,
-                          color: mainColor,
+                          decoration: BoxDecoration(
+                              color: Colors.blueAccent.withOpacity(.8),
+
+                              // borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0.r),
+                                topRight: Radius.circular(10.0.r),
+
+
+                              )),
                           child: Center(
                               child: Text(
                             'receipt'.tr.toUpperCase(),
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.sp),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp,color: Colors.white),
                           ))),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
+
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10.0),
-                                bottomRight: Radius.circular(10.0)),
-                            color: Colors.white,
+                                bottomLeft: Radius.circular(22.0.r),
+                                bottomRight: Radius.circular(22.0.r)),
+                            color: Colors.white70,
+
                           ),
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -112,14 +116,14 @@ class ReceiptScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'price'.tr,
-                                      style: TextStyle(fontSize: 14.sp),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
                                     (cartController.fees.value!.tax != 'null' &&
                                             cartController.fees.value!.tax !=
                                                 null)
                                         ? Text(
                                             '${((cartController.totalPrice.value / (((double.parse(cartController.fees.value!.tax.toString())) / 100) + 1))).toStringAsFixed(2)}    ',
-                                            style: TextStyle(fontSize: 14.sp),
+                                            style: TextStyle(fontSize: 20.sp),
                                           )
                                         : Text('${cartController.totalPrice}'),
                                   ],
@@ -134,7 +138,7 @@ class ReceiptScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           'discount'.tr,
-                                          style: TextStyle(fontSize: 14.sp),
+                                          style: TextStyle(fontSize: 20.sp),
                                         ),
                                         GetBuilder<CartController>(
                                             builder: (cartController) {
@@ -143,7 +147,7 @@ class ReceiptScreen extends StatelessWidget {
                                               ? Text(
                                                   '( % ${cartController.discountResponse.data == null ? 0 : cartController.discountResponse.data!.value!.toString()} )',
                                                   style: TextStyle(
-                                                      fontSize: 14.sp),
+                                                      fontSize: 20.sp),
                                                 )
                                               : SizedBox();
                                         }),
@@ -154,7 +158,7 @@ class ReceiptScreen extends StatelessWidget {
                                       return Text(
                                         '${cartController.discountResponse.data == null ? 0 : cartController.discountValue.value.toString()} -  ',
                                         style: TextStyle(
-                                            fontSize: 14.sp, color: Colors.red),
+                                            fontSize: 20.sp, color: Colors.red),
                                       );
                                     }),
                                   ],
@@ -169,7 +173,7 @@ class ReceiptScreen extends StatelessWidget {
                                           ? '${'tax'.tr} ( % ${cartController.fees.value!.tax})'
                                           : '(${'tax'.tr} % 0)',
                                       style: TextStyle(
-                                        fontSize: 14.sp,
+                                        fontSize: 20.sp,
                                       ),
                                     ),
                                     (cartController.fees.value!.tax != 'null' ||
@@ -182,11 +186,11 @@ class ReceiptScreen extends StatelessWidget {
                                                 // .toStringAsFixed(2)
                                                 (cartController.totalPrice.value / (((cartController.fees.value!.tax != 'null' ? (double.parse(cartController.fees.value!.tax.toString())) : 0.0) / 100) + 1))).toStringAsFixed(2)} + ',
                                             style: TextStyle(
-                                                fontSize: 14.sp,
+                                                fontSize: 20.sp,
                                                 color: Colors.green),
                                           )
                                         :   Text('+ 0'  ,style: TextStyle(
-                                        fontSize: 14.sp,
+                                        fontSize: 20.sp,
                                         color: kPrimaryColor),
                           )
                                   ],
@@ -203,12 +207,12 @@ class ReceiptScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'total'.tr,
-                                      style: TextStyle(fontSize: 14.sp),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
                                     Obx(() {
                                       return Text(
                                         '${((double.parse(cartController.totalPrice.value.toStringAsFixed(2))) - cartController.discountValue.value).toStringAsFixed(2)}    ',
-                                        style: TextStyle(fontSize: 14.sp),
+                                        style: TextStyle(fontSize: 20.sp),
                                       );
                                     }),
                                   ],
@@ -224,11 +228,11 @@ class ReceiptScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'delivery'.tr,
-                                      style: TextStyle(fontSize: 14.sp),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
                                     whereToController.showPickUpBranches == true
                                         ?   Text('   0   ' , style: TextStyle(
-                                        fontSize: 14.sp,
+                                        fontSize: 20.sp,
                                         color: kPrimaryColor),
                           )
                                         : Text(
@@ -236,7 +240,7 @@ class ReceiptScreen extends StatelessWidget {
                                             // '${(whereToController.selectedAreaPrice)} + ',
                                             // '${( whereToController.selectedAreaPrice)} + ',
                                             style: TextStyle(
-                                                fontSize: 14.sp,
+                                                fontSize: 20.sp,
                                                 color: Colors.green),
                                           ),
                                   ],
@@ -251,12 +255,12 @@ class ReceiptScreen extends StatelessWidget {
                                               'null'
                                           ? '${'service_fee'.tr} ( % ${cartController.fees.value!.feesValue})'
                                           : ' (الخدمة % 0.0)',
-                                      style: TextStyle(fontSize: 14.sp),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
                                     Text(
                                       '${(cartController.totalPrice.value * ((cartController.fees.value!.feesValue != 'null' ? double.parse(cartController.fees.value!.feesValue.toString()) : 0.0) / 100)).toStringAsFixed(2)} +  ',
                                       style: TextStyle(
-                                          fontSize: 14.sp, color: Colors.green),
+                                          fontSize: 20.sp, color: Colors.green),
                                     ),
                                   ],
                                 ),
@@ -272,7 +276,7 @@ class ReceiptScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'total_sum'.tr,
-                                      style: TextStyle(fontSize: 14.sp),
+                                      style: TextStyle(fontSize: 20.sp),
                                     ),
                                     Obx(() {
                                       var x = selectedAreaPrice;
@@ -280,7 +284,7 @@ class ReceiptScreen extends StatelessWidget {
 
                                       return Text(
                                         '${(cartController.totalPrice.value + (whereToController.showPickUpBranches == true ? 0.0 : (num.tryParse(x)!)) + (cartController.totalPrice.value * (cartController.fees.value!.feesValue != 'null' ? (double.parse(cartController.fees.value!.feesValue.toString()) / 100) : 0.0)) - cartController.discountValue.value).toStringAsFixed(2)} ',
-                                        style: TextStyle(fontSize: 14.sp),
+                                        style: TextStyle(fontSize: 20.sp),
                                       );
                                     })
                                   ],
@@ -294,24 +298,18 @@ class ReceiptScreen extends StatelessWidget {
                   ),
                 ),
                 Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                  child:   Container(
                       margin:
                           EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
-                      decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                          border: Border.all(
-                            color: kPrimaryColor,
-                            width: 3,
-                          )),
+
                       child: Column(
                         children: [
                           Obx(() {
                             return Card(
+
                               child: RadioListTile(
-                                activeColor: kPrimaryColor,
+
+                                activeColor: Colors.white70,
                                 value: 2,
                                 groupValue:
                                     whereToController.selectedPaymentType.value,
@@ -335,8 +333,8 @@ class ReceiptScreen extends StatelessWidget {
                                       width: 10.w,
                                     ),
                                     Text("cash_payment".tr , style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color:kPrimaryColor),
+                                        fontSize: 20.sp,
+                                        color:Colors.white70),
                               ),
                                   ],
                                 ),
@@ -389,12 +387,12 @@ class ReceiptScreen extends StatelessWidget {
                                    Container(
                                            child: Text("${"wallet_balance".tr}\n (${'You_cannot_pay_by_wallet_currently'.tr})",style: TextStyle(fontSize: 12.sp, decoration: TextDecoration.lineThrough,),))
                                     :  Text("wallet_balance".tr , style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 20.sp,
                                             color:kPrimaryColor),
                                     )     ],
                                       ),
                                     ),
-                                    color: mainColor,
+                                    // color: mainColor,
                                   );
                                 });
                               }else{
@@ -406,7 +404,7 @@ class ReceiptScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
+
                 Padding(
                   padding: EdgeInsets.all(15.w),
                   child: TextField(
@@ -456,7 +454,7 @@ class ReceiptScreen extends StatelessWidget {
                             duration: Duration(seconds: 2),
                             dismissDirection: DismissDirection.startToEnd,
                             barBlur: 10,
-                            colorText: mainColor);
+                            colorText: Colors.white);
                       }  else {
 
                       if (cartController.discountResponse.status == true) {
@@ -511,7 +509,7 @@ class ReceiptScreen extends StatelessWidget {
                     },
                     child: Text(
                       "confirm".tr,
-                      style: TextStyle(color: kPrimaryColor, fontSize: 14.sp),
+                      style: TextStyle(color: Colors.white, fontSize: 20.sp),
                     ),
                   ),
                 ),
@@ -526,7 +524,7 @@ class ReceiptScreen extends StatelessWidget {
   Widget CustomAppBar(context) {
     return Container(
       // width: 300,
-      color: mainColor,
+      color: Colors.white,
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -542,8 +540,11 @@ class ReceiptScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 250.w,
+                  width: Get.width/2.w,
                   height: 50.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(55.sp)
+                  ),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     // controller:
@@ -564,13 +565,17 @@ class ReceiptScreen extends StatelessWidget {
                       ),
                       contentPadding: EdgeInsets.all(8.r),
                       hintText: "voucher_code".tr,
-                      hintStyle: TextStyle(fontSize: 14.sp),
+                      hintStyle: TextStyle(fontSize: 20.sp),
                     ),
                   ),
                 ),
                 Container(
-                  // width: 100.w,
+                  width: 100.w,
                   height: 50.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.sp)
+                  ),
+
                   margin: EdgeInsets.only(left: 10.w, right: 10.w),
                   child: GetBuilder<CartController>(
                     init: CartController(),
@@ -642,13 +647,13 @@ class ReceiptScreen extends StatelessWidget {
                         cartController.update();
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
+                        backgroundColor: mainColor,
                       ),
                       child: Text(
                         "done".tr,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.sp,
+                          fontSize: 20.sp,
                         ),
                       ),
                     ),

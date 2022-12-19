@@ -82,6 +82,7 @@ class Languages extends Translations {
           'order_details': 'تفاصيل الطلب',
           'no_orders': 'لايوجد طلبات سابقة',
           'language': 'اللغه',
+          'description': 'التفاصيل',
           'user_phone': 'رقم هاتف المستخدم',
 
           'continue': 'متابعة',
@@ -181,6 +182,7 @@ class Languages extends Translations {
           'added_to_cart': 'Added To Your Cart',
           'total': 'Total',
           'search': 'Search',
+          'description':'Description',
 
           'user_name': 'User Name',
           'with_tax': 'Taxes Included',

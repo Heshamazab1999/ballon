@@ -38,7 +38,9 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>app-1-753422497532-ios-36dbd2d2ae48ea3149c979</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

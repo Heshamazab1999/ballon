@@ -11,7 +11,7 @@ static BoxDecoration customBoxDecoration= BoxDecoration(
     borderRadius: BorderRadius.circular(20.sp),
     border: Border.all(
       color: mainColor,
-      width: 2.w,
+      width: 1.w,
     ));
 
 }

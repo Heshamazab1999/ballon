@@ -111,8 +111,12 @@ class _CartScreenState extends State<CartScreen> {
                                 ],
                               )
                             :  Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                                 children: [
                                   SizedBox(
+                                    // height:Get.height/1.9.h,
                                       child: FutureBuilder(
                                           future: cartController.getCartData(),
                                           builder: (context, snapshot) {
@@ -200,9 +204,9 @@ class _CartScreenState extends State<CartScreen> {
 
                                                               Padding(
                                                             padding:
-                                                                const EdgeInsets
+                                                                  EdgeInsets
                                                                         .only(
-                                                                    bottom: 18.0),
+                                                                    bottom: 18.0.h),
                                                             child: Directionality(
                                                               textDirection:
                                                                   translateName
@@ -212,6 +216,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                           .rtl,
                                                               child: Card(
                                                                 elevation: 5,
+                                                                // color: Colors.red,
                                                                 color: mainColor,
                                                                 shadowColor:
                                                                     mainColor,
@@ -246,7 +251,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                             "${snapshot.value['name']}"
                                                                                 .toUpperCase(),
                                                                             style:
-                                                                                TextStyle(fontWeight: FontWeight.bold),
+                                                                                TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                                                                           ),
                                                                           Directionality(
                                                                             textDirection: translateName
@@ -261,32 +266,19 @@ class _CartScreenState extends State<CartScreen> {
                                                                                         textKey: 'price'.tr,
                                                                                         widget: Text(
                                                                                           '${snapshot.value['price']}',
-                                                                                          style: TextStyle(fontSize: 12.sp),
+                                                                                          style: TextStyle(fontSize: 14.sp),
                                                                                         )),
 
-                                                                                    Divider(
-                                                                                      thickness: .7,
-                                                                                      height: 2,
-                                                                                      color: Colors.grey,
-                                                                                    ),
-                                                                                    CartIngrediantRow(
-                                                                                      textKey: 'order_content'.tr,
-                                                                                      widget: getGeneralContentText(snapshot),
-                                                                                    ),
-
-                                                                                    Divider(
-                                                                                      thickness: .7,
-                                                                                      height: 2,
-                                                                                      color: Colors.grey,
-                                                                                    ),
-                                                                                    CartIngrediantRow(
-                                                                                      textKey: 'pick_size'.tr,
-                                                                                      widget: Text(
-                                                                                        '${snapshot.value['sizes']}'.tr,
-                                                                                        style: TextStyle(fontSize: 12.sp),
-                                                                                      ),
-                                                                                    ),
-                                                                                    // getSizeText(snapshot),
+                                                                                    // Divider(
+                                                                                    //   thickness: .7,
+                                                                                    //   height: 2,
+                                                                                    //   color: Colors.grey,
+                                                                                    // ),
+                                                                                    // CartIngrediantRow(
+                                                                                    //   textKey: 'order_content'.tr,
+                                                                                    //   widget: getGeneralContentText(snapshot),
+                                                                                    // ),
+                                                                                    //
                                                                                     Divider(
                                                                                       thickness: .7,
                                                                                       height: 2,
@@ -309,14 +301,14 @@ class _CartScreenState extends State<CartScreen> {
                                                                                         children: [
                                                                                           Text(
                                                                                             ' ${sum}'.tr,
-                                                                                            style: TextStyle(fontSize:12.sp),
+                                                                                            style: TextStyle(fontSize:14.sp),
                                                                                           ),
                                                                                           Text(
                                                                                             ' : ',
-                                                                                            style: TextStyle(fontSize: 12.sp),
+                                                                                            style: TextStyle(fontSize: 14.sp),
                                                                                           ),Text(
                                                                                             '${'coin_jordan'.tr} ',
-                                                                                            style: TextStyle(fontSize: 11.sp),
+                                                                                            style: TextStyle(fontSize: 13.sp),
                                                                                           ),
                                                                                         ],
                                                                                       ),
@@ -373,7 +365,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                                               width: 15,
                                                                                             ),
                                                                                             SizedBox(
-                                                                                              child: Text('${snapshot.value['quantity']}'.tr,style: TextStyle(fontSize: 12.sp),),
+                                                                                              child: Text('${snapshot.value['quantity']}'.tr,style: TextStyle(fontSize: 14.sp),),
                                                                                             ),
                                                                                             SizedBox(
                                                                                               width: 15,
@@ -419,6 +411,15 @@ class _CartScreenState extends State<CartScreen> {
                                                                                       height: 2,
                                                                                       color: Colors.grey,
                                                                                     ),
+                                                                                    Directionality(textDirection:
+                                                                                    translateName?TextDirection.rtl:TextDirection.ltr,
+                                                                                        child: Container(  padding:EdgeInsets.only(top:10.h,bottom:10.h),
+                                                                                       child: snapshot.value['message']!=''?
+                                                                                       Text(
+                                                                                      '${snapshot.value['message']}'.tr,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),):
+                                                                                       Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
+                                                                                    ),
+                                                                                    ),
                                                                                   ]),
                                                                                 ),
 
@@ -431,12 +432,12 @@ class _CartScreenState extends State<CartScreen> {
                                                                         ClipRRect(
                                                                           borderRadius: BorderRadius.only(
                                                                               topLeft:
-                                                                                  Radius.circular(15),
-                                                                              bottomLeft: Radius.circular(15)),
+                                                                                  Radius.circular(15.r),
+                                                                              bottomLeft: Radius.circular(15.r)),
                                                                           child:
                                                                               CachedNetworkImage(
-                                                                            height:
-                                                                                120.h,
+                                                                            // height:
+                                                                            //     70.h,
                                                                             width:
                                                                                 150.w,
                                                                             imageUrl:
@@ -453,8 +454,11 @@ class _CartScreenState extends State<CartScreen> {
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                        Container(    child: Text(
-                                                                              'No Massages'),
+                                                                        Divider(color: Colors.white,thickness: 2.w,),
+                                                      Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,
+
+                                                      // Container(    child: snapshot.value['message']!=''?Text(
+                                                                        //       '${snapshot.value['message']}'.tr,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),):Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -466,15 +470,15 @@ class _CartScreenState extends State<CartScreen> {
                                                                 top: 0,
                                                                 left:0,
                                                                 child: CircleAvatar(
-                                                                    radius: 19.r,
+                                                                    radius: 21.r,
                                                                     backgroundColor: mainColor,
                                                                     child: CircleAvatar(
                                                                       backgroundColor: Colors.white,
-                                                                      radius: 18.r,
+                                                                      radius: 20.r,
                                                                       child: IconButton(
                                                                         icon: Icon(
                                                                           Icons.delete,
-                                                                          size: !landScape ? 22.r : 50.r,
+                                                                          size: !landScape ? 25.r : 50.r,
                                                                         ),
                                                                         onPressed: () async {
                                                                           setState(() {
@@ -513,6 +517,8 @@ class _CartScreenState extends State<CartScreen> {
                                             );
                                           })),
                                   /**********************************************************total***********************************************************/
+
+
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -539,6 +545,7 @@ class _CartScreenState extends State<CartScreen> {
                                       //     ),
                                       //   ),
                                       // ), // afterBuild(),
+
 
                                       Expanded(child:
 
@@ -577,14 +584,11 @@ class _CartScreenState extends State<CartScreen> {
                                     children: [
                                       GetBuilder<CartController>(
                                         init: CartController(),
-                                        builder: (controller)=> Card(
-                                          // padding: EdgeInsets.all(8.r),
-                                          // decoration: BoxDecoration(
-                                          //   borderRadius:
-                                          //       BorderRadius.circular(4.r),
-                                          elevation: 1.5,
+                                        builder: (controller)=> Material(
+
+                                        elevation: 1.5,
                                           shadowColor: Colors.white,
-                                          color: mainColor,
+                                          color: mainColor.withOpacity(.7),
                                           // ),
                                           child: Column(
                                             children: [
@@ -595,6 +599,8 @@ class _CartScreenState extends State<CartScreen> {
                                                   Text("${'total'.tr} : ",
                                                       style: TextStyle(
                                                           fontSize: 18.sp,
+                                                          color: Colors.white,
+
                                                           fontWeight:
                                                           FontWeight.w600)),
                                                   GetBuilder<CartController>(
@@ -606,7 +612,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                 .toStringAsFixed(2),
                                                             style: TextStyle(
                                                                 fontSize: 25.sp,
-                                                                color: Colors.red,
+                                                                color: Colors.red.shade900,
                                                                 fontWeight:
                                                                 FontWeight
                                                                     .bold));
@@ -616,16 +622,17 @@ class _CartScreenState extends State<CartScreen> {
                                                   Text("${'coin_jordan'.tr}  ",
                                                       style: TextStyle(
                                                           fontSize: 18.sp,
+                                                          color: Colors.white,
                                                           fontWeight:
                                                           FontWeight.w600)),
                                                 ],
                                               ),
-                                              Text(
-                                                "(${'with_tax'.tr})",
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.bold),
-                                              ),
+                                              // Text(
+                                              //   "(${'with_tax'.tr})",
+                                              //   style: TextStyle(
+                                              //       fontSize: 14.sp,
+                                              //       fontWeight: FontWeight.bold),
+                                              // ),
                                             ],
                                           ),
 

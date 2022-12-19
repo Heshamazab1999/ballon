@@ -14,7 +14,7 @@ class ArrowsAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
 
   ArrowsAppBar(this.title, {Key? key,})
-      : preferredSize =  Size.fromHeight(70.h),
+      : preferredSize =  Size.fromHeight(45.h),
         super(key: key);
 
   @override
@@ -30,10 +30,10 @@ class _ArrowsAppBarState extends State<ArrowsAppBar> {
       backgroundColor: Colors.white,elevation: 1,
       centerTitle: true,
         title:   Image.asset(
-          'assets/images/logo99.png',
-           width: 120.w,
-          height: 100.h,
-          fit: BoxFit.fill,
+          'assets/images/appBar.png',
+           // width: 120.w,
+          height: 35.h,
+          fit: BoxFit.cover,
         ),
       actions: [
         IconButton(

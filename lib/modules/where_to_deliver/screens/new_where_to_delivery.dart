@@ -203,8 +203,7 @@ class WhereToDeliver2 extends StatelessWidget {
                                   whereToController.selectedDropDownValue?.price);
 
                               /**************KK****/
-                              if (whereToController.branchDropDownValue!.name ==
-                                  "اختار الفرع") {
+                              if (whereToController.branchDropDownValue!.name == "اختار الفرع") {
                                 Get.defaultDialog(
                                     title: "",
                                     content: Text(
@@ -292,7 +291,7 @@ class WhereToDeliver2 extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                                '${whereToController.branches[1].name}'),
+                                '${whereToController.branches[0].name}'),
                           ],
                         ),
                       ),

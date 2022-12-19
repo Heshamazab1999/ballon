@@ -63,8 +63,8 @@ class PhoneNumberField extends StatelessWidget {
 
           hintText: "phone_number".tr,
           isDense: true, // Added this
-          contentPadding: EdgeInsets.all(13.w),
-          hintStyle: TextStyle(color: mainColor,fontSize: 14.sp),
+          contentPadding: EdgeInsets.all(20.w),
+          hintStyle: TextStyle(color: mainColor,fontSize: 18.sp,fontWeight: FontWeight.bold),
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.red,

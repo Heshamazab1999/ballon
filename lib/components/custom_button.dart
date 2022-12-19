@@ -37,13 +37,13 @@ class Button extends StatelessWidget {
       width: size.w,
       height: height.h,
       margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
-      child: ElevatedButton(onPressed:onPressed, child: Text(text, style: TextStyle(color: isFramed?mainColor:kPrimaryColor,fontSize: fontSize?.sp),),
+      child: ElevatedButton(onPressed:onPressed, child: Text(text, style: TextStyle(color: isFramed?mainColor:Colors.white,fontSize: fontSize?.sp),),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(isFramed?Colors.white:mainColor),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: isFramed?mainColor:kPrimaryColor,width: 2)
+                      side: BorderSide(color: isFramed?mainColor:mainColor,width: 2)
                   )
               )
           )

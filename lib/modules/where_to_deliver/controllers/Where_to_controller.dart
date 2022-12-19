@@ -124,7 +124,7 @@ final isFramedValue=false.obs;
 
 
      PostedOrder.order
-      ..branch = branches[1].name
+      ..branch = branches.first.name
       ..price = cartController.totalPrice.toString()
       ..totalPrice =(cartController.wallet)? (cartController.balance>=(cartController.totalPrice.value + (showPickUpBranches.value == false ?
           (num.parse(x)) : 0.0) + (cartController.totalPrice.value * (cartController.fees.value!.feesValue != 'null'
@@ -195,8 +195,7 @@ final isFramedValue=false.obs;
 
 print('*******this id totalprice in Order*********************${PostedOrder.order.totalPrice}');
 
-
-    FirebaseDatabase.instance
+     FirebaseDatabase.instance
         .reference()
         .child("UserOrders")
         .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
@@ -292,20 +291,21 @@ cartController.update();
           duration: Duration(seconds: 2),
           dismissDirection: DismissDirection.startToEnd,
           barBlur: 10,
-          colorText: mainColor);
+          colorText: Colors.white);
 // cartController.totalPrice.value=0.0;
     cartController.update();
      Get.offAll(() => BottomNavBarScreen());
   }
   late Future  getAllUserAddresseesv;
   onInit() async {
+    getAllBranchAddresses();
     getAllUserAddresseesv= Future.delayed(Duration(milliseconds: 250), () => true);
      selectedAreaPrice;
     print(')))))))))))))))))))${selectedDropDownValue?.price}');
     await getAllBranchAddresses();
     await getDeliveryList();
     await getAllUserAddressees();
-    branchDropDownValue = branches[1];
+    branchDropDownValue = branches[0];
     // PostedOrder.order.address = Address
 
     super.onInit();
