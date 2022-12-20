@@ -12,9 +12,13 @@ class ArrowsAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
   final String title;
+  final Widget? icon;
 
-  ArrowsAppBar(this.title, {Key? key,})
-      : preferredSize =  Size.fromHeight(45.h),
+  ArrowsAppBar(
+    this.title, {
+    this.icon,
+    Key? key,
+  })  : preferredSize = Size.fromHeight(70.h),
         super(key: key);
 
   @override
@@ -22,29 +26,31 @@ class ArrowsAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ArrowsAppBarState extends State<ArrowsAppBar> {
-
-
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
-      backgroundColor: Colors.white,elevation: 1,
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 1,
       centerTitle: true,
-        title:   Image.asset(
-          'assets/images/appBar.png',
-           // width: 120.w,
-          height: 35.h,
-          fit: BoxFit.cover,
-        ),
+      title: Image.asset(
+        'assets/images/appBar.png',
+        // width: 120.w,
+        height: 35.h,
+        fit: BoxFit.cover,
+      ),
       actions: [
         IconButton(
-            onPressed: (){
-              Navigator.push(
-                  context, MaterialPageRoute(
-                  builder: (context)=>SearchScreen()));
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()));
             },
-            icon:   Icon(Icons.search, color: Colors.grey, size: 30.sp,)),
+            icon: Icon(
+              Icons.search,
+              color: Colors.grey,
+              size: 30.sp,
+            )),
       ],
-      leading:Text(''),
-  );
+      leading: widget.icon,
+    );
   }
 }
