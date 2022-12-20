@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../components/sub_cat_componant.dart';
-import '../search_screen.dart';
+import '../search/search_screen.dart';
 import 'controller.dart';
 
 class NewSubCategoryScreen extends StatelessWidget {

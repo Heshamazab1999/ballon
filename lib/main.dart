@@ -1,7 +1,5 @@
 import 'package:arrows/api_base/dio_helper.dart';
 import 'package:arrows/helpers/shared_prefrences.dart';
-import 'package:arrows/modules/MainBranches/screens/branches_screen.dart';
-import 'package:arrows/modules/cart/controllers/cart_controller.dart';
 import 'package:arrows/modules/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
