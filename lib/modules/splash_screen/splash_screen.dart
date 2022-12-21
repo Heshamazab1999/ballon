@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:arrows/constants/colors.dart';
+import 'package:arrows/modules/MainBranches/controllers/main_branches_controller.dart';
 import 'package:arrows/modules/MainBranches/screens/branches_screen.dart';
  import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(MainBranchesController());
     return Scaffold(
       // backgroundColor:,
       body: Center(
