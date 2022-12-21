@@ -51,13 +51,13 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
     cartController.totalPoints;
     transitionAnimationController = BottomSheet.createAnimationController(this);
     transitionAnimationController.duration = Duration(seconds: 1);
+    whereToController.getAllBranchAddresses();
 
     super.initState();
   }
 
   Order? order;
 
-  // List of items in our dropdown menu
 
   void dispose() {
     transitionAnimationController.dispose();
@@ -99,27 +99,28 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
         : Scaffold(
             appBar: ArrowsAppBar('${k.restName}'.tr,
                 icon: PopupMenuButton<int>(
-                  shape: Border.all(
-                    color: mainColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
                   ),
                   itemBuilder: (context) => [
-                    // PopupMenuItem 1
-                    PopupMenuItem(
+                     PopupMenuItem(
                       value: 1,
-                      // row with 2 children
-                      child: Row(
+                       child: Row(
                         children: [
                           Get.locale!.languageCode == "ar"
                               ? Text("arabic".tr)
                               : Text("english"),
                           SizedBox(
-                            width: 10,
+                            width: 10.w,
                           ),
                           Container(
                             clipBehavior: Clip.antiAlias,
-                            height: 20,
-                            width: 20,
+                            height: 50.h,
+                            width: 40.w,
                             decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(50),
                                 shape: BoxShape.circle,
                                 border: Border.all(color: mainColor)),
                             child: Image.asset(Get.locale!.languageCode == "ar"
@@ -263,30 +264,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          // '${whereToController.branches.first.restaurantName}'.tr,
-                                                          '${CacheHelper.getDataToSharedPrefrence('restaurantBranchID')}'
-                                                              .tr,
-                                                          style: TextStyle(
-                                                              fontSize: 16.sp),
-                                                          overflow: TextOverflow
-                                                              .visible,
-                                                        ),
-                                                        CacheHelper.getDataToSharedPrefrence(
-                                                                        'restaurantBranchName')
-                                                                    .toString() !=
-                                                                null
-                                                            ? Text(
-                                                                '${CacheHelper.getDataToSharedPrefrence('restaurantBranchName')}'
-                                                                    .tr,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16.sp),
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .visible,
-                                                              )
-                                                            : SizedBox(),
+                                                      Text('branch'),
+                                                        Text('')
+                                                        
                                                       ],
                                                     ),
                                                   ),
@@ -319,6 +299,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       else {
                                         return InkWell(
                                           onTap: () {
+
                                             MapUtils.openMap(
                                                 double.parse(whereToController
                                                         .branches[index].lat ??
@@ -367,32 +348,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                         SizedBox(
                                                           height: 10.h,
                                                         ),
-                                                        Text(
-                                                          '${CacheHelper.getDataToSharedPrefrence('restaurantBranchID')}'
-                                                              .tr,
-                                                          style: TextStyle(
-                                                              fontSize: 18.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                          overflow: TextOverflow
-                                                              .visible,
-                                                        ),
-                                                        CacheHelper.getDataToSharedPrefrence(
-                                                                        'restaurantBranchAddress')
-                                                                    .toString() !=
-                                                                null
-                                                            ? Text(
-                                                                '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}'
-                                                                    .tr,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16.sp),
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .visible,
-                                                              )
-                                                            : SizedBox(),
+                                                        Text('${whereToController.branches.first.name}'),
+                                                          Text('Address'),
+
                                                       ],
                                                     ),
                                                   ),

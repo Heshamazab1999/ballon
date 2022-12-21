@@ -73,17 +73,12 @@ class MyApp extends StatelessWidget {
             translations: Languages(),
             locale: language,
             fallbackLocale: Locale('ar'),
-            title: 'Mama\'s Tender',
+            title: 'Balloonz',
             theme: ThemeData(
               fontFamily: 'Saudagar',
               scaffoldBackgroundColor: Colors.white,
               iconTheme: IconThemeData(color: kPrimaryColor, size: 33),
-              // appBarTheme: AppBarTheme(
-              //   color: mainColor,
-              //   systemOverlayStyle:
-              //       SystemUiOverlayStyle(statusBarColor: mainColor),
-              //   shadowColor: mainColor,
-              // ),
+
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 selectedIconTheme: IconThemeData(color: mainColor),
                 selectedLabelStyle: TextStyle(color: mainColor),
@@ -93,10 +88,8 @@ class MyApp extends StatelessWidget {
                 ),
                 unselectedItemColor: mainColor,
                 showSelectedLabels: true,
-                // backgroundColor: Colors.white,
-                backgroundColor: mainColor,
-                // type: BottomNavigationBarType.shifting,
-              ),
+                 backgroundColor: mainColor,
+               ),
             ),
             home: SplashScreen(),
           );

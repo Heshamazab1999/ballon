@@ -25,12 +25,12 @@ class WhereToController extends GetxController {
   RxString radioValue = "".obs;
   RxString selectTypeRadioButton = "".obs;
   var selectedAddressRadioButton;
+  var address;
   var dbref;
   RxInt selectedPaymentType=(-1).obs;
   String? paymentReferenceId;
 final isFramedValue=false.obs;
-   //Text field controllers
-  TextEditingController areaNumber = TextEditingController();
+   TextEditingController areaNumber = TextEditingController();
   TextEditingController buildNumber = TextEditingController();
   TextEditingController floorNumber = TextEditingController();
   TextEditingController landscape = TextEditingController();
@@ -69,7 +69,10 @@ final isFramedValue=false.obs;
     } catch (e) {
       print(e);
     }
-    branches.addAll(response!.branches);
+     branches.addAll(response!.branches);
+    branchDropDownValue=branches.first;
+
+
   }
 /******i commented it maybe it's causing the issue*******/
   Future<void> getAllUserAddressees() async{
@@ -296,14 +299,14 @@ cartController.update();
   late Future  getAllUserAddresseesv;
   onInit() async {
     getAllBranchAddresses();
+    branchDropDownValue = branches[0];
+
     getAllUserAddresseesv= Future.delayed(Duration(milliseconds: 250), () => true);
      selectedAreaPrice;
     print(')))))))))))))))))))${selectedDropDownValue?.price}');
     await getAllBranchAddresses();
     await getDeliveryList();
     await getAllUserAddressees();
-    branchDropDownValue = branches[0];
-    // PostedOrder.order.address = Address
 
     super.onInit();
   }

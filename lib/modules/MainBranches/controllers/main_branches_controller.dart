@@ -3,14 +3,11 @@ import 'package:arrows/modules/where_to_deliver/models/branches_addresses_model.
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
+import '../../../helpers/shared_prefrences.dart';
+
 class MainBranchesController extends GetxController{
 
-  // List<Branch> mainBranches = <Branch>[
-  //   Branch(name: 'please_choose_branch'.tr , restaurantName: ''),
-  //   Branch(restaurantName: 'y7b42yskv43l_igrill' , name: 'Aleppo'),
-  //   Branch(restaurantName: 'y7b42yskv43l_aleppo' , name: 'Aleppo Dokki'),
-  // ].obs;
-  // Branch? mainBranchDropDownValue;
+
 FireBaseBranchesModel? mainBranchDropDownValue;
 final isLoading=false.obs; //bool variable created
 var  selectedValue ;
@@ -46,6 +43,7 @@ var  selectedValue ;
   @override
   void onInit() {
     mainBranchDropDownValue =   firebaseBranches[0];
+    CacheHelper.saveDataToSharedPrefrence('restaurantBranchID',mainBranchDropDownValue!.id);
     firebaseBranches;
     getFirebaseBranches();
     super.onInit();

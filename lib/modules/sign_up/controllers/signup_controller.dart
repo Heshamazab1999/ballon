@@ -16,16 +16,14 @@ class SignUpController extends GetxController {
   String? passwordTextEditingController;
   TextEditingController pinTextEditingController = TextEditingController();
   String? fullPhoneNumber;
-  final pin = ''.obs;
-  CartController cartController = Get.put(CartController());
-
+  final pin=''.obs;
+  CartController cartController=Get.put(CartController());
   //form key
   final formKey = GlobalKey<FormState>();
 
   //code
   String? verification;
   var userId;
-
   Future<void> sendVerificationCode({phone, name}) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '$phone' ?? "",
@@ -36,47 +34,45 @@ class SignUpController extends GetxController {
             .then((value) {
           if (value.user != null) {
             print("user verified");
-          } else {
+          }
+          else
+          {
             print('failed');
           }
           // CacheHelper.loginShared!.phone=fullPhoneNumber;
         });
+
       },
       verificationFailed: (FirebaseAuthException e) {
-        print(e.toString());
         Get.back();
         Get.defaultDialog(
-            content: Text("${e.code}".tr), title: 'تعذر الإتصال بالإنترنت'
-            // content: Text(" حاول مدره اخري".tr) ,title: 'تعذر الإتصال بالإنترنت'
-            );
+            content: Text("${e.code}".tr) ,title: 'تعذر الإتصال بالإنترنت'
+          // content: Text(" حاول مدره اخري".tr) ,title: 'تعذر الإتصال بالإنترنت'
+        );
         print(e.message);
       },
       codeSent: (String verificationId, int? resendToken) {
         verification = verificationId;
         Get.back();
-        Get.to(() => VerificationScreen(
-            verification: verification.toString(), name: name, phone: phone));
+        Get.to(() => VerificationScreen(verification:verification.toString(),name:name,phone:phone));
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         verification = verificationId;
       },
       timeout: Duration(minutes: 1),
     );
-  }
 
-  addUserToRealTime(name, phone1) async {
+  }
+  addUserToRealTime(name,phone1)async{
     var users = await user.User(
       name: '$name',
       // name: userNameTextEditingController??'',
       phone: '$phone1',
       // phone: fullPhoneNumber,
       password: passwordTextEditingController,
-      userDeviceToken:
-          await CacheHelper.getDataToSharedPrefrence("deviceToken"),
-      points: cartController.totalPoints != null
-          ? cartController.totalPoints.toString()
-          : 0.toString(),
-      id: FirebaseAuth.instance.currentUser!.uid,
+       userDeviceToken:await CacheHelper.getDataToSharedPrefrence("deviceToken"),
+      points:cartController.totalPoints!=null?cartController.totalPoints.toString():0.toString(),
+      id:FirebaseAuth.instance.currentUser!.uid,
     );
     CacheHelper.loginShared = users;
     FirebaseDatabase.instance
@@ -85,24 +81,22 @@ class SignUpController extends GetxController {
         .child(FirebaseAuth.instance.currentUser!.uid)
         .set(users.toJson());
     CacheHelper.loginShared = users;
-    CacheHelper.saveDataToSharedPrefrence(
-        "userID", FirebaseAuth.instance.currentUser!.uid);
+    CacheHelper.saveDataToSharedPrefrence("userID", FirebaseAuth.instance.currentUser!.uid);
     CacheHelper.saveDataToSharedPrefrence("userName", users.name.toString());
-  }
 
-  Future<void> verifyCode(verification, name, phone1) async {
+  }
+  Future<void> verifyCode(verification,name,phone1) async {
+
     PhoneAuthCredential credential = await PhoneAuthProvider.credential(
         verificationId: verification ?? "",
         smsCode: pinTextEditingController.text);
-    await FirebaseAuth.instance
-        .signInWithCredential(credential)
-        .then((value) async {
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
       if (value.user != null) {
         print(value.user!.uid);
         print('##################');
         print(value.additionalUserInfo!.isNewUser);
-        if (value.additionalUserInfo!.isNewUser == true) {
-          addUserToRealTime(name, phone1);
+        if(value.additionalUserInfo!.isNewUser==true){
+          addUserToRealTime(name,phone1);
           Get.back();
           //   var users = await user.User(
           //       name: userNameTextEditingController,
@@ -122,45 +116,45 @@ class SignUpController extends GetxController {
           // CacheHelper.saveDataToSharedPrefrence("userID", FirebaseAuth.instance.currentUser!.uid);
           // CacheHelper.saveDataToSharedPrefrence("userName", users.name.toString());
           Get.offAll(() => BottomNavBarScreen());
-        } else if (value.additionalUserInfo!.isNewUser == false) {
+        }
+        else if(value.additionalUserInfo!.isNewUser==false){
           var users = await user.User(
             name: name,
             // name: userNameTextEditingController??'',
             phone: phone1,
             // phone: fullPhoneNumber,
             password: passwordTextEditingController,
-            userDeviceToken:
-                await CacheHelper.getDataToSharedPrefrence("deviceToken"),
-            id: FirebaseAuth.instance.currentUser!.uid,
+            userDeviceToken:await CacheHelper.getDataToSharedPrefrence("deviceToken"),
+            id:FirebaseAuth.instance.currentUser!.uid,
           );
 
           FirebaseDatabase.instance
               .reference()
               .child("Users")
-              .child(FirebaseAuth.instance.currentUser!.uid)
-              .reference()
+              .child(FirebaseAuth.instance.currentUser!.uid).reference()
               .update({
-            'name': name,
-            'phone': phone1,
+            'name':  name,
+            'phone':  phone1,
             // 'name':  userNameTextEditingController??'',
-            'device_token': CacheHelper.getDataToSharedPrefrence("deviceToken"),
+            'device_token' :CacheHelper.getDataToSharedPrefrence("deviceToken"),
           }).then((value) {
             CacheHelper.saveDataToSharedPrefrence("user", users.toJson());
             CacheHelper.loginShared = users;
-            print(
-                '*****************${CacheHelper.loginShared}${CacheHelper.getDataToSharedPrefrence('user')}');
-          });
+            print('*****************${CacheHelper.loginShared}${CacheHelper.getDataToSharedPrefrence('user')}');
+           });
 
-          CacheHelper.saveDataToSharedPrefrence(
-              "userID", FirebaseAuth.instance.currentUser!.uid);
-          CacheHelper.saveDataToSharedPrefrence(
-              "userName", users.name.toString());
+          CacheHelper.saveDataToSharedPrefrence("userID", FirebaseAuth.instance.currentUser!.uid);
+          CacheHelper.saveDataToSharedPrefrence("userName", users.name.toString());
           Get.offAll(() => BottomNavBarScreen());
         }
       }
+
     }).then((value) {
-      print(CacheHelper.getDataToSharedPrefrence('user'));
+     print(CacheHelper.getDataToSharedPrefrence('user'));
     });
+
+
+
   }
 }
 //&&&

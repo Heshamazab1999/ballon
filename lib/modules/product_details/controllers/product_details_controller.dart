@@ -17,35 +17,28 @@ import '../../sign_up/screens/sign_up_screen.dart';
 import '../../sub_categories/models/SubCategories.dart';
 
 class ProductDetailsController extends GetxController {
-  final SubCategoriesController subCategoriesController = Get.find();
+  final SubCategoriesController subCategoriesController = Get.put(SubCategoriesController());
   final otherAddition = <bool>[].obs;
   final suaces = <bool>[].obs;
   final component = <bool>[].obs;
   final addition = <bool>[].obs;
-
   RxInt orderCounter = 1.obs;
   List<Drink>? drinks = <Drink>[].obs;
   Drink? drinkDropDownValue;
-
   RxDouble productPrice = 0.0.obs;
   RxDouble orderPrice = 0.0.obs;
   Drink selectedDrink = Drink();
-    Sizes selectedSize=Sizes() ;
-   List<bool> selectedAdditions = <bool>[].obs;
+  Sizes selectedSize=Sizes() ;
+  List<bool> selectedAdditions = <bool>[].obs;
   List<bool> selectedComponents = <bool>[].obs;
-
-   final priceList = <String>[].obs;
-
+  final priceList = <String>[].obs;
   List<Products> products = <Products>[].obs;
   var value ;
-
   var addressesBox;
   var cartBox;
   String dropDownValue = '';
   List<productDetails.ProductDetailsModel> productDetailsModel = <productDetails.ProductDetailsModel>[].obs;
   bool? typeValue;
-
-
   void change(vlaue) {
    value =vlaue;
    update();
@@ -63,18 +56,15 @@ class ProductDetailsController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    totalPrice.value = data.price!;
+    totalPrice.value = data.price!.toDouble();
 
     super.onInit();
   }
 
-
   @override
   void dispose() {
      super.dispose();
-
    }
-
   selectType(newValue) {
     typeValue = newValue;
     update();
@@ -121,6 +111,7 @@ class ProductDetailsController extends GetxController {
           ? FirebaseDatabase.instance
           .reference()
           .child('Cart')
+          // .child('branch1')
           .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
           .child(CacheHelper.getDataToSharedPrefrence('userID'))
           .child(dateID)

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>753422497532-h3h6dio734bkni9j83el04b9diua7ucp.apps.googleusercontent.com</string>
+	<string>753422497532-do0niac9h3cbsh65fjrp313qsurhii03.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.753422497532-h3h6dio734bkni9j83el04b9diua7ucp</string>
+	<string>com.googleusercontent.apps.753422497532-do0niac9h3cbsh65fjrp313qsurhii03</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>753422497532-58f1spdr5gfcj77h2jk4vhcu3q4anksn.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.arrows.ballonz</string>
+	<string>com.arrows.balloonz</string>
 	<key>PROJECT_ID</key>
 	<string>balloonzup-541cc</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:753422497532:ios:36dbd2d2ae48ea3149c979</string>
+	<string>1:753422497532:ios:6bee67f7fc8aab0949c979</string>
 	<key>DATABASE_URL</key>
 	<string>https://balloonzup-541cc-default-rtdb.firebaseio.com</string>
 </dict>

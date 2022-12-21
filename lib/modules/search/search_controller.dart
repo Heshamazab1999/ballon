@@ -3,11 +3,14 @@ import 'package:arrows/modules/search/search_services.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../home/models/ProductModel.dart';
+
 class SearchController extends GetxController {
   final services = SearchService();
 
   final loading = false.obs;
   final searchList = <SearchList>[].obs;
+  // final searchListProductData = <ProductData>[].obs;
   final pageNumber = 0.obs;
   final search = ''.obs;
   final RefreshController refreshController = RefreshController();
@@ -38,7 +41,7 @@ class SearchController extends GetxController {
         await services.searchProduct(search.value, pageNumber.value);
     if (data!.data != null) {
       searchList.assignAll(await data.data ?? []);
-      loading.value = false;
+       loading.value = false;
     } else if (data.data == null) {
       loading.value = false;
       searchList.clear();
