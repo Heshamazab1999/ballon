@@ -110,7 +110,7 @@ final isFramedValue=false.obs;
   }
 
 
-  Future<void> addOrderToFirebase()
+  Future<void> addOrderToFirebase(selectedPrice )
   async {
 
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
@@ -118,7 +118,8 @@ final isFramedValue=false.obs;
 
     (cartController.discountCodeTextController.text.isNotEmpty&&cartController.discountResponse.data == null )?
     cartController.discountResponse.data!.value= int.tryParse(cartController.discountValue.value.toString()) :0.0;
-    var x=CacheHelper.getDataToSharedPrefrence('dropDownValuePrice');
+    var x=selectedPrice;
+    // var x=CacheHelper.getDataToSharedPrefrence('dropDownValuePrice');
 
 
 
@@ -155,8 +156,8 @@ final isFramedValue=false.obs;
                   .fees.value!.feesValue
                   .toString()) /
                   100)
-                  : 0.0)) -
-          cartController.discountValue.value)
+                  : 0.0)) -   cartController.discountValue.value
+      )
           .toStringAsFixed(2)):((cartController.totalPrice.value +
           (showPickUpBranches.value == false ?
           (num.parse(x)) : 0.0) +
@@ -165,13 +166,17 @@ final isFramedValue=false.obs;
                   'null'
                   ? (double.parse(cartController
                   .fees.value!.feesValue
-                  .toString()) /
-                  100)
-                  : 0.0)) -
-          cartController.discountValue.value)
-          .toStringAsFixed(2))
+                  .toString()) / 100)
+                  : 0.0))
+          // - cartController.discountValue.value  )//errorrrr
+          // .toStringAsFixed(2))
+          - cartController.discountValue.value  != 'null'? cartController.discountValue.value:
+      cartController.discountResponse.data!.value != null? cartController.discountResponse.data!.value:
+          0.0
+      )!.toStringAsFixed(2))
 
-        ..delivery = CacheHelper.getDataToSharedPrefrence('dropDownValuePrice')
+        ..delivery = x
+        // ..delivery = CacheHelper.getDataToSharedPrefrence('dropDownValuePrice')
       ..discount =(cartController.discountCodeTextController.text != 'null' &&
           cartController.discountCodeTextController.text != null && cartController.discountCodeTextController.text.isNotEmpty)
           ?  cartController.discountResponse.data!.value.toString():' '

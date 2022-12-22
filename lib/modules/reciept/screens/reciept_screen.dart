@@ -66,8 +66,7 @@ class ReceiptScreen extends StatelessWidget {
                   margin: EdgeInsets.only(top: 10.h, right: 10.w, left: 10.w),
                   decoration: BoxDecoration(
                       color: Colors.white70,
-                      // color: Colors.blueAccent.withOpacity(.8),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       border: Border.all(
                         color: Colors.blueAccent.withOpacity(.8),
                         width: 3,
@@ -156,7 +155,7 @@ class ReceiptScreen extends StatelessWidget {
                                     GetBuilder<CartController>(
                                         builder: (cartController) {
                                       return Text(
-                                        '${cartController.discountResponse.data == null ? 0 : cartController.discountValue.value.toString()} -  ',
+                                        '${cartController.discountResponse.data == null ? 0 : cartController.discountValue.value.toStringAsFixed(2)} -  ',
                                         style: TextStyle(
                                             fontSize: 20.sp, color: Colors.red),
                                       );
@@ -236,10 +235,7 @@ class ReceiptScreen extends StatelessWidget {
                                         color: kPrimaryColor),
                           )
                                         : Text(
-                                            '${selectedAreaPrice} + ',
-                                            // '${(whereToController.selectedAreaPrice)} + ',
-                                            // '${( whereToController.selectedAreaPrice)} + ',
-                                            style: TextStyle(
+                                            '${selectedAreaPrice} + ',   style: TextStyle(
                                                 fontSize: 20.sp,
                                                 color: Colors.green),
                                           ),
@@ -475,7 +471,7 @@ class ReceiptScreen extends StatelessWidget {
                             colorText: mainColor);
                       }
                        whereToController
-                          .addOrderToFirebase()
+                          .addOrderToFirebase( selectedAreaPrice)
                           .then((value) async {
                         print(
                             '(((((((((((${cartController.totalPoints})))))))))))');
@@ -641,7 +637,9 @@ class ReceiptScreen extends StatelessWidget {
                               duration: Duration(seconds: 2),
                               dismissDirection: DismissDirection.startToEnd,
                               barBlur: 10,
-                              colorText: mainColor);
+                              colorText: Colors.white);
+                            cartController.discountCodeTextController.clear();
+
                         }
 
                         cartController.update();
