@@ -364,6 +364,7 @@ class ReceiptScreen extends StatelessWidget {
                                            .value = value as int;
                                        cartController.wallet==true;
                                        cartController.wallet=true;
+                                       whereToController.paymentReferenceId='Wallet';
                                        print('the wallet is ${cartController.wallet}');
                                       }
 

@@ -1286,7 +1286,7 @@ class _CartScreenState extends State<CartScreen> {
                                                   .toStringAsFixed(2),
                                               style: TextStyle(
                                                   fontSize: 25.sp,
-                                                  color: Colors.red,
+                                                  color: Colors.red.shade800,
                                                   fontWeight:
                                                   FontWeight
                                                       .bold));

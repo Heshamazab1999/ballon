@@ -82,6 +82,7 @@ class ChatScreen extends StatelessWidget {
              'assets/images/ic_empty.png',
              height: 500.h,
              width: double.infinity,
+
            ),
            Center(
                child: Text(

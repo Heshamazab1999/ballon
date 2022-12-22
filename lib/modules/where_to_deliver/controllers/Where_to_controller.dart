@@ -193,6 +193,7 @@ final isFramedValue=false.obs;
           (cartController.totalPrice.value / (((cartController.fees.value!.tax != 'null' ? (double.parse(cartController.fees.value!.tax.toString())) : 0.0) / 100) + 1)))
           .toStringAsFixed(2): '0.0'
 
+      // ..referenceId = selectedPaymentType ??"cash"
       ..referenceId = paymentReferenceId ??"cash"
       ..message = cartController.messageTextController.text
        ..listOfProduct = cartController.cartItemList2??[];

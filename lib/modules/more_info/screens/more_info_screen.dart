@@ -796,8 +796,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                         builder: (controller) {
                           return Positioned(
                             child: new Container(
-                              height: Get.height / 4.5.h,
-                              color: kPrimaryColor,
+                              height: Get.height / 4.7.h,
+                              color: Colors.white,
                               child: Stack(
                                 children: [
                                   Positioned(
@@ -821,14 +821,16 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                 Text(
                                                   'balance'.tr,
                                                   style: TextStyle(
-                                                      fontSize: 14.sp),
+                                                      fontSize: 18.sp, color: Colors.white),
                                                 ),
                                                 cartController.balance != null
                                                     ? Text(
                                                         '${cartController.balance.toStringAsFixed(2)}',
                                                         style: TextStyle(
                                                             height: 2,
-                                                            fontSize: 14.sp),
+                                                            fontSize: 18.sp,
+                                                            fontWeight: FontWeight.bold,
+                                                            color: Colors.white),
                                                       )
                                                     : Text('0'),
                                               ],
@@ -847,14 +849,17 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                 Text(
                                                   'your_points'.tr,
                                                   style: TextStyle(
-                                                      fontSize: 14.sp),
+                                                      fontSize: 18.sp,
+                                                  color: Colors.white),
                                                 ),
                                                 cartController.balance != null
                                                     ? Text(
                                                         '${cartController.totalPoints}',
                                                         style: TextStyle(
+                                                            fontWeight: FontWeight.bold,
+
                                                             height: 2,
-                                                            fontSize: 14.sp))
+                                                            fontSize: 18.sp, color: Colors.white))
                                                     : Text('0'),
                                               ],
                                             )),
@@ -867,7 +872,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                           mainAxisSize: MainAxisSize.max,
                                           children: <Widget>[
                                             CircleAvatar(
-                                              backgroundColor: mainColor,
+                                              backgroundColor: Colors.pinkAccent.shade100
+                                                  .withOpacity(.7),
+
                                               radius: 20.w,
                                               child: IconButton(
                                                 onPressed: () {
@@ -876,12 +883,13 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                 icon: ImageIcon(
                                                   AssetImage(
                                                       "assets/icons/gift.png"),
-                                                  color: kPrimaryColor,
+                                                 color:     Colors.white,
                                                 ),
                                               ),
                                             ),
                                             CircleAvatar(
-                                              backgroundColor: mainColor,
+                                              backgroundColor:  Colors.pinkAccent.shade100
+                                                  .withOpacity(.7),
                                               radius: 20.w,
                                               child: IconButton(
                                                   onPressed: () {
@@ -890,7 +898,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   icon: Icon(
                                                     Icons.chat,
                                                     size: 20.sp,
-                                                    color: kPrimaryColor,
+                                                    color:   Colors.white,
                                                   )),
                                             ),
                                           ],
@@ -909,9 +917,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                             '*******${FirebaseAuth.instance.currentUser!.phoneNumber}');
                                       },
                                       child: CircleAvatar(
-                                        backgroundColor: kSecondaryColor,
+                                        backgroundColor:   Colors.white,
                                         backgroundImage: AssetImage(
-                                            'assets/images/point.png'),
+                                            'assets/images/point.png',),
                                         radius: 45.r,
                                       ),
                                     ),
