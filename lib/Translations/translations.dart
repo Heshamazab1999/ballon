@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 
 class Languages extends Translations {
   @override
-  Map<String, Map<String, String>> get keys => {
+  Map<String, Map<String, String>> get keys =>
+      {
         // Arabic Strings...
         'ar': {
           'home': 'الرئيسية',
@@ -19,9 +20,9 @@ class Languages extends Translations {
           'search': 'البحث',
           'price': 'السعر',
           'price_coin': 'جنيها',
-          'product_name':'الأسم',
+          'product_name': 'الأسم',
           'pick_size': 'اختار الحجم',
-           'ingredients': 'المكونات',
+          'ingredients': 'المكونات',
           'extras': 'الإضافات',
           'drinks': 'المشروبات',
           'general_extras': 'إضافات عامة',
@@ -47,7 +48,7 @@ class Languages extends Translations {
           'barcodes': 'باركود',
 
           'checkOut_onOrder_title':
-              'للمتابعة يرجي تأكيد تفاصيل التسليم الخاصه بك',
+          'للمتابعة يرجي تأكيد تفاصيل التسليم الخاصه بك',
           'receive_from': 'الإستلام من الفرع',
           'deliver_to': 'التوصيل إلي العنوان',
           'specify_address': 'حدد تفاصيل العنوان',
@@ -102,8 +103,8 @@ class Languages extends Translations {
           'no_additional_for_this_item': 'لا يوجد اضافات اخري لهذا المنتج',
           'no_drinks_for_this_item': 'لا يوجد مشروبات لهذا المنتج',
           'yes': 'نعم',
-           'no': 'لا',
-         'check':'ادخل الكود',
+          'no': 'لا',
+          'check': 'ادخل الكود',
           'cash_payment': 'الدفع عند الاستلام',
           'credit_card_payment': 'الدفع عن طريق الفيزا',
           'wallet_balance': 'رصيد المحفظة',
@@ -117,41 +118,38 @@ class Languages extends Translations {
           'sorry': 'عفوا',
           'you_can\'t_order_less_than_one': 'لا يمكنك أن تطلب أقل من واحد ',
           'there_is_no_sufficient_quantity': 'لا توجد كميه كافيه',
-          'your_order_sent_successfully':'تم إرسال طلبك بنجاح',
-          'you_should_select_a_type':'يجب عليك اختيار النوع',
-          'you_should_select_a_drink':'يجب عليك اختيار مشروب',
-          'facebook':'فيس بوك',
-          'user_name':'اسم المستخدم',
-          'instagram':'إنستجرام',
-          'arabic':'عربي',
+          'your_order_sent_successfully': 'تم إرسال طلبك بنجاح',
+          'you_should_select_a_type': 'يجب عليك اختيار النوع',
+          'you_should_select_a_drink': 'يجب عليك اختيار مشروب',
+          'facebook': 'فيس بوك',
+          'user_name': 'اسم المستخدم',
+          'instagram': 'إنستجرام',
+          'arabic': 'عربي',
           'you_should_select_some_sauces': 'يجب عليك اختيار بعض الصلصات',
           'you_should_selectـonlyـ4ـtypes': 'يجب عليك اختيار 4 أنواع من الصلصات فقط',
-          'messages':'الرسائل',
-          'orders':'الطلبات',
+          'messages': 'الرسائل',
+          'orders': 'الطلبات',
           'sorry': 'عفوا',
-          'send_feedback':'ارسل رأيك',
-          'balance':'الرصيد',
-          'your_points':'عدد النقاط',
-          'one_item_added_successfully':'تم اضافه الطلب الي السله ',
-          'write_a_note':'اكتب ملاحظه ....',
-          'user_barcode_inserted_successfully':'تم إدخال الرمز الشريطي للمستخدم بنجاحا',
-          'please_enter_your_user_name':'الرجاء إدخال اسم المستخدم ',
-          'the_discount_is_bigger_than_the_total_price':"الخصم أكبر من السعر الإجمالي",
-          'the_coupon_is_already_used':'هذه القسيمة مستخدمة بالفعل',
-          'you_should_select_a_payment_method':"يجب عليك تحديد طريقة الدفع",
-          'You_cannot_pay_by_wallet_currently':"لا يمكنك الدفع بواسطه المحفظة حاليا",
-          'receipt' :'الفاتوره',
-
-
-
-
-
-
-
+          'send_feedback': 'ارسل رأيك',
+          'balance': 'الرصيد',
+          'your_points': 'عدد النقاط',
+          'one_item_added_successfully': 'تم اضافه الطلب الي السله ',
+          'write_a_note': 'اكتب ملاحظه ....',
+          'user_barcode_inserted_successfully': 'تم إدخال الرمز الشريطي للمستخدم بنجاحا',
+          'please_enter_your_user_name': 'الرجاء إدخال اسم المستخدم ',
+          'the_discount_is_bigger_than_the_total_price': "الخصم أكبر من السعر الإجمالي",
+          'the_coupon_is_already_used': 'هذه القسيمة مستخدمة بالفعل',
+          'you_should_select_a_payment_method': "يجب عليك تحديد طريقة الدفع",
+          'You_cannot_pay_by_wallet_currently': "لا يمكنك الدفع بواسطه المحفظة حاليا",
+          'receipt': 'الفاتوره',
+          "category": "الفئات",
+          "more": "عرض المزيد"
         },
 
         // English Strings...
         'en': {
+          "category": "category",
+          "more": "more",
           'home': 'Home',
           'menu': 'Menu',
           'cart': 'Cart',
@@ -182,7 +180,7 @@ class Languages extends Translations {
           'added_to_cart': 'Added To Your Cart',
           'total': 'Total',
           'search': 'Search',
-          'description':'Description',
+          'description': 'Description',
 
           'user_name': 'User Name',
           'with_tax': 'Taxes Included',
@@ -213,7 +211,7 @@ class Languages extends Translations {
           'service_fee': 'Service Fee',
           'total_sum': 'Total Sum',
           'done': 'Done',
-          'receipt' :'Receipt',
+          'receipt': 'Receipt',
           'area_number': 'Area Number',
           'voucher_code': 'Enter Voucher Code',
           'leave_a_comment': 'Leave A Comment . . .',
@@ -259,32 +257,32 @@ class Languages extends Translations {
           'wallet_balance': 'Wallet Balance',
           'not_enough': 'Not Enough',
           'no_connection': 'no_connection',
-          'check':'Check',
-          'your_order_sent_successfully':'Your request has been sent successfully',
-          'facebook':'Facebook',
-          'instagram':'Instagram',
-          'arabic':'Arabic',
-          'you_should_select_a_type':'you should select a Type',
+          'check': 'Check',
+          'your_order_sent_successfully': 'Your request has been sent successfully',
+          'facebook': 'Facebook',
+          'instagram': 'Instagram',
+          'arabic': 'Arabic',
+          'you_should_select_a_type': 'you should select a Type',
           'you_should_select_a_drink': 'you should select a Drink',
           'you_should_select_some_sauces': 'You must choose some sauces',
           'you_should_selectـonlyـ4ـtypes': 'You should select only 4 types',
-          'product_name':'Item Name',
-          'messages':'Messages',
-          'balance':'Balance',
-          'orders':'Orders',
-          'send_feedback':'Send Feedback',
+          'product_name': 'Item Name',
+          'messages': 'Messages',
+          'balance': 'Balance',
+          'orders': 'Orders',
+          'send_feedback': 'Send Feedback',
           'enter_barcode': 'Enter Your Code',
           'use_barcode': 'Use Barcode',
-          'your_points':'Your points',
-          'write_a_note':'Write a Note ...',
-          'one_item_added_successfully':'One item added successfully ',
-          'please_enter_your_user_name':'Please enter User Name',
-          'the_coupon_is_already_used':'This coupon is already used',
-          'the_discount_is_bigger_than_the_total_price':"The discount is greater than the total price",
-          'you_should_select_a_payment_method':"You should select a payment method",
-          'You_cannot_pay_by_wallet_currently':"You cannot pay by wallet currently",
-          'user_barcode_inserted_successfully':'User Barcode Inserted Successfully',
+          'your_points': 'Your points',
+          'write_a_note': 'Write a Note ...',
+          'one_item_added_successfully': 'One item added successfully ',
+          'please_enter_your_user_name': 'Please enter User Name',
+          'the_coupon_is_already_used': 'This coupon is already used',
+          'the_discount_is_bigger_than_the_total_price': "The discount is greater than the total price",
+          'you_should_select_a_payment_method': "You should select a payment method",
+          'You_cannot_pay_by_wallet_currently': "You cannot pay by wallet currently",
+          'user_barcode_inserted_successfully': 'User Barcode Inserted Successfully'
 
-        }
-      };
+
+        }};
 }

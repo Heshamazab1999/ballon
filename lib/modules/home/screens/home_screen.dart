@@ -91,14 +91,14 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'الفئات'.tr,
+                          'category'.tr,
                           style: TextStyle(
                               color: kPrimaryColor,
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'عرض المزيد'.tr,
+                          'more'.tr,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 18.sp,
