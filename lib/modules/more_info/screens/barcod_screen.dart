@@ -81,7 +81,7 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
                           print(CacheHelper.loginShared!.phone);
                           showModalBottomSheet<void>(
                             barrierColor: kPrimaryColor.withOpacity(.49),
-                            backgroundColor: mainColor,
+                            backgroundColor: Colors.white,
                             isScrollControlled: false,
                             context: context,
                             builder: (BuildContext context) {
@@ -292,11 +292,11 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
           passwordVisible, VoidCallback onPressed) =>
       InputDecoration(
         hintText: 'enter_barcode'.tr,
-             labelStyle: TextStyle(color: kPrimaryColor),
+             labelStyle: TextStyle(color: Colors.white),
              isDense: true,
              // Added this
              contentPadding: EdgeInsets.all(13.w),
-             hintStyle: TextStyle(color: kPrimaryColor),
+             hintStyle: TextStyle(color: Colors.white),
              border: OutlineInputBorder(
                borderSide: BorderSide(
 

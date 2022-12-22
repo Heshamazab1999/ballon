@@ -105,7 +105,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                           Stack(
                                             children: [
                                               Container(
-                                                decoration: BoxDecoration(color: Colors.white, borderRadius: translateName ? BorderRadius.only(bottomRight: Radius.circular(15)) : BorderRadius.only(bottomLeft: Radius.circular(15))),
+                                                decoration: BoxDecoration(color: Colors.white, borderRadius: translateName ?
+                                                BorderRadius.only(bottomRight: Radius.circular(15)) : BorderRadius.only(bottomLeft: Radius.circular(15))),
                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
                                                   CartIngrediantRow(
                                                       textKey: 'price'.tr,
@@ -121,19 +122,15 @@ class OrderDetailsScreen extends StatelessWidget {
                                                   ),
 
 
+
                                                   CartIngrediantRow(
-                                                    textKey: 'pick_size'.tr,
-                                                    widget: Text(
-                                                      '${"${order.listOfProduct![index].sizes}"}'.tr,
-                                                      style: TextStyle(fontSize: 12.sp),
-                                                    ),
-                                                  ),
-                                                  CartIngrediantRow(
-                                                    textKey: 'spices'.tr,
-                                                    widget: Text(
-                                                      '${"${order.listOfProduct![index].spices}".tr}'.tr,
-                                                      style: TextStyle(fontSize: 12.sp),
-                                                    ),
+                                                    textKey: 'quantity'.tr,
+                                                    widget:
+                                                        Text(
+                                                          "${order.listOfProduct![index].quantity}".tr,
+                                                          style: TextStyle(fontSize: 12.sp),
+                                                        ),
+
                                                   ),
 
                                                   Divider(
@@ -141,110 +138,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                                     height: 2,
                                                     color: Colors.grey,
                                                   ),
-                                                  order
-                                                      .listOfProduct![
-                                                  index]
-                                                      .components!
-                                                      .length!=null? CartIngrediantRow(
-                                                                               textKey: 'extras'.tr,
-                                                                               widget: SizedBox(
-                                                                                 height: 30.h,
-                                                                                 // width:
-                                                                                 // Get.width/1..w,
-                                                                                 // fontSize: 14,
-                                                                                 child: ListView.separated(
-                                                                                     separatorBuilder:
-                                                                                         (context,
-                                                                                             sepIndex) {
-                                                                                       return Text(" , ");
-                                                                                     },
-                                                                                     shrinkWrap: true,
-                                                                                     scrollDirection:
-                                                                                         Axis.horizontal,
-                                                                                     physics:
-                                                                                         NeverScrollableScrollPhysics(),
-                                                                                     itemCount: order
-                                                                                         .listOfProduct![
-                                                                                             index]
-                                                                                         .components!
-                                                                                         .length,
-                                                                                     itemBuilder: (context,
-                                                                                         contentIndex) {
-                                                                                       return SizedBox(
 
-                                                                                         child: Text('${order.listOfProduct![index].components![contentIndex].name.toString()}'.tr??
-                                                                                             "",style: TextStyle(fontSize: 10.sp),),
-                                                                                       );
-                                                                                     }),
-                                                                               ),
-                                                                             ):SizedBox(),
-                                                  Divider(
-                                                    thickness: .7,
-                                                    height: 2,
-                                                    color: Colors.grey,
-                                                  ),order.listOfProduct![index]
-                                                  .additional !=
-                                                  null
-                                                  ? CartIngrediantRow(
-                                                        textKey: 'general_extras'.tr,
-                                                                               widget:  SizedBox(
-                                                                                 height: 25.h,
-                                                                                 // width: ScreenUtil
-                                                                                 //     .defaultSize
-                                                                                 //     .width -
-                                                                                 //     300.w,
-                                                                                 child: ListView
-                                                                                     .separated(
-                                                                                     separatorBuilder:
-                                                                                         (context,
-                                                                                         sepIndex) {
-                                                                                       return Text(
-                                                                                           " , ");
-                                                                                     },
-                                                                                     shrinkWrap:
-                                                                                     true,
-                                                                                     scrollDirection:
-                                                                                     Axis
-                                                                                         .horizontal,
-                                                                                     physics:
-                                                                                     NeverScrollableScrollPhysics(),
-                                                                                     itemCount:
-                                                                                     order
-                                                                                         .listOfProduct![
-                                                                                     index]
-                                                                                         .additional!
-                                                                                         .length,
-                                                                                     itemBuilder:
-                                                                                         (context,
-                                                                                         contentIndex) {
-                                                                                       return SizedBox(
-                                                                                         child:
-                                                                                         Text(
-                                                                                           '${order.listOfProduct![index].additional![contentIndex].addition}'.tr ??
-                                                                                               "_",
-                                                                                           style: TextStyle(
-                                                                                               fontSize:
-                                                                                               12.sp),
-                                                                                           maxLines:
-                                                                                           2,
-                                                                                           overflow:
-                                                                                           TextOverflow.visible,
-                                                                                         ),
-                                                                                       );
-                                                                                     }),
-                                                                               )
-                                                                               )
-                                                                                   : SizedBox(),
-                                                                             // ),
-                                                 order.listOfProduct![index]
-                                                                                   .additional !=
-                                                                                   null
-                                                                                   ? Divider(
-                                                    thickness: .7,
-                                                    height: 2,
-                                                    color: Colors.grey,
-                                                  )
-                                                :SizedBox(),
 
                                                   CartIngrediantRow(
                                                     textKey: 'total'.tr,
@@ -261,15 +155,26 @@ class OrderDetailsScreen extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ),
-
                                                   Divider(
                                                     thickness: .7,
                                                     height: 2,
                                                     color: Colors.grey,
                                                   ),
 
+                                                  Directionality(textDirection:
+                                                  translateName?TextDirection.rtl:TextDirection.ltr,
+                                                    child: Container(  padding:EdgeInsets.only(top:10.h,bottom:10.h),
+                                                      child: (order.listOfProduct![index].message)!=''?
+                                                      Text(
+                                                        '${order.listOfProduct![index].message}'.tr,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),):
+                                                      Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
+                                                    ),
+                                                  ),
+
 
                                                 ]),
+
+
                                               ),
 
                                             ],
@@ -306,7 +211,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Container(    child: Text(
-                                          'No Massages'),
+                                          ' Massages'),
                                       ),
                                     ],
                                   ),
@@ -337,34 +242,34 @@ class OrderDetailsScreen extends StatelessWidget {
 
                           Text("${'total'.tr} : ",
                               style: TextStyle(
-                                  fontSize: 14.sp, fontWeight: FontWeight.bold)),
+                                  fontSize: 18.sp, fontWeight: FontWeight.bold)),
                           Text(order.totalPrice.toString(),
                               style: TextStyle(
                                   fontSize: 25.sp,
-                                  color: Colors.red,
+                                  color: Colors.red.shade700,
                                   fontWeight: FontWeight.bold))
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("${'user_name'.tr} :" ,style: TextStyle(fontSize: 14.sp),),
-                          Text('${order.client!.name.toString()}',style: TextStyle(fontSize: 14.sp),),
+                          Text("${'user_name'.tr} :" ,style: TextStyle(fontSize: 18.sp),),
+                          Text('${order.client!.name.toString()}',style: TextStyle(fontSize: 18.sp),),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${'user_phone'.tr} :',style: TextStyle(fontSize: 14.sp),),
-                          Text('${order.client!.phone.toString()}',style: TextStyle(fontSize: 14.sp),),
+                          Text('${'user_phone'.tr} :',style: TextStyle(fontSize: 18.sp),),
+                          Text('${order.client!.phone.toString()}',style: TextStyle(fontSize: 16.sp),),
                         ],
                       ),
                       order.address != null
                           ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('${'deliver_to'.tr} :',style: TextStyle(fontSize: 14.sp),),
-                                Text('${order.address!.address}',style: TextStyle(fontSize: 14.sp),),
+                                Text('${'deliver_to'.tr} :',style: TextStyle(fontSize: 18.sp),),
+                                Text('${order.address!.address}',style: TextStyle(fontSize: 16.sp),),
                               ],
                             )
                           : Row(
@@ -392,24 +297,3 @@ class OrderDetailsScreen extends StatelessWidget {
   }
 }
 
-Widget getGeneralContentText(dynamic snapshot) {
-  List<Widget> contentAds = [];
-  if (snapshot.value['components'] != null) {
-    for (var gAdds in snapshot.value['components'] ?? []) {
-      // if (gAdds["need"] == true) {
-      contentAds.add(Text(
-        gAdds["name"],
-        style: TextStyle(fontSize: 12.sp),
-      ));
-      contentAds.add(Text(" ,"));
-      // }
-    }
-    return Container(
-      width: 170.w,
-      child: Wrap(
-        children: contentAds,
-      ),
-    );
-  }
-  return SizedBox();
-}

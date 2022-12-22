@@ -28,9 +28,11 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>Client</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>app-1-504906448092-ios-1cac284db0d8dbc6ed8819</string>
+			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>

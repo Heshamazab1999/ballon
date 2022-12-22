@@ -124,7 +124,7 @@ final isFramedValue=false.obs;
 
 
      PostedOrder.order
-      ..branch = branches.first.name
+      ..branch = CacheHelper.getDataToSharedPrefrence('restaurantBranchID')
       ..price = cartController.totalPrice.toString()
       ..totalPrice =(cartController.wallet)? (cartController.balance>=(cartController.totalPrice.value + (showPickUpBranches.value == false ?
           (num.parse(x)) : 0.0) + (cartController.totalPrice.value * (cartController.fees.value!.feesValue != 'null'

@@ -213,8 +213,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: 1,
-                                  // itemCount: whereToController.branches.toSet().length,
-                                  itemBuilder: (context, index) {
+                                   itemBuilder: (context, index) {
                                     if (whereToController.branches.length ==
                                         1) {
                                       print("empty");
@@ -225,13 +224,17 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       } else {
                                         return InkWell(
                                           onTap: () {
-                                            MapUtils.openMap(
-                                                double.parse(whereToController
-                                                        .branches[index].lat ??
-                                                    ""),
-                                                double.parse(whereToController
-                                                        .branches[index].lng ??
-                                                    ""));
+                                            print(CacheHelper.getDataToSharedPrefrence('restaurantBranchLat'));
+                                            // MapUtils.openMap(
+                                            //
+                                            //     double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLat')??
+                                            //         ""),
+                                            //     double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLng')??
+                                            //         ""),
+                                            //     // double.parse(whereToController
+                                            //     //         .branches[index].lng ??
+                                            //     //     "")
+                                            // );
                                           },
                                           child: Stack(children: [
                                             Image.asset(
@@ -297,23 +300,38 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       //     return const SizedBox();
                                       //   }
                                       else {
-                                        return InkWell(
+                                        return   Theme(
+                                            data: ThemeData(
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                            ),
+                                            child: InkWell(
                                           onTap: () {
 
+                                            // MapUtils.openMap(
+                                            //     double.parse(whereToController
+                                            //             .branches[index].lat ??
+                                            //         ""),
+                                            //     double.parse(whereToController
+                                            //             .branches[index].lng ??
+                                            //         ""));
                                             MapUtils.openMap(
-                                                double.parse(whereToController
-                                                        .branches[index].lat ??
-                                                    ""),
-                                                double.parse(whereToController
-                                                        .branches[index].lng ??
-                                                    ""));
+                                                //
+                                                    double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLat')??
+                                                        ""),
+                                                    double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLng')??
+                                                        ""),);
                                           },
                                           child: Stack(children: [
+
                                             Image.asset(
                                               'assets/images/cloud.png',
                                               height: Get.height / 10.h,
                                               width: Get.width,
                                               fit: BoxFit.fill,
+
+
+
                                             ),
                                             Positioned(
                                               // left: 22.w,
@@ -348,8 +366,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                         SizedBox(
                                                           height: 10.h,
                                                         ),
-                                                        Text('${whereToController.branches.first.name}'),
-                                                          Text('Address'),
+                                                          Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchID')}'),
+                                                        mainBranchesController.selectedValue=='ar'?
+                                                        Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddressAr')}'):
+                                                        Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddressEn')}'),
+
 
                                                       ],
                                                     ),
@@ -357,7 +378,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                 ],
                                               ),
                                             ),
-                                          ]),
+                                          ]),)
                                         );
                                       }
                                     });
@@ -393,7 +414,12 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                       .restaurantPhoneNumbers[
                                                   index] !=
                                               'null')
-                                          ? Padding(
+                                          ?   Theme(
+                                          data: ThemeData(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                          ),
+                                          child: Padding(
                                               padding: EdgeInsets.all(8.0.sp),
                                               child: InkWell(
                                                 onTap: () {
@@ -403,7 +429,12 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                               index]
                                                           .toString());
                                                 },
-                                                child: Stack(children: [
+                                                child:    Theme(
+                                                  data: ThemeData(
+                                                    splashColor: Colors.transparent,
+                                                    highlightColor: Colors.transparent,
+                                                  ),
+                                                  child:Stack(children: [
                                                   Image.asset(
                                                     'assets/images/cloud.png',
                                                     height: 50.h,
@@ -438,6 +469,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   ),
                                                 ]),
                                               ),
+                                              ),
+                                            )
                                             )
                                           : const SizedBox();
                                     });
@@ -449,7 +482,12 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Padding(
+                          Theme(
+                          data: ThemeData(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          ),
+                          child:  Padding(
                                 padding: EdgeInsets.all(8.0.sp),
                                 child: InkWell(
                                   onTap: () {
@@ -490,8 +528,14 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     ],
                                   ),
                                 ),
+                                ),
                               ),
-                              Padding(
+                                Theme(
+                                data: ThemeData(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          ),
+                          child: Padding(
                                 padding: EdgeInsets.all(8.0.sp),
                                 child: InkWell(
                                   onTap: () {
@@ -499,7 +543,12 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                         .restaurantMoreInfo!.instagram
                                         .toString());
                                   },
-                                  child: Stack(
+                                  child:   Theme(
+                          data: ThemeData(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          ),
+                          child:Stack(
                                     children: [
                                       Image.asset(
                                         'assets/images/cloud.png',
@@ -530,11 +579,19 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                           ],
                                         ),
                                       ),
-                                    ],
+                                     ],
                                   ),
                                 ),
+                                ),
+                                ),
                               ),
-                              Padding(
+
+                          Theme(
+                          data: ThemeData(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          ),
+                          child:  Padding(
                                 padding: EdgeInsets.all(8.0.sp),
                                 child: InkWell(
                                   onTap: () {
@@ -573,6 +630,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     ],
                                   ),
                                 ),
+                              ),
                               ),
                               /***********************v***/
                               SizedBox(

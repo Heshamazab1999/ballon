@@ -32,6 +32,8 @@ Future _mapFuture = Future.delayed(Duration(milliseconds: 250), () => true);
 class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
   final WhereToController whereToController = Get.put(WhereToController());
   Set<Marker> markers = {};
+  final translateName =
+  CacheHelper.getDataToSharedPrefrence("localeIsArabic");
 
   @override
   Widget build(BuildContext context) {
@@ -166,74 +168,95 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.all(8.0.sp),
-                                          child: Row(
+                                          child:  Row(
                                             children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  MapUtils.openMap(
-                                                      double.parse(CacheHelper
-                                                              .getDataToSharedPrefrence(
-                                                                  'restaurantBranchLat') ??
-                                                          ""),
-                                                      double.parse(CacheHelper
-                                                              .getDataToSharedPrefrence(
-                                                                  'restaurantBranchLng') ??
-                                                          ""));
-                                                },
-                                                child: Icon(
-                                                  Icons.location_on_sharp,
-                                                  size: 25.r,
-                                                  color: Colors.white,
+                                              SizedBox(
+                                                width: 20.w,
+                                              ),
+                                              Icon(
+                                                Icons.location_on_sharp,
+                                                size: 30.r,
+                                                color: mainColor,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              SizedBox(
+                                                width: ScreenUtil
+                                                    .defaultSize.width -
+                                                    100.w,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    // SizedBox(
+                                                    //   height: 10.h,
+                                                    // ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${'your_address'.tr}  :  ',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 20.sp,
+                                                          color: Colors.white),
+                                                    ),  Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchID')}', style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 20.sp,
+                                                        color: Colors.white),),]),
+                                                    translateName?
+                                                    Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddressAr')}', style: TextStyle(
+                                                        fontSize: 20.sp,
+                                                        color: Colors.white),):
+                                                    Text('${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddressEn')}', style: TextStyle(
+                                                        fontSize: 20.sp,
+                                                        color: Colors.white),),
+
+
+                                                  ],
                                                 ),
                                               ),
-                                              Text(
-                                                '${'branch'.tr}  :  ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20.sp,
-                                                    color: Colors.white),
-                                              ),
-                                              Text(
-                                                '${CacheHelper.getDataToSharedPrefrence('restaurantBranchName')}',
-                                                // '${whereToController.branches.first.name}',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20.sp,
-                                                    color: Colors.white),
-                                              ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: 8.0.h,
-                                              left: 8.w,
-                                              right: 8.w),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '${'your_address'.tr}  :  ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20.sp,
-                                                    color: Colors.white),
-                                              ),
-                                              Container(
-                                                  // color: Colors.green,
-                                                  width: Get.width / 2.w,
-                                                  child: Text(
-                                                    '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}',
-                                                    style: TextStyle(
-                                                        fontSize: 20.sp,
-                                                        color: Colors.white),
-                                                  )),
-                                            ],
-                                          ),
-                                        ),
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(
+                                        //       bottom: 8.0.h,
+                                        //       left: 8.w,
+                                        //       right: 8.w),
+                                        //   child: Row(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.start,
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.start,
+                                        //     children: [
+                                        //       Text(
+                                        //         '${'your_address'.tr}  :  ',
+                                        //         style: TextStyle(
+                                        //             fontWeight: FontWeight.bold,
+                                        //             fontSize: 20.sp,
+                                        //             color: Colors.white),
+                                        //       ),
+                                        //       Container(
+                                        //           // color: Colors.green,
+                                        //           width: Get.width / 2.w,
+                                        //           child: Text(
+                                        //             '${CacheHelper.getDataToSharedPrefrence('restaurantBranchAddress')}',
+                                        //             style: TextStyle(
+                                        //                 fontSize: 20.sp,
+                                        //                 color: Colors.white),
+                                        //           )),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                             ),
