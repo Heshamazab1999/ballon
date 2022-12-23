@@ -199,7 +199,9 @@ class BottomNavBarScreen extends StatelessWidget {
                 Obx(() => Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          Get.put(HomeController());
                           bottomNavBarController.changeTabIndex(2);
+
                         },
                         child: Container(
                           width: 80.w,

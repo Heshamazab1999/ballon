@@ -141,6 +141,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
             icon: Icon(Icons.settings, color: mainColor),
             // on selected we show the dialog box
             onSelected: (value) async {
+              Get.delete<HomeController>();
+
               // if value 1 show dialog
               if (Get.locale!.languageCode == "ar") {
                 mainBranchesController.switchFunc('en');
@@ -157,7 +159,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                 await CacheHelper.saveDataToSharedPrefrence("localeIsArabic", true);
 
               }
-              Get.put(HomeController());
 
             },
           )),

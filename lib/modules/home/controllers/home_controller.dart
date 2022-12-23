@@ -27,8 +27,6 @@ class HomeController extends GetxController {
     print(homeAdsImages);
   }
 
-
-
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -37,5 +35,12 @@ class HomeController extends GetxController {
     homeAdsImages;
     category = await services.getSubCategory();
     isLoading.value = false;
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    Get.delete<HomeController>();
   }
 }
