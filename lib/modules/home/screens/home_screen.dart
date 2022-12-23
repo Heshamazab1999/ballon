@@ -16,10 +16,11 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({
     Key? key,
   }) : super(key: key);
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
+    // final homeController = Get.put(HomeController());
     //
     // final bottomNavBarController = Get.put(BottomNavBarController());
     // PageController pageController = PageController(initialPage: 0);
@@ -109,7 +110,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.all(8.w),
-                      child: GridView.builder(
+                      child:Obx(() => homeController.isLoading.value
+                          ? Center(child: CircularProgressIndicator())
+                          : GridView.builder(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           gridDelegate:
@@ -166,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ],
                             );
-                          })),
+                          }))),
                 ],
               ),
       )),

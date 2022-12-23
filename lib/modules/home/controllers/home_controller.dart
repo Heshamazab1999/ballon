@@ -32,11 +32,10 @@ class HomeController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-
     isLoading.value = true;
     await getHomeAd();
-    category = (await services.getSubCategory());
     homeAdsImages;
+    category = await services.getSubCategory();
     isLoading.value = false;
   }
 }
