@@ -1,5 +1,6 @@
 import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/home/controllers/home_controller.dart';
+import 'package:arrows/modules/main_category/screens/main_categories_screen.dart';
 import 'package:arrows/modules/sub_categories/screens/sub_categories_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,6 +12,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../components/arrows_app_bar.dart';
+import '../../../helpers/shared_prefrences.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -20,9 +22,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.put(HomeController());
-    //
-    // final bottomNavBarController = Get.put(BottomNavBarController());
-    // PageController pageController = PageController(initialPage: 0);
+    final translateName =
+    CacheHelper.getDataToSharedPrefrence("localeIsArabic");
 
     return Scaffold(
       appBar: ArrowsAppBar(
@@ -97,12 +98,16 @@ class HomeScreen extends StatelessWidget {
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'more'.tr,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold),
+                        InkWell(
+                          child: Text(
+                            'more'.tr,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold),
+                          ),onTap: (){
+                            Get.to(MainCategoryScreen());
+                        },
                         ),
                       ],
                     ),
@@ -134,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                                             id: homeController
                                                 .category!.data![index].id,
                                             title: homeController
-                                                .category!.data![index].name!,
+                                                .category!.data![index].name!.tr,
                                           ));
                                     },
                                     child: ClipRRect(
@@ -158,8 +163,8 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  homeController.category!.data![index].name!,
+                                Text('${homeController.category!.data![index].name}'.tr
+                                  ,
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700),

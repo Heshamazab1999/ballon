@@ -104,7 +104,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                       padding:
                                           const EdgeInsets.only(bottom: 18.0),
                                       child: Directionality(
-                                          textDirection: translateName
+                                           textDirection: translateName
                                               ? TextDirection.rtl
                                               : TextDirection.ltr,
                                           child: Card(

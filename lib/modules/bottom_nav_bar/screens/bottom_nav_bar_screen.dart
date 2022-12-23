@@ -24,8 +24,7 @@ class BottomNavBarScreen extends StatelessWidget {
 
     final List _bodyScreens = [
       NewSubCategoryScreen(),
-      // MainCategoryScreen(),
-      OrderHistoryScreen(),
+       OrderHistoryScreen(),
       HomeScreen(),
       CartScreen(),
       MoreInfoScreen(),
