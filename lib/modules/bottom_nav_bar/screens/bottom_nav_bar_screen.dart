@@ -2,6 +2,7 @@ import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/bottom_nav_bar/controllers/bottom_nav_bar_controller.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
 import 'package:arrows/modules/cart/screens/cart_screen.dart';
+import 'package:arrows/modules/home/controllers/home_controller.dart';
 import 'package:arrows/modules/home/screens/home_screen.dart';
 import 'package:arrows/modules/more_info/screens/more_info_screen.dart';
 import 'package:arrows/modules/order_history/screens/order_history_screen.dart';
@@ -16,11 +17,14 @@ import '../../Items Screen/new_sub_category_screen.dart';
 
 class BottomNavBarScreen extends StatelessWidget {
   BottomNavBarScreen({Key? key}) : super(key: key);
+  final bottomNavBarController = Get.put(BottomNavBarController());
 
   @override
   Widget build(BuildContext context) {
-    final bottomNavBarController = Get.put(BottomNavBarController());
+    // final bottomNavBarController = Get.put(BottomNavBarController());
     final  cartController = Get.put(CartController());
+    final connection = Get.put(ConnectionStatusSingleton());
+    final homeController = Get.put(HomeController());
 
     final List _bodyScreens = [
       NewSubCategoryScreen(),
@@ -38,12 +42,11 @@ class BottomNavBarScreen extends StatelessWidget {
       '${k.restName}'.tr
     ].obs;
 
-    final connection = Get.put(ConnectionStatusSingleton());
     return Scaffold(
         backgroundColor: Colors.white,
         key: bottomNavBarController.scaffoldKey,
         body: Obx(() => connection.connectivity.value == 1
-            ? _bodyScreens[bottomNavBarController.currentIndex.value]
+            ? _bodyScreens.elementAt(bottomNavBarController.currentIndex.value)
             : Scaffold(
                 body: Center(
                     child: Column(
@@ -64,7 +67,8 @@ class BottomNavBarScreen extends StatelessWidget {
                   ),
                 ],
               )))),
-        bottomNavigationBar: Material(
+        bottomNavigationBar:
+        Material(
           elevation: 2,
           child: Container(
             padding: EdgeInsets.only(bottom: 5.h),
@@ -194,7 +198,9 @@ class BottomNavBarScreen extends StatelessWidget {
                 Obx(() => Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          Get.put(HomeController());
                           bottomNavBarController.changeTabIndex(2);
+
                         },
                         child: Container(
                           width: 80.w,

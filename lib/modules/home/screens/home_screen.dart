@@ -1,6 +1,5 @@
 import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/home/controllers/home_controller.dart';
-import 'package:arrows/modules/main_category/screens/main_categories_screen.dart';
 import 'package:arrows/modules/sub_categories/screens/sub_categories_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,18 +11,19 @@ import 'package:octo_image/octo_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../components/arrows_app_bar.dart';
-import '../../../helpers/shared_prefrences.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     Key? key,
   }) : super(key: key);
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
-    final translateName =
-    CacheHelper.getDataToSharedPrefrence("localeIsArabic");
+    // final homeController = Get.put(HomeController());
+    //
+    // final bottomNavBarController = Get.put(BottomNavBarController());
+    // PageController pageController = PageController(initialPage: 0);
 
     return Scaffold(
       appBar: ArrowsAppBar(
@@ -98,23 +98,21 @@ class HomeScreen extends StatelessWidget {
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold),
                         ),
-                        InkWell(
-                          child: Text(
-                            'more'.tr,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold),
-                          ),onTap: (){
-                            Get.to(MainCategoryScreen());
-                        },
+                        Text(
+                          'more'.tr,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                   ),
                   Padding(
                       padding: EdgeInsets.all(8.w),
-                      child: GridView.builder(
+                      child:Obx(() => homeController.isLoading.value
+                          ? Center(child: CircularProgressIndicator())
+                          : GridView.builder(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           gridDelegate:
@@ -139,7 +137,7 @@ class HomeScreen extends StatelessWidget {
                                             id: homeController
                                                 .category!.data![index].id,
                                             title: homeController
-                                                .category!.data![index].name!.tr,
+                                                .category!.data![index].name!,
                                           ));
                                     },
                                     child: ClipRRect(
@@ -163,15 +161,15 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text('${homeController.category!.data![index].name}'.tr
-                                  ,
+                                Text(
+                                  homeController.category!.data![index].name!,
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w700),
                                 ),
                               ],
                             );
-                          })),
+                          }))),
                 ],
               ),
       )),

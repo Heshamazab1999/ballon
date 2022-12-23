@@ -9,16 +9,13 @@ class DioHelper {
   static String? restaurantBranchName;
 
   static init() {
-
-
     dio = Dio(
       BaseOptions(
           baseUrl: 'https://baloons.arrowscars.com/api/dashboard/',
           receiveDataWhenStatusError: true,
           headers: {
             'Content-Type': 'application/json',
-            "resturant":"y7b42yskv43l_baloons",
-
+            "resturant": "y7b42yskv43l_baloons",
           }),
     );
     // restaurantBranchName = branchName;
@@ -36,11 +33,11 @@ class DioHelper {
     String? token,
   }) async {
     final translateName =
-    CacheHelper.getDataToSharedPrefrence( "localeIsArabic");
+        await CacheHelper.getDataToSharedPrefrence("localeIsArabic");
     dio!.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'lang': translateName ? 'ar':"en",
+      'lang': translateName ? 'ar' : "en",
       'resturant': 'y7b42yskv43l_baloons',
       // 'resturant': restaurantName,
       'Authorization': token == null ? "" : 'Bearer $token',

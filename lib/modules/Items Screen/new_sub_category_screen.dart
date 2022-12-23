@@ -14,7 +14,6 @@ class NewSubCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NewSubCategoryController());
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

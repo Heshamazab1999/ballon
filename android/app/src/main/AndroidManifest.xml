@@ -12,7 +12,7 @@
 <!--    <uses-library android:name="org.apache.http.legacy" android:required="false"/>-->
 
     <application
-        android:label="Mama's Tender"
+        android:label="Ballonz"
        android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyACAoM5tqUhlu2tUNyPrsKr6oyHhoW-tNw"/>

@@ -4,6 +4,7 @@ import 'package:arrows/helpers/map_launch_helper.dart';
 import 'package:arrows/helpers/shared_prefrences.dart';
 import 'package:arrows/modules/MainBranches/controllers/main_branches_controller.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
+import 'package:arrows/modules/home/controllers/home_controller.dart';
 import 'package:arrows/modules/main_category/controllers/main_categories_controller.dart';
 import 'package:arrows/modules/more_info/controllers/more_info_controller.dart';
 import 'package:arrows/modules/sign_up/controllers/signup_controller.dart';
@@ -140,12 +141,16 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
             icon: Icon(Icons.settings, color: mainColor),
             // on selected we show the dialog box
             onSelected: (value) async {
+              Get.delete<HomeController>();
+
               // if value 1 show dialog
               if (Get.locale!.languageCode == "ar") {
                 mainBranchesController.switchFunc('en');
                 Get.updateLocale(
                     Locale(mainBranchesController.selectedValue));
               await  CacheHelper.saveDataToSharedPrefrence("localeIsArabic", false);
+
+
                 // if value 2 show dialog
               } else {
                 mainBranchesController.switchFunc('ar');
@@ -154,6 +159,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                 await CacheHelper.saveDataToSharedPrefrence("localeIsArabic", true);
 
               }
+
             },
           )),
       body: SafeArea(
