@@ -76,7 +76,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                     child: Button(
                         text: "  ${'receive_from'.tr} :",
                         size: 150,
-                        fontSize: 18.sp,
+                        fontSize: 14,
                         height: !landScape ? Get.height / 20.h : 100.h,
                         isFramed: whereToController.showPickUpBranches.value
                             ? false
@@ -170,9 +170,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                                           padding: EdgeInsets.all(8.0.sp),
                                           child:  Row(
                                             children: [
-                                              SizedBox(
-                                                width: 20.w,
-                                              ),
+
                                               Icon(
                                                 Icons.location_on_sharp,
                                                 size: 30.r,
@@ -183,8 +181,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                                               ),
                                               SizedBox(
                                                 width: ScreenUtil
-                                                    .defaultSize.width -
-                                                    100.w,
+                                                    .defaultSize.width .w,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                   MainAxisAlignment
@@ -331,7 +328,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         : Button(
                             text: "add_new_address".tr,
                             isFramed: true,
-                            fontSize: 20.sp,
+                      fontSize: 14,
                             size: Get.width / 2.w,
                             height: Get.height / 20.h,
                             onPressed: () async {
@@ -346,62 +343,10 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                             },
                           ),
                   ),
-                  // Container(
-                  //   width: Get.width/2.4.w,
-                  //   height:  Get.height/20.h,
-                  //   margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
-                  //   child:  ElevatedButton(onPressed:(){
-                  //     if (whereToController.showPickUpBranches.value) {
-                  //       CacheHelper.saveDataToSharedPrefrence(
-                  //           'dropDownValuePrice',
-                  //           whereToController.selectedDropDownValue?.price);
-                  //       /**************KK****/
-                  //       if (whereToController.branchDropDownValue!.name ==
-                  //           "اختار الفرع") {
-                  //         Get.defaultDialog(
-                  //             title: "",
-                  //             content: Text(
-                  //               "برجاء اختر الفرع",
-                  //               style: TextStyle(fontSize: 14.sp),
-                  //             ));
-                  //       } else {
-                  //         Get.to(() => ReceiptScreen(
-                  //             selectedAreaPrice: whereToController
-                  //                 .selectedDropDownValue?.price));
-                  //       }
-                  //       /**************KK****/
-                  //     } else {
-                  //       if (whereToController.radioValue.value == "") {
-                  //         Get.defaultDialog(
-                  //             title: "",
-                  //             content: Text(
-                  //               "please_choose_branch".tr,
-                  //               style: TextStyle(fontSize: 14.sp),
-                  //             ));
-                  //       } else {
-                  //         Get.to(() => ReceiptScreen(
-                  //             selectedAreaPrice: (whereToController
-                  //                 .selectedAreaPrice.value != null)
-                  //                 ? '${whereToController.selectedAreaPrice.value}'
-                  //                 : 0.0));
-                  //       }
-                  //     }
-                  //   }, child: Text('check_out'.tr, style: TextStyle(color:  Colors.white,fontSize: 19.sp),),
-                  //     style: ButtonStyle(
-                  //         backgroundColor: MaterialStateProperty.all<Color>(  Colors.blueAccent.withOpacity(.8),),
-                  //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  //             RoundedRectangleBorder(
-                  //                 borderRadius: BorderRadius.circular(10.0),
-                  //                 side: BorderSide(color:Colors.blueAccent,width: 2)
-                  //             )
-                  //         )
-                  //     )
-                  // ),
-                  // ),
                   Button(
                     isFramed: true,
                     text: 'check_out'.tr,
-                    fontSize: 20.sp,
+                    fontSize: 14,
                     size: Get.width / 2.w,
                     height: Get.height / 20.h,
                     onPressed: () async {
@@ -413,20 +358,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                         Get.to(() => ReceiptScreen(
                             selectedAreaPrice: whereToController
                                 .selectedDropDownValue?.price));
-                        // if (whereToController.branchDropDownValue!.name ==
-                        //     "اختار الفرع") {
-                        //   Get.defaultDialog(
-                        //       title: "",
-                        //       content: Text(
-                        //         "برجاء اختر الفرع",
-                        //         style: TextStyle(fontSize: 14.sp),
-                        //       ));
-                        // }
-                        // else {
-                        //   Get.to(() => ReceiptScreen(
-                        //       selectedAreaPrice: whereToController
-                        //           .selectedDropDownValue?.price));
-                        // }
+
                         /**************KK****/
                       } else {
                         if (whereToController.radioValue.value == "") {
@@ -434,7 +366,7 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
                               title: "",
                               content: Text(
                                 "please_choose_branch".tr,
-                                style: TextStyle(fontSize: 14.sp),
+                                style: TextStyle(fontSize: 14),
                               ));
                         } else {
                           Get.to(() => ReceiptScreen(

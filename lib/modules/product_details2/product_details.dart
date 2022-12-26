@@ -29,7 +29,7 @@ class ProductDetails extends StatelessWidget {
               Get.back();
             },
             icon: Icon(Icons.arrow_back_ios, color: mainColor)),
-        title: Text(data!.name!, style: TextStyle(color: mainColor)),
+        title: Text(data!.name!, style: TextStyle(color: mainColor,fontSize: 16.sp)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -63,14 +63,14 @@ class ProductDetails extends StatelessWidget {
                   style: TextStyle(fontSize: 20.sp, color: kPrimaryColor),
                 ),
            controller.totalPrice.value == 0 ?
-             Text('${data!.price}  ${'coin_jordan'.tr}'):
+             Text('${data!.price}  ${'coin_jordan'.tr}',style: TextStyle(fontSize: 16.sp),):
              Text(
              "   ${controller.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
         style: TextStyle(
-          fontSize: 20.sp,
+          fontSize: 25.sp,
           color: kPrimaryColor,
         ),
-      ),   Text(data!.name.toString().tr, style: TextStyle(fontSize: 20.sp, color: kPrimaryColor)),
+      ),   Text(data!.name.toString().tr, style: TextStyle(fontSize: 25.sp, color: kPrimaryColor)),
               ],
             ),
             ),
@@ -131,8 +131,7 @@ class ProductDetails extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height / 4.h,
-              decoration: BoxDecoration(
+               decoration: BoxDecoration(
                   color: mainColor, borderRadius: BorderRadius.circular(15.sp)),
               child: Column(
                 children: [
@@ -140,10 +139,14 @@ class ProductDetails extends StatelessWidget {
                     "${'description'.tr} :"  ,
                     style: TextStyle(color: Colors.white, fontSize: 20.sp),
                   ),
-                  Text(
-                    data!.name!.tr,
-                    style: TextStyle(color: Colors.white, fontSize: 20.sp),
-                  ),   Directionality(
+                  SizedBox(
+                    width: 400.w,
+                    child: Text(
+                      data!.desc!.tr,
+                      style: TextStyle(color: Colors.white, fontSize: 15.sp),
+                    ),
+                  ),
+                  Directionality(
               textDirection: translateName
                   ? TextDirection.rtl
                   : TextDirection.ltr,
@@ -159,6 +162,7 @@ child:
                           hintText: "write_a_note".tr,
                           hintStyle: TextStyle(
                             color: Colors.white,
+                            fontSize: 14.sp,
                           ),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15.sp),
@@ -197,7 +201,8 @@ child:
                             ],
                           )),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 20.h,)
                 ],
               ),
             )

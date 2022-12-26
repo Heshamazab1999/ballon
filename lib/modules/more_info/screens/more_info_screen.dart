@@ -30,13 +30,13 @@ import 'barcod_screen.dart';
 class MoreInfoScreen extends StatefulWidget {
   MoreInfoScreen({Key? key}) : super(key: key);
 
+
   @override
   State<MoreInfoScreen> createState() => _MoreInfoScreenState();
 }
 
 class _MoreInfoScreenState extends State<MoreInfoScreen>
     with TickerProviderStateMixin {
-  final WhereToController whereToController = Get.put(WhereToController());
   ScrollController _scrollController = ScrollController();
 
   final moreInfoController = Get.put(MoreInfoController());
@@ -52,7 +52,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
     cartController.totalPoints;
     transitionAnimationController = BottomSheet.createAnimationController(this);
     transitionAnimationController.duration = Duration(seconds: 1);
-    whereToController.getAllBranchAddresses();
 
     super.initState();
   }
@@ -71,6 +70,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
   Widget build(BuildContext context) {
     MainBranchesController mainBranchesController =
     Get.put(MainBranchesController());
+    final   whereToController = Get.put(WhereToController());
 
     Future.delayed(const Duration(seconds: 1), () {
       CacheHelper.getDataToSharedPrefrence("localeIsArabic");
@@ -111,10 +111,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
               PopupMenuItem(
                 value: 1,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Get.locale!.languageCode == "ar"
-                        ? Text("arabic".tr)
-                        : Text("english"),
+                        ? Text("english")
+                  :  Text("arabic".tr),
                     SizedBox(
                       width: 10.w,
                     ),
@@ -127,8 +128,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                           shape: BoxShape.circle,
                           border: Border.all(color: mainColor)),
                       child: Image.asset(Get.locale!.languageCode == "ar"
-                          ? "assets/images/ar.png"
-                          : "assets/images/en.png"),
+                          ? "assets/images/en.png"
+                          : "assets/images/ar.png"
+                      ),
                     ),
                   ],
                 ),
@@ -138,7 +140,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
             offset: Offset(0, 100),
             color: Colors.white,
             elevation: 2,
-            icon: Icon(Icons.settings, color: mainColor),
+            icon: Icon(Icons.settings, color: mainColor,size: 20.sp,),
             // on selected we show the dialog box
             onSelected: (value) async {
               Get.delete<HomeController>();
@@ -149,9 +151,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                 Get.updateLocale(
                     Locale(mainBranchesController.selectedValue));
               await  CacheHelper.saveDataToSharedPrefrence("localeIsArabic", false);
-
-
-                // if value 2 show dialog
               } else {
                 mainBranchesController.switchFunc('ar');
                 Get.updateLocale(
@@ -175,6 +174,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                           shrinkWrap: true,
                           controller: _scrollController,
                           children: [
+
                             FutureBuilder(
                                 future: cartController.getUserPoints(),
                                 builder: (BuildContext context,
@@ -209,6 +209,48 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     return SizedBox();
                                   }
                                 }),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundColor: Colors.pinkAccent
+                                      .shade100
+                                      .withOpacity(.7),
+
+                                  radius: 20.w,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      Get.to(BarcodeScreen());
+                                    },
+                                    icon: ImageIcon(
+                                      AssetImage(
+                                          "assets/icons/gift.png"),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.pinkAccent
+                                      .shade100
+                                      .withOpacity(.7),
+                                  radius: 20.w,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Get.to(ChatScreen());
+                                      },
+                                      icon: Icon(
+                                        Icons.chat,
+                                        size: 20.sp,
+                                        color: Colors.white,
+                                      )),
+                                ),
+                              ],
+                            ),
                             Obx(() {
                               return (whereToController.branches.length == 1)
                                   ? SizedBox()
@@ -238,21 +280,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                           print(CacheHelper
                                               .getDataToSharedPrefrence(
                                               'restaurantBranchLat'));
-                                          // MapUtils.openMap(
-                                          //
-                                          //     double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLat')??
-                                          //         ""),
-                                          //     double.parse( CacheHelper.getDataToSharedPrefrence('restaurantBranchLng')??
-                                          //         ""),
-                                          //     // double.parse(whereToController
-                                          //     //         .branches[index].lng ??
-                                          //     //     "")
-                                          // );
                                         },
                                         child: Stack(children: [
                                           Image.asset(
                                             'assets/images/cloud.png',
-                                            height: 50.h,
+                                            height: 100.h,
                                             width: Get.width,
                                             fit: BoxFit.fill,
                                           ),
@@ -308,10 +340,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       print("empty");
                                       return const SizedBox();
                                     }
-                                    // else {
-                                    //   if (index == 0) {
-                                    //     return const SizedBox();
-                                    //   }
                                     else {
                                       return Theme(
                                           data: ThemeData(
@@ -339,18 +367,13 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                     ""),);
                                             },
                                             child: Stack(children: [
-
                                               Image.asset(
                                                 'assets/images/cloud.png',
-                                                height: Get.height / 10.h,
+                                                height: Get.height/3.5.h,
                                                 width: Get.width,
                                                 fit: BoxFit.fill,
-
-
                                               ),
                                               Positioned(
-                                                // left: 22.w,
-                                                // right: 22.w,
                                                 top: 5.h,
                                                 bottom: 5.h,
                                                 child: Row(
@@ -359,6 +382,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                       width: 20.w,
                                                     ),
                                                     Icon(
+                                                      // Icons.library_add,
                                                       Icons.location_on_sharp,
                                                       size: 30.r,
                                                       color: mainColor,
@@ -368,8 +392,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                     ),
                                                     SizedBox(
                                                       width: ScreenUtil
-                                                          .defaultSize.width -
-                                                          50.w,
+                                                          .defaultSize.width.w,
                                                       child: Column(
                                                         mainAxisAlignment:
                                                         MainAxisAlignment
@@ -383,7 +406,10 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                           ),
                                                           Text('${CacheHelper
                                                               .getDataToSharedPrefrence(
-                                                              'restaurantBranchID')}'),
+                                                              'restaurantBranchID')}',style: TextStyle(
+                                                            fontSize: 16.sp,
+                                                            fontWeight: FontWeight.bold
+                                                          ),),
                                                           mainBranchesController
                                                               .selectedValue ==
                                                               'ar'
@@ -394,7 +420,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                               :
                                                           Text('${CacheHelper
                                                               .getDataToSharedPrefrence(
-                                                              'restaurantBranchAddressEn')}'),
+                                                              'restaurantBranchAddressEn')}',style: TextStyle(
+                                                            fontSize: 16.sp
+                                                          ),),
 
 
                                                         ],
@@ -429,12 +457,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   padding: EdgeInsets.only(bottom: 20),
                                   physics:
                                   const NeverScrollableScrollPhysics(),
-                                  itemCount: moreInfoController
+                                  itemCount:  moreInfoController
                                       .restaurantPhoneNumbers
                                       .toSet()
-                                      .length,
-                                  // moreInfoController.restaurantPhoneNumbers.length,
-                                  itemBuilder: (context, index) {
+                                      .length-1,
+                                   itemBuilder: (context, index) {
                                     return (moreInfoController
                                         .restaurantPhoneNumbers[
                                     index] !=
@@ -665,14 +692,18 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                               height: 20.h,
                             ),
                             /***********************v***/
-                            Center(
+                           GetBuilder<WhereToController>(
+                             init:WhereToController(),
+                                 builder:(whereToController)=> Center(
                               child: Button(
                                   isFramed: true,
                                   text: 'delete_account'.tr,
-                                  fontSize: 18.sp,
-                                  size: Get.width / 2,
-                                  height: Get.height / 20.h,
-                                  onPressed: () async {
+                                  fontSize: 14,
+                                  // size: 50,
+                                  size: Get.width/2,
+                                  height:Get.height/20.h,
+
+                                  onPressed: ()async {
                                     if (CacheHelper.loginShared == null) {
                                       Get.defaultDialog(
                                           title: 'error'.tr,
@@ -681,16 +712,14 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       Get.defaultDialog(
                                         title: 'delete_account_alert'.tr,
                                         content: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             TextButton(
                                                 child: Text(
                                                   'yes'.tr,
-                                                  style: TextStyle(
-                                                      color: kPrimaryColor),
+                                                  style: TextStyle(color: kPrimaryColor),
                                                 ),
-                                                onPressed: () async {
+                                                onPressed:()async {
                                                   await FirebaseDatabase
                                                       .instance
                                                       .reference()
@@ -712,11 +741,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                         'restaurantBranchID'))
                                                         .remove()
                                                         .then((_) async {
-                                                      await FirebaseDatabase
+                                                        FirebaseDatabase
                                                           .instance
                                                           .reference()
                                                           .child(
-                                                          'User_Orders')
+                                                          'UserOrders')
                                                           .child(CacheHelper
                                                           .getDataToSharedPrefrence(
                                                           'restaurantBranchID'))
@@ -733,6 +762,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                             .getDataToSharedPrefrence(
                                                             'userID'))
                                                             .remove();
+                                                        FirebaseAuth
+                                                            .instance
+                                                            .currentUser!=null?
                                                         await FirebaseAuth
                                                             .instance
                                                             .currentUser!
@@ -775,8 +807,16 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                             signUpController
                                                                 .phoneTextEditingController
                                                                 .clear();
+
+                                                            setState(() {
+                                                              cartController
+                                                                  .update();
+                                                              whereToController
+                                                                  .update();
+                                                              CacheHelper.loginShared=null;
+                                                            });
                                                           });
-                                                        });
+                                                        }):print('retry');
                                                       });
                                                     });
                                                   });
@@ -787,7 +827,9 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                           .tr);
                                                 }),
                                             TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
                                                 child: Text(
                                                   'no'.tr,
                                                   style: TextStyle(
@@ -801,6 +843,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       );
                                     }
                                   }),
+                            ),
                             ),
                             SizedBox(
                               height: 20.h,
@@ -835,7 +878,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   left: 30.w,
                                   child: Column(
                                     children: [
-                                      // SizedBox(height: 5.h,),
                                       Card(
                                           shape: OutlineInputBorder(
                                               borderRadius: BorderRadius.only(
@@ -897,48 +939,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   : Text('0'),
                                             ],
                                           )),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: <Widget>[
-                                          CircleAvatar(
-                                            backgroundColor: Colors.pinkAccent
-                                                .shade100
-                                                .withOpacity(.7),
 
-                                            radius: 20.w,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                Get.to(BarcodeScreen());
-                                              },
-                                              icon: ImageIcon(
-                                                AssetImage(
-                                                    "assets/icons/gift.png"),
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                          CircleAvatar(
-                                            backgroundColor: Colors.pinkAccent
-                                                .shade100
-                                                .withOpacity(.7),
-                                            radius: 20.w,
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  Get.to(ChatScreen());
-                                                },
-                                                icon: Icon(
-                                                  Icons.chat,
-                                                  size: 20.sp,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                        ],
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -949,8 +950,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     onTap: () {
                                       print('helo');
                                       print(CacheHelper.loginShared!.phone);
-                                      print(
-                                          '*******${FirebaseAuth.instance
+                                      print('*******${FirebaseAuth.instance
                                               .currentUser!.phoneNumber}');
                                     },
                                     child: CircleAvatar(
@@ -1130,6 +1130,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                               context)
                                                               .pop();
                                                         });
+                                                        Get.back();
                                                       }
                                                     } else {
                                                       Get.snackbar(

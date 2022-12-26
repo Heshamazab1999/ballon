@@ -67,7 +67,8 @@ class NewSubCategoryScreen extends StatelessWidget {
                                               const Size(double.infinity, 55)),
                                       child: Text(
                                         controller.category!.data![index].name!,
-                                        style: const TextStyle(
+                                        style:   TextStyle(
+                                          fontSize: 14.sp,
                                             color: Colors.black),
                                       )),
                                 ),
@@ -99,17 +100,14 @@ class NewSubCategoryScreen extends StatelessWidget {
                     : Expanded(
                         flex: 2,
                         child: controller.listSubCategory.isEmpty
-                            ? Center(child: Text("no data"))
+                            ? Center(child:  Text("no_products_meal".tr),)
                             : GridView.builder(
                                 padding:   EdgeInsets.only(top: 10.h,right: 5.w,left: 5.w),
                                 itemCount: controller.listSubCategory.length,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: (3),
-                                  childAspectRatio: 8 / 10,
-                                  // childAspectRatio: MediaQuery.of(context).size.width /
-                                  //     (MediaQuery.of(context).size.height / 0.7),
-                                ),
+                                  childAspectRatio: 8 / 10,),
                                 itemBuilder: (context, index) {
                                   print(controller.listSubCategory[index].id!);
                                   return GestureDetector(

@@ -197,7 +197,7 @@ class AddNewAddress extends StatelessWidget {
                             Expanded(
                               child: Container(
                                 width: ScreenUtil.defaultSize.width,
-                                height: !landScape ? Get.height/17.h : 40.h,
+                                height: !landScape ? Get.height/11.h : 40.h,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10.w, vertical: 5.h),
                                 decoration: BoxDecoration(
@@ -215,7 +215,7 @@ class AddNewAddress extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8.r),
                                           style: TextStyle(
-                                              fontSize: 18.sp,
+                                              fontSize: 16.sp,
                                               color: kPrimaryColor),
                                           items: whereToController
                                               .deliveryAreaList!

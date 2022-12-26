@@ -4,7 +4,6 @@ class Languages extends Translations {
   @override
   Map<String, Map<String, String>> get keys =>
       {
-        // Arabic Strings...
         'ar': {
           'home': 'الرئيسية',
           'menu': 'القائمة',

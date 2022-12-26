@@ -62,7 +62,7 @@ class ReceiptScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: !landScape ? 350.h : 1300.h,
+                  height: !landScape ? 400.h : 1300.h,
                   margin: EdgeInsets.only(top: 10.h, right: 10.w, left: 10.w),
                   decoration: BoxDecoration(
                       color: Colors.white70,
@@ -80,9 +80,7 @@ class ReceiptScreen extends StatelessWidget {
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Colors.blueAccent.withOpacity(.8),
-
-                              // borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                            borderRadius: BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10.0.r),
                                 topRight: Radius.circular(10.0.r),
 
@@ -529,7 +527,7 @@ class ReceiptScreen extends StatelessWidget {
         children: [
           Text(
             'Add Promo code if you have',
-            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600),
+            style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600,fontSize: 14.sp),
           ),
           GetBuilder<CartController>(
             init: CartController(),
@@ -537,15 +535,13 @@ class ReceiptScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: Get.width/2.w,
+                  width: Get.width/1.3.w,
                   height: 50.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(55.sp)
                   ),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    // controller:
-                    // cartController.discountCodeTextController,
                     onChanged: (v) {
                       cartController.discountCodeTextController.text = v;
                     },

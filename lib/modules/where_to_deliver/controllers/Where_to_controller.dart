@@ -170,10 +170,10 @@ final isFramedValue=false.obs;
                   : 0.0))
           // - cartController.discountValue.value  )//errorrrr
           // .toStringAsFixed(2))
-          - cartController.discountValue.value  != 'null'? cartController.discountValue.value:
-      cartController.discountResponse.data!.value != null? cartController.discountResponse.data!.value:
-          0.0
-      )!.toStringAsFixed(2))
+       //    - cartController.discountValue.value != 'null'?
+       //  cartController.discountValue.value:
+       // cartController.discountResponse.data!.value
+      ).toStringAsFixed(2))
 
         ..delivery = x
         // ..delivery = CacheHelper.getDataToSharedPrefrence('dropDownValuePrice')
@@ -218,7 +218,10 @@ print('*******this id totalprice in Order*********************${PostedOrder.orde
 
 
 
-var tmp= ((num.parse(PostedOrder.order.totalPrice.toString())*cartController.forbuy)+(cartController.totalPoints!=null? num.parse(cartController.totalPoints.toString()):0));
+var tmp= ((num.parse(PostedOrder.order.totalPrice.toString())
+    *cartController.forbuy)+(
+    cartController.totalPoints!='null'?
+    num.parse(cartController.totalPoints.toString()):0));
     FirebaseDatabase.instance
         .reference()
         .child("Cart")

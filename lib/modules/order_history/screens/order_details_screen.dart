@@ -95,7 +95,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                           "${order.listOfProduct![index].name}".tr
                                               .toUpperCase(),
                                           style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                          TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp),
                                         ),
                                         Directionality(
                                           textDirection: translateName

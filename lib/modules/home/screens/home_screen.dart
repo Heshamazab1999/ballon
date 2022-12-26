@@ -11,6 +11,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../components/arrows_app_bar.dart';
+import '../../bottom_nav_bar/controllers/bottom_nav_bar_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
@@ -20,9 +21,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final homeController = Get.put(HomeController());
-    //
-    // final bottomNavBarController = Get.put(BottomNavBarController());
+     //
+     final bottomNavBarController = Get.put(BottomNavBarController());
     // PageController pageController = PageController(initialPage: 0);
 
     return Scaffold(
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                   Obx(() => CarouselSlider(
                         options: CarouselOptions(
                             autoPlay: true,
-                            height: Get.height / 3.h,
+                            height: Get.height / 2.5.h,
                             viewportFraction: 1,
                             onPageChanged: (index, reason) {
                               homeController.currentImageIndex.value = index;
@@ -98,12 +98,18 @@ class HomeScreen extends StatelessWidget {
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'more'.tr,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold),
+                        InkWell(
+                          child: Text(
+                            'more'.tr,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold),
+                          ),onTap: (){
+                          bottomNavBarController.currentIndex.value = 0;
+                            // Get.to();
+
+                        },
                         ),
                       ],
                     ),
@@ -121,7 +127,9 @@ class HomeScreen extends StatelessWidget {
                                   childAspectRatio: 6 / 7,
                                   crossAxisSpacing: 10.w,
                                   mainAxisSpacing: 20.w),
-                          itemCount: homeController.category!.data!.length,
+                          itemCount: homeController.category!.data!.length>8?
+                              8:
+                          homeController.category!.data!.length,
                           itemBuilder: (BuildContext ctx, index) {
                             print(homeController.category!.data![index].id);
                             return Column(

@@ -147,12 +147,10 @@ class ProductDetailsController extends GetxController {
     }
   }
   increaseOrderCounter(num limit,double price) {
-    //6.50
-    if (orderCounter.value < 6) {
+     if (orderCounter.value < limit) {
          orderCounter.value++;
         totalPrice.value =  orderCounter.value * price ;
-        // totalPrice.value = double.parse(data!.price.toString()) * orderCounter.value;
-        print(totalPrice.value);
+         print(totalPrice.value);
 
     } else {
       Get.snackbar('sorry'.tr, 'there_is_no_sufficient_quantity'.tr,

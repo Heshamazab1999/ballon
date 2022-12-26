@@ -14,6 +14,7 @@ import 'package:arrows/constants/more_info_constants.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import '../../../helpers/connectivity.dart';
 import '../../Items Screen/new_sub_category_screen.dart';
+import '../../more_info/controllers/more_info_controller.dart';
 
 class BottomNavBarScreen extends StatelessWidget {
   BottomNavBarScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class BottomNavBarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // final bottomNavBarController = Get.put(BottomNavBarController());
     final  cartController = Get.put(CartController());
+    final  moreInfoController = Get.put(MoreInfoController());
     final connection = Get.put(ConnectionStatusSingleton());
     final homeController = Get.put(HomeController());
 
@@ -101,8 +103,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
                                         "assets/icons/ic_more.png",
-                                        width: 25,
-                                        height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 4
@@ -111,8 +113,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                       ))
                                   : Image.asset(
                                       "assets/icons/ic_more.png",
-                                      width: 25,
-                                      height: 25,
+                                      width: 25.w,
+                                      height: 25.h,
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               4
@@ -129,7 +131,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                                           .currentIndex.value ==
                                                       4
                                                   ? Colors.white
-                                                  : Colors.black)),
+                                                  : Colors.black,
+                                              fontSize: 16.sp)),
                                     )
                                   : SizedBox()
                             ],
@@ -160,8 +163,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
                                         "assets/icons/ic_cart.png",
-                                        width: 25,
-                                        height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 3
@@ -170,13 +173,14 @@ class BottomNavBarScreen extends StatelessWidget {
                                       ))
                                   : Image.asset(
                                       "assets/icons/ic_cart.png",
-                                      width: 25,
-                                      height: 25,
+                                      width: 25.w,
+                                      height: 25.h,
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               3
                                           ? Colors.white
                                           : Colors.black,
+
                                     ),
                               bottomNavBarController.currentIndex.value == 3
                                   ? ShowUpAnimation(
@@ -188,7 +192,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                                           .currentIndex.value ==
                                                       3
                                                   ? Colors.white
-                                                  : Colors.black)))
+                                                  : Colors.black,
+                                          fontSize: 16.sp)))
                                   : SizedBox()
                             ],
                           ),
@@ -220,8 +225,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
                                         "assets/icons/ic_home.png",
-                                        width: 25,
-                                        height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 2
@@ -230,8 +235,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                       ))
                                   : Image.asset(
                                       "assets/icons/ic_home.png",
-                                      width: 25,
-                                      height: 25,
+                                      width: 25.w,
+                                      height: 25.h,
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               2
@@ -248,7 +253,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                                           .currentIndex.value ==
                                                       2
                                                   ? Colors.white
-                                                  : Colors.black)))
+                                                  : Colors.black,
+                                              fontSize: 16.sp)))
                                   : SizedBox()
                             ],
                           ),
@@ -278,8 +284,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
                                         "assets/icons/track.png",
-                                        width: 25,
-                                        height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 1
@@ -288,8 +294,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                       ))
                                   : Image.asset(
                                       "assets/icons/track.png",
-                                      width: 25,
-                                      height: 25,
+                                      width: 25.w,
+                                      height: 25.h,
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               1
@@ -303,7 +309,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                                       .currentIndex.value ==
                                                   1
                                               ? Colors.white
-                                              : Colors.black))
+                                              : Colors.black,
+                                          fontSize: 16.sp))
                                   : SizedBox()
                             ],
                           ),
@@ -333,8 +340,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
                                         "assets/icons/ic_menu.png",
-                                        width: 25,
-                                        height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 0
@@ -343,8 +350,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                       ))
                                   : Image.asset(
                                       "assets/icons/ic_menu.png",
-                                      width: 25,
-                                      height: 25,
+                                      width: 25.w,
+                                      height: 25.h,
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               0
@@ -361,7 +368,8 @@ class BottomNavBarScreen extends StatelessWidget {
                                                           .currentIndex.value ==
                                                       0
                                                   ? Colors.white
-                                                  : Colors.black)))
+                                                  : Colors.black,
+                                              fontSize: 16.sp)))
                                   : SizedBox()
                             ],
                           ),
@@ -372,9 +380,6 @@ class BottomNavBarScreen extends StatelessWidget {
             ),
           ),
         )
-        // ArrowBottomNavBar(
-        //   bottomNavBarController: bottomNavBarController,
-        // ),
         );
   }
 }

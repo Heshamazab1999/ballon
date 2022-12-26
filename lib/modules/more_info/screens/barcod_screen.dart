@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:arrows/constants/colors.dart';
-
 import '../../../components/arrows_app_bar.dart';
-import '../../../components/custom_address_text_field.dart';
-import '../../../components/custom_button.dart';
+ import '../../../components/custom_button.dart';
 import '../../../constants/styles.dart';
 import '../../../helpers/shared_prefrences.dart';
 import '../controllers/more_info_controller.dart';
@@ -38,23 +36,32 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
       body: Column(
 
         children: [
-          // TextButton(onPressed: ()async{
-          //   var x=await FirebaseAuth.instance.currentUser!.phoneNumber;
-          //   print(x);
-          //   print(CacheHelper.getDataToSharedPrefrence('phone'));
-          //   print(CacheHelper.loginShared!.phone);
-          //   print(CacheHelper.loginShared!.password);
-          //   controller.getBarcodes();
-          //
-          // }, child: Text('dddd')),
-          FutureBuilder (
+           FutureBuilder (
             future:  controller.getBarcodes(),
                builder: (context, AsyncSnapshot snapshot) {
                if(snapshot.hasData){
                  return
-                   // controller.barcodModel!.data!.length!=0?
               GetBuilder<MoreInfoController>(init:MoreInfoController() ,
-                  builder:(controller)=>  controller.isLoading.value==false?
+                  builder:(controller)=> controller.barcodModel!.data!.length==0?
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/scan-removebg-preview.png',
+                        height: 300.h ,
+                        color: mainColor,
+                        width: double.infinity,
+                      ),
+                      Center(
+                          child: Text(
+                            "no_barcodes".tr,
+                            style: TextStyle(
+                                fontSize: 25.sp,
+                                color: mainColor,
+                                fontWeight: FontWeight.bold),
+                          )),
+
+                    ],
+                  ):
                   GridView.builder(
                 shrinkWrap: true,
                 itemCount: controller.barcodModel!.data!.length,
@@ -178,46 +185,6 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
 
                                                       });/*************5***************/
 
-    // MoreInfoService services = MoreInfoService();
-    // print('okaaay');
-    // // await controller.usedBarcode(context,controller.barcodModel!.data?[index].id).then((value) {
-    // await controller
-    //     .usedBarcode(
-    //     context  ,
-    //   //
-    //   controller.barcodModel!.data?[index].id
-    // ).then((
-    // value) {
-    // print(CacheHelper
-    //     .loginShared!
-    //     .password);
-    // print(controller
-    //     .barcodModel!
-    //     .data?[index].id);
-    // print(
-    // '####################');
-    // Get.snackbar(
-    // 'done'.tr,
-    // 'user_barcode_inserted_successfully'
-    //     .tr,
-    // snackPosition: SnackPosition
-    //     .TOP,
-    // backgroundColor: kPrimaryColor,
-    // duration: Duration(
-    // seconds: 2),
-    // dismissDirection: DismissDirection
-    //     .startToEnd,
-    // barBlur: 10,
-    // colorText: mainColor);
-    //
-    //
-    // Navigator.pop(
-    // context);
-    // controller
-    //     .barcodeController
-    //     .clear();
-    // });
-
                                                     }
                                                     else {
                                                       Get.snackbar('error'.tr,
@@ -242,43 +209,21 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
                                         ),
                                       ),
                                     ),
-
                                   ]));
                             },
                           );
                         },
                       ) );
-                  })
+                  }));
 
-              :Center(child: CircularProgressIndicator(color: mainColor,)));}else{
-                 return
-                 Column(
-                   children: [
-                     Image.asset(
-                       'assets/images/scan-removebg-preview.png',
-                       height: 300.h ,
-                       color: mainColor,
-                       width: double.infinity,
-                     ),
-                     Center(
-                         child: Text(
-                           "no_barcodes".tr,
-                           style: TextStyle(
-                               fontSize: 25.sp,
-                               color: mainColor,
-                               fontWeight: FontWeight.bold),
-                         )),
 
-                   ],
-                 );
+               }
+               else{
+                 return  Center(child: CircularProgressIndicator(color: mainColor,));
+
 
               }
-              // else{
-              //   return
-              //   Center(child: CircularProgressIndicator(color: mainColor,),);
-              //
 
-              // }
               }
 
               )

@@ -31,17 +31,16 @@ class CustomAddressTextField extends StatelessWidget {
         },
          decoration:InputDecoration(
           hintText: hintText.toString().tr,
-          label: Text(labelText.tr),
-          labelStyle: TextStyle(color: mainColor),
+
+          label: Text(labelText.tr,),
+          labelStyle: TextStyle(color: mainColor,fontSize: 16.sp),
 
 
           fillColor: Colors.white,
           filled: true,
-
           isDense: true,
-          // Added this
-          contentPadding: EdgeInsets.all(13.w),
-          hintStyle: TextStyle(color: mainColor),
+           contentPadding: EdgeInsets.all(13.w),
+          hintStyle: TextStyle(color: mainColor,fontSize: 18,fontWeight: FontWeight.bold),
           border: OutlineInputBorder(
             borderSide: BorderSide(
 

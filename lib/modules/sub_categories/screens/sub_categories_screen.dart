@@ -38,7 +38,7 @@ class SubCategoriesScreen extends StatelessWidget {
             centerTitle: true,
             title: Text(
               title.toString().tr,
-              style: TextStyle(color: kPrimaryColor),
+              style: TextStyle(color: kPrimaryColor,fontSize: 16.sp),
             ),
             leading: IconButton(
               onPressed: () {
@@ -68,9 +68,9 @@ class SubCategoriesScreen extends StatelessWidget {
                 : Obx(() => subCategoriesController.product.isEmpty
                     ? Center(
                         child: Text(
-                        "لا يوجد منتجات".tr,
+                        "no_products_meal".tr,
                         style:
-                            TextStyle(fontSize: 20.sp, color: kSecondaryColor),
+                            TextStyle(fontSize: 20.sp, color:kPrimaryColor),
                       ))
                     : Obx(
                         () => SizedBox(

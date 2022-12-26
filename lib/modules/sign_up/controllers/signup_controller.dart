@@ -27,8 +27,7 @@ class SignUpController extends GetxController {
   Future<void> sendVerificationCode({phone, name}) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '$phone' ?? "",
-      // phoneNumber: '${pin.value}${fullPhoneNumber}' ?? "",
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredentials) async {
+       verificationCompleted: (PhoneAuthCredential phoneAuthCredentials) async {
         await FirebaseAuth.instance
             .signInWithCredential(phoneAuthCredentials)
             .then((value) {
@@ -47,7 +46,6 @@ class SignUpController extends GetxController {
         Get.back();
         Get.defaultDialog(
             content: Text("${e.code}".tr) ,title: 'تعذر الإتصال بالإنترنت'
-          // content: Text(" حاول مدره اخري".tr) ,title: 'تعذر الإتصال بالإنترنت'
         );
         print(e.message);
       },
