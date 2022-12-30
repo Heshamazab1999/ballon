@@ -166,7 +166,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
             SingleChildScrollView(
               child: Padding(
                   padding:
-                  EdgeInsets.only(top: 15.h, right: 10.w, left: 10.w),
+                  EdgeInsets.only(top: 35.h, right: 10.w, left: 10.w),
                   child: GetBuilder<CartController>(
                       init: CartController(),
                       builder: (cartController) {
@@ -201,7 +201,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   .totalPoints !=
                                                   null)
                                               ? SizedBox(
-                                            height: Get.height / 5.h,
+                                            height: Get.height / 10.h, //*****
                                           )
                                               : SizedBox();
                                         });
@@ -222,7 +222,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       .shade100
                                       .withOpacity(.7),
 
-                                  radius: 20.w,
+                                  radius: 20.r,
                                   child: IconButton(
                                     onPressed: () {
                                       Get.to(BarcodeScreen());
@@ -238,14 +238,14 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   backgroundColor: Colors.pinkAccent
                                       .shade100
                                       .withOpacity(.7),
-                                  radius: 20.w,
+                                  radius: 20.r,
                                   child: IconButton(
                                       onPressed: () {
                                         Get.to(ChatScreen());
                                       },
                                       icon: Icon(
                                         Icons.chat,
-                                        size: 20.sp,
+                                        size: 18.sp,
                                         color: Colors.white,
                                       )),
                                 ),
@@ -262,70 +262,70 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     fontWeight: FontWeight.bold),
                               );
                             }),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: 1,
-                                itemBuilder: (context, index) {
-                                  if (whereToController.branches.length ==
-                                      1) {
-                                    print("empty");
-                                    return const SizedBox();
-                                  } else {
-                                    if (index == 0) {
-                                      return const SizedBox();
-                                    } else {
-                                      return InkWell(
-                                        onTap: () {
-                                          print(CacheHelper
-                                              .getDataToSharedPrefrence(
-                                              'restaurantBranchLat'));
-                                        },
-                                        child: Stack(children: [
-                                          Image.asset(
-                                            'assets/images/cloud.png',
-                                            height: 100.h,
-                                            width: Get.width,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          Positioned(
-                                            left: 22.w,
-                                            right: 22.w,
-                                            top: 5.h,
-                                            bottom: 5.h,
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on_sharp,
-                                                  size: 30.r,
-                                                  color: kPrimaryColor,
-                                                ),
-                                                SizedBox(
-                                                  width: ScreenUtil
-                                                      .defaultSize.width -
-                                                      50.w,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .start,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Text('branch'),
-                                                      Text('')
-
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ]),
-                                      );
-                                    }
-                                  }
-                                }),
+                            // ListView.builder(
+                            //     shrinkWrap: true,
+                            //     physics: NeverScrollableScrollPhysics(),
+                            //     itemCount: 1,
+                            //     itemBuilder: (context, index) {
+                            //       if (whereToController.branches.length ==
+                            //           1) {
+                            //         print("empty");
+                            //         return const SizedBox();
+                            //       } else {
+                            //         if (index == 0) {
+                            //           return const SizedBox();
+                            //         } else {
+                            //           return InkWell(
+                            //             onTap: () {
+                            //               print(CacheHelper
+                            //                   .getDataToSharedPrefrence(
+                            //                   'restaurantBranchLat'));
+                            //             },
+                            //             child: Stack(children: [
+                            //               Image.asset(
+                            //                 'assets/images/cloud.png',
+                            //                 // height: 30.h,
+                            //                 width: Get.width,
+                            //                 fit: BoxFit.fill,
+                            //               ),
+                            //               Positioned(
+                            //                 left: 22.w,
+                            //                 right: 22.w,
+                            //                 top: 5.h,
+                            //                 bottom: 5.h,
+                            //                 child: Row(
+                            //                   children: [
+                            //                     Icon(
+                            //                       Icons.location_on_sharp,
+                            //                       size: 30.r,
+                            //                       color: kPrimaryColor,
+                            //                     ),
+                            //                     SizedBox(
+                            //                       width: ScreenUtil
+                            //                           .defaultSize.width -
+                            //                           50.w,
+                            //                       child: Column(
+                            //                         mainAxisAlignment:
+                            //                         MainAxisAlignment
+                            //                             .start,
+                            //                         crossAxisAlignment:
+                            //                         CrossAxisAlignment
+                            //                             .start,
+                            //                         children: [
+                            //                           Text('branch'),
+                            //                           Text('')
+                            //
+                            //                         ],
+                            //                       ),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               ),
+                            //             ]),
+                            //           );
+                            //         }
+                            //       }
+                            //     }),
                             Obx(() {
                               return ListView.builder(
                                   shrinkWrap: true,
@@ -348,13 +348,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                           ),
                                           child: InkWell(
                                             onTap: () {
-                                              // MapUtils.openMap(
-                                              //     double.parse(whereToController
-                                              //             .branches[index].lat ??
-                                              //         ""),
-                                              //     double.parse(whereToController
-                                              //             .branches[index].lng ??
-                                              //         ""));
                                               MapUtils.openMap(
                                                 //
                                                 double.parse(CacheHelper
@@ -369,7 +362,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                             child: Stack(children: [
                                               Image.asset(
                                                 'assets/images/cloud.png',
-                                                height: Get.height/3.5.h,
+                                                height: 120.h,
                                                 width: Get.width,
                                                 fit: BoxFit.fill,
                                               ),
@@ -421,7 +414,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                           Text('${CacheHelper
                                                               .getDataToSharedPrefrence(
                                                               'restaurantBranchAddressEn')}',style: TextStyle(
-                                                            fontSize: 16.sp
+                                                            fontSize: 14.sp,fontWeight: FontWeight.bold
                                                           ),),
 
 
@@ -867,13 +860,14 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                       init: MoreInfoController(),
                       builder: (controller) {
                         return Positioned(
+                          // top: 0,
                           child: new Container(
-                            height: Get.height / 4.7.h,
+                            height:90.h,
                             color: Colors.white,
                             child: Stack(
                               children: [
                                 Positioned(
-                                  top: 10.h,
+                                  top: 5.h,
                                   right: 50.w,
                                   left: 30.w,
                                   child: Column(
@@ -892,7 +886,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                               Text(
                                                 'balance'.tr,
                                                 style: TextStyle(
-                                                    fontSize: 18.sp,
+                                                    fontSize: 16.sp,
                                                     color: Colors.white),
                                               ),
                                               cartController.balance != null
@@ -900,8 +894,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                 '${cartController.balance
                                                     .toStringAsFixed(2)}',
                                                 style: TextStyle(
-                                                    height: 2,
-                                                    fontSize: 18.sp,
+                                                    // height: 2,
+                                                    fontSize: 16.sp,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.white),
                                               )
@@ -922,7 +916,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                               Text(
                                                 'your_points'.tr,
                                                 style: TextStyle(
-                                                    fontSize: 18.sp,
+                                                    fontSize: 16.sp,
                                                     color: Colors.white),
                                               ),
                                               cartController.balance != null
@@ -933,8 +927,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                       fontWeight: FontWeight
                                                           .bold,
 
-                                                      height: 2,
-                                                      fontSize: 18.sp,
+                                                      // height: 2,
+                                                      fontSize: 16.sp,
                                                       color: Colors.white))
                                                   : Text('0'),
                                             ],
@@ -944,7 +938,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   ),
                                 ),
                                 Positioned(
-                                  top: 10.h,
+                                  top: 2.h,
                                   right: 10.w,
                                   child: InkWell(
                                     onTap: () {
@@ -957,7 +951,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                       backgroundColor: Colors.white,
                                       backgroundImage: AssetImage(
                                         'assets/images/point.png',),
-                                      radius: 45.r,
+                                      radius: 40.r,
                                     ),
                                   ),
                                 ),

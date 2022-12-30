@@ -535,7 +535,7 @@ class ReceiptScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: Get.width/1.3.w,
+                  width: 200.w,
                   height: 50.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(55.sp)
