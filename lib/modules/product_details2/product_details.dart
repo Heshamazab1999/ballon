@@ -55,24 +55,29 @@ class ProductDetails extends StatelessWidget {
                   },
                   fit: BoxFit.cover,
                 )),
-          Obx(()=>  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  '   ${'price'.tr} : ',
-                  style: TextStyle(fontSize: 20.sp, color: kPrimaryColor),
-                ),
-           controller.totalPrice.value == 0 ?
-             Text('${data!.price}  ${'coin_jordan'.tr}',style: TextStyle(fontSize: 16.sp),):
-             Text(
-             "   ${controller.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
+          Obx(()=>  Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(data!.name.toString().tr, style: TextStyle(fontSize: 25.sp, color: kPrimaryColor)),
+
+             controller.totalPrice.value == 0 ?
+               Text('${data!.price}  ${'coin_jordan'.tr}',style: TextStyle(fontSize: 25.sp),):
+               Text(
+               "   ${controller.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
         style: TextStyle(
-          fontSize: 25.sp,
-          color: kPrimaryColor,
+            fontSize: 25.sp,
+            color: kPrimaryColor,
         ),
-      ),   Text(data!.name.toString().tr, style: TextStyle(fontSize: 25.sp, color: kPrimaryColor)),
-              ],
-            ),
+      ),
+                  // Text(
+                  //   '   ${'price'.tr} : ',
+                  //   style: TextStyle(fontSize: 20.sp, color: kPrimaryColor),
+                  // ),
+                ],
+              ),
+          ),
             ),
            Obx(()=> Container(
               padding: EdgeInsets.all(4.sp),
@@ -109,7 +114,7 @@ class ProductDetails extends StatelessWidget {
                       )),
                   GestureDetector(
                     onTap: () {
-                      controller.increaseOrderCounter(data!.availability!,data!.price!);
+                      controller.increaseOrderCounter(data!.availability!,data!.price!.toDouble());
                     },
                     child: Container(
                       width: 45.w,
@@ -196,7 +201,7 @@ child:
                                       color: Colors.black, fontSize: 15.sp)),
                               Icon(
                                 Icons.shopping_cart_outlined,
-                                color: Colors.black,
+                                color: Colors.black,size: 25.sp,
                               ),
                             ],
                           )),

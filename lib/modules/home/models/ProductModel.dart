@@ -60,7 +60,7 @@ class ProductData {
   int? id;
   String? name;
   String? desc;
-  double? price;
+  int? price;
   int? availability;
   String? photo;
   int? categoryId;

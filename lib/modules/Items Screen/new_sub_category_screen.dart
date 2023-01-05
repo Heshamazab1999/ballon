@@ -58,8 +58,9 @@ class NewSubCategoryScreen extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(20.sp),
                                           ),
-                                          backgroundColor:
-                                          controller.selectedIndex.value == index
+
+                                          // backgroundColor:
+                                        primary:  controller.selectedIndex.value == index
                                               ?Colors.grey.shade300
                                               : Colors.transparent,
                                           elevation: 0,
