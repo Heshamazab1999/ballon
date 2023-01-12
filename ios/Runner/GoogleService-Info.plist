@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:753422497532:ios:6bee67f7fc8aab0949c979</string>
+	<string>1:753422497532:ios:efb90662fc6ae99949c979</string>
 	<key>DATABASE_URL</key>
 	<string>https://balloonzup-541cc-default-rtdb.firebaseio.com</string>
 </dict>

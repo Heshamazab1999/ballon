@@ -26,6 +26,7 @@ class SignUpController extends GetxController {
   var userId;
   Future<void> sendVerificationCode({phone, name}) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
+      // phoneNumber: '+201112134871',
       phoneNumber: '$phone' ?? "",
        verificationCompleted: (PhoneAuthCredential phoneAuthCredentials) async {
         await FirebaseAuth.instance

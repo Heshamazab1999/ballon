@@ -84,8 +84,7 @@ class MoreInfoController extends GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    barcodeController.clear();
+     barcodeController.clear();
     super.dispose();
   }
 }

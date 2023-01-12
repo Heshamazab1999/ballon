@@ -44,7 +44,7 @@ dependencies:
   firebase_database: ^8.0.1
   shared_preferences: ^2.0.8
   intl_phone_number_input: ^0.7.0+2
-  firebase_auth: ^3.3.0
+  firebase_auth:
   pin_code_fields: ^7.3.0
   url_launcher:
   font_awesome_flutter: ^9.2.0

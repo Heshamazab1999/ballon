@@ -108,27 +108,8 @@ class AddNewAddress extends StatelessWidget {
                                     onCameraMove: controller.onCameraMove,
                                     onMapCreated: (GoogleMapController
                                         gcontroller) async {
-                                      // controller.markers.add(Marker(
-                                      //   markerId: MarkerId(CacheHelper
-                                      //       .getDataToSharedPrefrence(
-                                      //           'restaurantBranchID')),
-                                      //   position: LatLng(
-                                      //       double.parse(CacheHelper
-                                      //           .getDataToSharedPrefrence(
-                                      //               'restaurantBranchLat')),
-                                      //       double.parse(CacheHelper
-                                      //           .getDataToSharedPrefrence(
-                                      //               'restaurantBranchLng'))),
-                                      //   infoWindow: InfoWindow(
-                                      //     title: 'Location',
-                                      //     snippet: CacheHelper
-                                      //         .getDataToSharedPrefrence(
-                                      //             'restaurantBranchID'),
-                                      //   ),
-                                      // ));
                                       mapController.address;
-                                      // controller.currentLocation!.latitude, controller.currentLocation!.longitude)
-                                      controller.showPinsOnMap(
+                                       controller.showPinsOnMap(
                                           controller.currentLocation!);
                                       controller.controller
                                           .complete(gcontroller);

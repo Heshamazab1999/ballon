@@ -33,7 +33,7 @@ class PhoneNumberField extends StatelessWidget {
         init: SignUpController(),
         builder: (signUpController) => InternationalPhoneNumberInput(
           cursorColor: mainColor,
-          // keyboardType: TextInputType.number,
+          keyboardType: TextInputType.number,
 
           locale: "ar,en",
           textAlignVertical: TextAlignVertical.top,

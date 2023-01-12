@@ -1,5 +1,5 @@
 {
-  "Simulator Target Bundle": "com.arrows.mamatender",
+  "Simulator Target Bundle": "com.arrows.balloonz",
   "aps": {
     "alert": "This is a simulated notification!",
     "badge": 3,

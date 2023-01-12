@@ -256,7 +256,10 @@ class _CartScreenState extends State<CartScreen> {
                                                                       child:
 
                                                                       Container(
-                                                                        decoration: BoxDecoration(color: Colors.white, borderRadius: translateName ? BorderRadius.only(bottomRight: Radius.circular(15)) : BorderRadius.only(bottomLeft: Radius.circular(15))),
+                                                                        decoration: BoxDecoration(color: Colors.white,
+                                                                            borderRadius: translateName ?
+                                                                            BorderRadius.only(bottomRight: Radius.circular(15))
+                                                                                : BorderRadius.only(bottomLeft: Radius.circular(15))),
                                                                         child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
                                                                           CartIngrediantRow(
                                                                               textKey: 'price'.tr,

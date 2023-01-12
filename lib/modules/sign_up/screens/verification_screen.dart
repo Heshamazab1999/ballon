@@ -62,11 +62,11 @@ String phone;
                           Get.defaultDialog(content: Text('Network Connection error '),);
                         }else{
                           Get.back();
+                          // Get.defaultDialog(content: Text('$error'.tr), title: 'error'.tr);
                           Get.defaultDialog(content: Text('wrong_code'.tr), title: 'error'.tr);
                         }
                       }
                     }),
-
                 Button(
                   isFramed: true,
                   height: Get.height/20.h,
@@ -76,26 +76,8 @@ String phone;
                     onPressed: () async {
                       showLoaderDialog(context);
                       await signUpController.sendVerificationCode(name:name ,phone:phone );
-
                     }),
-                // SizedBox(
-                //   width: 300.w,
-                //   height: 40.h,
-                //   child: OutlinedButton(
-                //       onPressed: () async {
-                //
-                //         showLoaderDialog(context);
-                //         await signUpController.sendVerificationCode();
-                //       },
-                //       style: OutlinedButton.styleFrom(
-                //           backgroundColor: mainColor),
-                //       child: Text(
-                //         "resend_code".tr,
-                //         style: TextStyle(
-                //             color: kPrimaryColor, fontWeight: FontWeight.w600,fontSize: 14.sp),
-                //       )),
-                // ),
-              ],
+               ],
             ),
           ),
         ),

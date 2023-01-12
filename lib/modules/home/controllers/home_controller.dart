@@ -19,7 +19,6 @@ class HomeController extends GetxController {
     for (int i = 0; i < response!.data!.length; i++) {
       homeAds.add(response.data![i]);
     }
-
     for (int i = 0; i < homeAds.length; i++) {
       homeAdsImages.add(homeAds[i].ads);
     }

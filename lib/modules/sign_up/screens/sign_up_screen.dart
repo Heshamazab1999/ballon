@@ -140,6 +140,7 @@ class SignUpScreen extends StatelessWidget {
                               // if (signUpController.formKey.currentState!
                               //     .validate()) {
                                 showLoaderDialog(context);
+                                // await signUpController.sendVerificationCode(phone:'+201112134871'
                                 await signUpController.sendVerificationCode(phone:signUpController.fullPhoneNumber
                                     ,name:signUpController.userNameTextEditingController );
                               // }
