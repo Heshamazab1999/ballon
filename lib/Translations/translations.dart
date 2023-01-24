@@ -45,7 +45,6 @@ class Languages extends Translations {
           'checkOut_onOrder': 'حدد تفاصيل التسليم',
           'quantity': 'الكميه',
           'barcodes': 'باركود',
-
           'checkOut_onOrder_title':
           'للمتابعة يرجي تأكيد تفاصيل التسليم الخاصه بك',
           'receive_from': 'الإستلام من الفرع',
@@ -84,7 +83,6 @@ class Languages extends Translations {
           'language': 'اللغه',
           'description': 'التفاصيل',
           'user_phone': 'رقم هاتف المستخدم',
-
           'continue': 'متابعة',
           'sorry': 'عفواً',
           'type': 'النوع',
@@ -113,8 +111,8 @@ class Languages extends Translations {
           'enter_barcode': 'اكتب الكود',
           'use_barcode': 'استخدم الباركود',
           'no_messages': 'لا توجد رسائل',
-
           'sorry': 'عفوا',
+          'email': 'ايميل',
           'you_can\'t_order_less_than_one': 'لا يمكنك أن تطلب أقل من واحد ',
           'there_is_no_sufficient_quantity': 'لا توجد كميه كافيه',
           'your_order_sent_successfully': 'تم إرسال طلبك بنجاح',
@@ -146,7 +144,7 @@ class Languages extends Translations {
         },
 
         // English Strings...
-        'en': {
+          'en': {
           "category": "category",
           "more": "more",
           'home': 'Home',
@@ -210,6 +208,7 @@ class Languages extends Translations {
           'service_fee': 'Service Fee',
           'total_sum': 'Total Sum',
           'done': 'Done',
+          'email': 'Email',
           'receipt': 'Receipt',
           'area_number': 'Area Number',
           'voucher_code': 'Enter Voucher Code',

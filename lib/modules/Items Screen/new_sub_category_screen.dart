@@ -5,15 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../components/sub_cat_componant.dart';
 import '../search/search_screen.dart';
-import 'controller.dart';
+ import 'controller/new_sub_cat_controller.dart';
 
 class NewSubCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NewSubCategoryController());
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -58,8 +57,6 @@ class NewSubCategoryScreen extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(20.sp),
                                           ),
-
-                                          // backgroundColor:
                                         primary:  controller.selectedIndex.value == index
                                               ?Colors.grey.shade300
                                               : Colors.transparent,
@@ -67,7 +64,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                                           minimumSize:
                                               const Size(double.infinity, 55)),
                                       child: Text(
-                                        controller.category!.data![index].name!,
+                                        controller.category!.data![index].name!.tr,
                                         style:   TextStyle(
                                           fontSize: 14.sp,
                                             color: Colors.black),
@@ -117,7 +114,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                                           id: controller
                                               .listSubCategory[index].id!,
                                           title: controller
-                                              .listSubCategory[index].name!));
+                                              .listSubCategory[index].name!.tr));
                                     },
                                     child: Container(
                                         padding:   EdgeInsets.only( right: 2.w,left: 2.w),

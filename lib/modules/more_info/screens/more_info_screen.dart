@@ -5,7 +5,6 @@ import 'package:arrows/helpers/shared_prefrences.dart';
 import 'package:arrows/modules/MainBranches/controllers/main_branches_controller.dart';
 import 'package:arrows/modules/cart/controllers/cart_controller.dart';
 import 'package:arrows/modules/home/controllers/home_controller.dart';
-import 'package:arrows/modules/main_category/controllers/main_categories_controller.dart';
 import 'package:arrows/modules/more_info/controllers/more_info_controller.dart';
 import 'package:arrows/modules/sign_up/controllers/signup_controller.dart';
 import 'package:arrows/modules/where_to_deliver/controllers/Where_to_controller.dart';
@@ -18,11 +17,9 @@ import 'package:flutter_scrolling_fab_animated/flutter_scrolling_fab_animated.da
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'dart:io' show Platform;
-
 import '../../../components/arrows_app_bar.dart';
 import '../../../components/custom_button.dart';
 import '../../../components/loading_spinner.dart';
-import '../../../constants/styles.dart';
 import '../../chat_screen/chat_screen.dart';
 import '../../sign_up/screens/sign_up_screen.dart';
 import 'barcod_screen.dart';
@@ -46,19 +43,15 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
   final SignUpController signUpController = Get.put(SignUpController());
 
   late AnimationController transitionAnimationController;
-
   @override
   void initState() {
     cartController.totalPoints;
     transitionAnimationController = BottomSheet.createAnimationController(this);
     transitionAnimationController.duration = Duration(seconds: 1);
-
     super.initState();
   }
 
   Order? order;
-
-
   void dispose() {
     transitionAnimationController.dispose();
 
@@ -262,70 +255,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                     fontWeight: FontWeight.bold),
                               );
                             }),
-                            // ListView.builder(
-                            //     shrinkWrap: true,
-                            //     physics: NeverScrollableScrollPhysics(),
-                            //     itemCount: 1,
-                            //     itemBuilder: (context, index) {
-                            //       if (whereToController.branches.length ==
-                            //           1) {
-                            //         print("empty");
-                            //         return const SizedBox();
-                            //       } else {
-                            //         if (index == 0) {
-                            //           return const SizedBox();
-                            //         } else {
-                            //           return InkWell(
-                            //             onTap: () {
-                            //               print(CacheHelper
-                            //                   .getDataToSharedPrefrence(
-                            //                   'restaurantBranchLat'));
-                            //             },
-                            //             child: Stack(children: [
-                            //               Image.asset(
-                            //                 'assets/images/cloud.png',
-                            //                 // height: 30.h,
-                            //                 width: Get.width,
-                            //                 fit: BoxFit.fill,
-                            //               ),
-                            //               Positioned(
-                            //                 left: 22.w,
-                            //                 right: 22.w,
-                            //                 top: 5.h,
-                            //                 bottom: 5.h,
-                            //                 child: Row(
-                            //                   children: [
-                            //                     Icon(
-                            //                       Icons.location_on_sharp,
-                            //                       size: 30.r,
-                            //                       color: kPrimaryColor,
-                            //                     ),
-                            //                     SizedBox(
-                            //                       width: ScreenUtil
-                            //                           .defaultSize.width -
-                            //                           50.w,
-                            //                       child: Column(
-                            //                         mainAxisAlignment:
-                            //                         MainAxisAlignment
-                            //                             .start,
-                            //                         crossAxisAlignment:
-                            //                         CrossAxisAlignment
-                            //                             .start,
-                            //                         children: [
-                            //                           Text('branch'),
-                            //                           Text('')
-                            //
-                            //                         ],
-                            //                       ),
-                            //                     ),
-                            //                   ],
-                            //                 ),
-                            //               ),
-                            //             ]),
-                            //           );
-                            //         }
-                            //       }
-                            //     }),
                             Obx(() {
                               return ListView.builder(
                                   shrinkWrap: true,
@@ -416,8 +345,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                               'restaurantBranchAddressEn')}',style: TextStyle(
                                                             fontSize: 14.sp,fontWeight: FontWeight.bold
                                                           ),),
-
-
                                                         ],
                                                       ),
                                                     ),
@@ -633,7 +560,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                 ),
                               ),
                             ),
-
                             Theme(
                               data: ThemeData(
                                 splashColor: Colors.transparent,
@@ -671,6 +597,98 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                             Text(
                                               k.restWebSite.tr,
                                               style: TextStyle(fontSize: 16.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Theme(
+                              data: ThemeData(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0.sp),
+                                child: InkWell(
+                                  onTap: () {
+                                    MapUtils.launchInBrowser('whatsapp://send?phone=20${moreInfoController.restaurantMoreInfo!.whatsapp}&text=hello');
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/cloud.png',
+                                        height: 50.h,
+                                        width: Get.width,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      Positioned(
+                                        left: 22.w,
+                                        right: 22.w,
+                                        top: 5.h,
+                                        bottom: 5.h,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.whatsapp,
+                                                size: 30.r, color: Colors.green),
+                                            SizedBox(
+                                              width: 20.w,),
+                                            Text(
+                                              "whatsapp".tr,
+                                              style: TextStyle(
+                                                  fontSize: 16.sp),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Theme(
+                              data: ThemeData(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0.sp),
+                                child: InkWell(
+                                  onTap: () {
+                                    MapUtils.launchInBrowser('mailto:${moreInfoController.restaurantMoreInfo!.email.toString()}');
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/cloud.png',
+                                        height: 50.h,
+                                        width: Get.width,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      Positioned(
+                                        left: 22.w,
+                                        right: 22.w,
+                                        top: 5.h,
+                                        bottom: 5.h,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                          Icon(
+                                              Icons.mail,
+                                              size: 30.r,
+                                              color: Colors.grey,
+                                            ),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            Text(
+                                              "email".tr,
+                                              style: TextStyle(
+                                                  fontSize: 16.sp),
                                             ),
                                           ],
                                         ),
@@ -902,8 +920,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   : Text('0'),
                                             ],
                                           )),
-                                      Card(
-                                          shape: OutlineInputBorder(
+                                      Card(shape: OutlineInputBorder(
                                               borderRadius: BorderRadius.only(
                                                   bottomLeft:
                                                   Radius.circular(15))),
@@ -926,14 +943,11 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                                   style: TextStyle(
                                                       fontWeight: FontWeight
                                                           .bold,
-
-                                                      // height: 2,
                                                       fontSize: 16.sp,
                                                       color: Colors.white))
                                                   : Text('0'),
                                             ],
                                           )),
-
                                     ],
                                   ),
                                 ),
@@ -1166,8 +1180,6 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
               inverted: false,
               width: Get.width / 3,
               height: Get.height / 18.h
-            // radius: 30.0,
-
           )),
     ));
   }

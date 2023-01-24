@@ -20,8 +20,8 @@ class HomeController extends GetxController {
       homeAds.add(response.data![i]);
     }
     for (int i = 0; i < homeAds.length; i++) {
-      homeAdsImages.add(homeAds[i].ads);
-    }
+       homeAdsImages.add(homeAds[i].ads);
+     }
     print(homeAds);
     print(homeAdsImages);
   }
@@ -38,8 +38,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
-    super.onClose();
+     super.onClose();
     Get.delete<HomeController>();
   }
 }

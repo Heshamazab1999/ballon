@@ -1,7 +1,7 @@
-import 'package:arrows/modules/Items%20Screen/controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../modules/Items Screen/controller/new_sub_cat_controller.dart';
 
 
 class testScreen extends StatelessWidget {
@@ -15,7 +15,6 @@ class testScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NewSubCategoryController controller = Get.put(NewSubCategoryController());
-
     if (controller.currentIndex != null){
       return Scaffold(
         body: GridView.builder(
@@ -23,8 +22,6 @@ class testScreen extends StatelessWidget {
           itemCount: controller.items[controller.currentIndex!]['Category']['ItemsCount'],
           gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: (3),
-            // childAspectRatio: MediaQuery.of(context).size.width /
-            //     (MediaQuery.of(context).size.height / 0.7),
           ),
 
           itemBuilder: (context,index){

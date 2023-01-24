@@ -34,7 +34,9 @@ class Info {
   String? restaurantId;
   String? tiktok;
   String? youtube;
+  String? whatsapp;
   String? createdAt;
+  String? email;
   String? updatedAt;
 
   Info(
@@ -46,11 +48,13 @@ class Info {
       this.twitter,
       this.instagram,
       this.snapchat,
+      this.email,
       this.website,
       this.restaurantName,
       this.restaurantId,
       this.tiktok,
       this.youtube,
+      this.whatsapp,
       this.createdAt,
       this.updatedAt});
 
@@ -67,6 +71,8 @@ class Info {
     restaurantName = json['restaurant_name'];
     restaurantId = json['restaurant_id'];
     tiktok = json['tiktok'];
+    whatsapp = json['whatsapp'];
+    email = json['email'];
     youtube = json['youtube'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -81,7 +87,9 @@ class Info {
     data['facebook'] = this.facebook;
     data['twitter'] = this.twitter;
     data['instagram'] = this.instagram;
+    data['whatsapp'] = this.whatsapp;
     data['snapchat'] = this.snapchat;
+    data['email'] = this.email;
     data['website'] = this.website;
     data['restaurant_name'] = this.restaurantName;
     data['restaurant_id'] = this.restaurantId;
