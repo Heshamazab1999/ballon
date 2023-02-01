@@ -2,11 +2,13 @@ import 'package:arrows/constants/colors.dart';
 import 'package:arrows/modules/home/models/ProductModel.dart';
 import 'package:arrows/modules/sub_categories/controllers/sub_categories_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../helpers/shared_prefrences.dart';
 import '../product_details/controllers/product_details_controller.dart';
@@ -16,6 +18,7 @@ class ProductDetails extends StatelessWidget {
     ProductDetails({Key? key, this.data}) : super(key: key);
   final ProductData? data;
   final controller=Get.put(ProductDetailsController());
+  final subCategoriesController=Get.put(SubCategoriesController());
     final translateName =
     CacheHelper.getDataToSharedPrefrence("localeIsArabic");
       @override
@@ -35,26 +38,79 @@ class ProductDetails extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-                clipBehavior: Clip.antiAlias,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 2.5.h,
-                decoration: BoxDecoration(
-                  border: Border.all(color: mainColor, width: 3.w),
-                  borderRadius: BorderRadius.circular(5.sp),
-                ),
-                child: OctoImage(
-                  image: CachedNetworkImageProvider(
-                    data!.photo!,
-                  ),
-                  placeholderBuilder: OctoPlaceholder.blurHash(
-                      'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
-                      fit: BoxFit.cover),
-                  errorBuilder: (context, url, error) {
-                    return BlurHash(hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
-                  },
-                  fit: BoxFit.cover,
-                )),
+            // Container(
+            //     clipBehavior: Clip.antiAlias,
+            //     width: MediaQuery.of(context).size.width,
+            //     height: MediaQuery.of(context).size.height / 2.5.h,
+            //     decoration: BoxDecoration(
+            //       border: Border.all(color: mainColor, width: 3.w),
+            //       borderRadius: BorderRadius.circular(5.sp),
+            //     ),
+            //     child: OctoImage(
+            //       image: CachedNetworkImageProvider(
+            //         data!.photo![0],
+            //       ),
+            //       placeholderBuilder: OctoPlaceholder.blurHash(
+            //           'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
+            //           fit: BoxFit.cover),
+            //       errorBuilder: (context, url, error) {
+            //         return BlurHash(hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
+            //       },
+            //       fit: BoxFit.cover,
+            //     )),
+
+
+          ///88888888888
+                Obx(() => CarouselSlider(
+                                    options: CarouselOptions(
+                                        autoPlay: false,
+                                        height: Get.height / 2.5.h,
+                                        viewportFraction: 1,
+                                        onPageChanged: (index, reason) {
+                                          subCategoriesController.currentImageIndex.value = index;
+                                        }),
+                                    items: subCategoriesController.proImages.map((item) => Container(
+                                            clipBehavior: Clip.antiAlias,
+                                            width: MediaQuery.of(context).size.width - 30,
+                                            decoration: BoxDecoration(
+                                              border:
+                                                  Border.all(color: mainColor, width: 2),
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: OctoImage(
+                                              image: CachedNetworkImageProvider(
+                                                item!,
+                                              ),
+                                              placeholderBuilder: OctoPlaceholder.blurHash(
+                                                  'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
+                                                  fit: BoxFit.cover),
+                                              errorBuilder: (context, url, error) {
+                                                return BlurHash(
+                                                    hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
+                                              },
+                                              fit: BoxFit.cover,
+                                            )))
+                                        .toList(),
+                                  )),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Obx(() => AnimatedSmoothIndicator(
+                                    activeIndex: subCategoriesController.currentImageIndex.value,
+                                    count: 3,
+                                    effect: WormEffect(
+                                        spacing:  8.0,
+                                        radius:  4.0,
+                                        dotWidth:  24.0,
+                                        dotHeight:  5.0,
+                                        paintStyle:  PaintingStyle.stroke,
+                                        strokeWidth:  1.5,
+                                        dotColor:  Colors.grey,
+                                        activeDotColor:  kPrimaryColor
+
+                                    ),
+                                  )),
+          ///88888888888
           Obx(()=>  Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Row(
@@ -71,10 +127,6 @@ class ProductDetails extends StatelessWidget {
             color: kPrimaryColor,
         ),
       ),
-                  // Text(
-                  //   '   ${'price'.tr} : ',
-                  //   style: TextStyle(fontSize: 20.sp, color: kPrimaryColor),
-                  // ),
                 ],
               ),
           ),
@@ -190,7 +242,7 @@ child:
                                   borderRadius: BorderRadius.circular(15.sp)),
                               backgroundColor: Colors.white),
                           onPressed: () {
-                            controller.addToCart(context,price:data!.price,category: data!.categoryId ,name:data!.name,image:data!.photo);
+                            controller.addToCart(context,price:data!.price,category: data!.categoryId ,name:data!.name,image:data!.photo![0]);
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,

@@ -83,4 +83,9 @@ class NewSubCategoryController extends GetxController{
   selected(int index) {
     selectedIndex.value = index;
   }
+  @override
+  void onClose() {
+    super.onClose();
+    Get.delete<NewSubCategoryController>();
+  }
 }

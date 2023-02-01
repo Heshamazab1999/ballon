@@ -43,6 +43,10 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>whatsapp</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -50,6 +54,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription </key>
+	<string>Take a photo from camera. </string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Always and when in use!</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -58,6 +64,10 @@
 	<string>Older devices need location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need location to determine user current location for delivering the product</string>
+	<key>NSMicrophoneUsageDescription </key>
+	<string>Used to capture audio for image picker plugin . </string>
+	<key>NSPhotoLibraryUsageDescription </key>
+	<string>Choose photo from gallery. </string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -88,17 +98,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>whatsapp</string>
-    </array>
-	<key>NSPhotoLibraryUsageDescription </key>
-	<string>Choose photo from gallery. </string>
-	<key>NSCameraUsageDescription </key>
-    <string>Take a photo from camera. </string>
-	<key>NSMicrophoneUsageDescription </key>
-    <string>Used to capture audio for image picker plugin . </string>
-
-
 </dict>
 </plist>

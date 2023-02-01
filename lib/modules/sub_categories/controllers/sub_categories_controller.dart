@@ -32,10 +32,12 @@ class SubCategoriesController extends GetxController {
   final valueGroupType = <int>[].obs;
   List<Sizes> sizesList = [];
   List<Drink> other_additional = [];
+  final currentImageIndex = 0.obs;
 
   // SubCategories? subCategories;
   ProductModel? productModel;
   final product = <ProductData>[].obs;
+  List proImages = [].obs;
 
   var value;
 
@@ -47,10 +49,24 @@ class SubCategoriesController extends GetxController {
       print("204");
     } else {
       product.assignAll(await productModel!.data!);
+
+      for (int i = 0; i < product.length; i++) {
+        product[i].photo!.forEach((element) {
+          proImages.add(element);
+        });
+
+      }
+
       print(product.length);
     }
     isFirstLoadRunning.value = false;
   }
+
+
+
+
+
+
 
   loadMore(int id) async {
     if (product.isNotEmpty) {

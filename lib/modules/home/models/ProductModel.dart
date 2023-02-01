@@ -45,7 +45,7 @@ class ProductData {
       this.desc, 
       this.price, 
       this.availability, 
-      this.photo, 
+      this.photo,
       this.categoryId,});
 
   ProductData.fromJson(dynamic json) {
@@ -54,7 +54,12 @@ class ProductData {
     desc = json['desc'];
     price = json['price'];
     availability = json['availability'];
-    photo = json['photo'];
+    photo = json['photo']??[];
+    // if (photo != null) {
+    //   json['photo'] = photo?.map((v) => v.toJson()).toList();
+    // }
+
+
     categoryId = json['category_id'];
   }
   int? id;
@@ -62,7 +67,8 @@ class ProductData {
   String? desc;
   int? price;
   int? availability;
-  String? photo;
+  List ? photo;
+  // String? photo;
   int? categoryId;
 
   Map<String, dynamic> toJson() {
@@ -78,3 +84,5 @@ class ProductData {
   }
 
 }
+
+

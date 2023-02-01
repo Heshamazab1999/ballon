@@ -107,8 +107,6 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),onTap: (){
                           bottomNavBarController.currentIndex.value = 0;
-                            // Get.to();
-
                         },
                         ),
                       ],
@@ -138,9 +136,6 @@ class HomeScreen extends StatelessWidget {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () async {
-                                      // await homeController.getProducts(
-                                      //     homeController
-                                      //         .category!.data![index].id!);
                                       Get.to(() => SubCategoriesScreen(
                                             id: homeController
                                                 .category!.data![index].id,

@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:arrows/constants/more_info_constants.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import '../../../helpers/connectivity.dart';
+import '../../Items Screen/controller/new_sub_cat_controller.dart';
 import '../../Items Screen/new_sub_category_screen.dart';
 import '../../more_info/controllers/more_info_controller.dart';
 
@@ -27,22 +28,16 @@ class BottomNavBarScreen extends StatelessWidget {
     final  moreInfoController = Get.put(MoreInfoController());
     final connection = Get.put(ConnectionStatusSingleton());
     final homeController = Get.put(HomeController());
+    final newSubCategoryController = Get.put(NewSubCategoryController());
 
     final List _bodyScreens = [
-      NewSubCategoryScreen(),
-       OrderHistoryScreen(),
-      HomeScreen(),
-      CartScreen(),
-      MoreInfoScreen(),
-    ].obs;
+        NewSubCategoryScreen(),
+        OrderHistoryScreen(),
+        HomeScreen(),
+        CartScreen(),
+        MoreInfoScreen(),
+     ].obs;
 
-    final List<String> title = <String>[
-      'menu'.tr,
-      'track_order'.tr,
-      'home'.tr,
-      'cart'.tr,
-      '${k.restName}'.tr
-    ].obs;
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -150,8 +145,7 @@ class BottomNavBarScreen extends StatelessWidget {
                           padding: EdgeInsets.only(top: 5.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
-                            color:
-                                bottomNavBarController.currentIndex.value == 3
+                            color: bottomNavBarController.currentIndex.value == 3
                                     ? Colors.pinkAccent.shade100.withOpacity(.7)
                                     : Colors.transparent,
                           ),
@@ -320,6 +314,7 @@ class BottomNavBarScreen extends StatelessWidget {
                 Obx(() => Expanded(
                       child: GestureDetector(
                         onTap: () {
+                          Get.put(NewSubCategoryController());
                           bottomNavBarController.changeTabIndex(0);
                         },
                         child: Container(

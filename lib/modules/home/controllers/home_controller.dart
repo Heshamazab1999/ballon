@@ -3,6 +3,7 @@ import 'package:arrows/modules/home/models/category_model.dart';
 import 'package:arrows/modules/home/models/subCategoryModel.dart';
 import 'package:get/get.dart';
 
+import '../../Items Screen/controller/new_sub_cat_controller.dart';
 import '../../home/services/home_services.dart';
 
 class HomeController extends GetxController {
@@ -40,5 +41,6 @@ class HomeController extends GetxController {
   void onClose() {
      super.onClose();
     Get.delete<HomeController>();
+    Get.delete<NewSubCategoryController>();
   }
 }

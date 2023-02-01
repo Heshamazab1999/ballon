@@ -32,6 +32,7 @@ class ProductDetailsController extends GetxController {
   List<bool> selectedAdditions = <bool>[].obs;
   List<bool> selectedComponents = <bool>[].obs;
   final priceList = <String>[].obs;
+  final totalPrice = 0.0.obs;
   List<Products> products = <Products>[].obs;
   var value ;
   var addressesBox;
@@ -78,12 +79,12 @@ class ProductDetailsController extends GetxController {
   ProductData data=ProductData();
   NewCartModel2 oneProduct = NewCartModel2();
   String message='';
-  final totalPrice = 0.0.obs;
+
 
   addToCart(context,{price ,category,name,
     image})async{
     DateFormat dateFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
-
+    totalPrice.value=double.parse(price.toString());
     String dateID =   dateFormat.format(DateTime.now());
     CacheHelper.saveDataToSharedPrefrence('dateOfTheOrder', dateID);
 
@@ -105,7 +106,7 @@ class ProductDetailsController extends GetxController {
          quantity: orderCounter.value.toString(),
          category:category.toString(),
          message: message,
-         total_price: totalPrice.value.toStringAsFixed(2),
+         total_price: totalPrice.value.toStringAsFixed(2)=='0.00'? price.toString():totalPrice.value.toStringAsFixed(2),
       );
       CacheHelper.getDataToSharedPrefrence('userID') != null
           ? FirebaseDatabase.instance
