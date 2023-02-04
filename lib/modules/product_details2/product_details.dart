@@ -38,30 +38,9 @@ class ProductDetails extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Container(
-            //     clipBehavior: Clip.antiAlias,
-            //     width: MediaQuery.of(context).size.width,
-            //     height: MediaQuery.of(context).size.height / 2.5.h,
-            //     decoration: BoxDecoration(
-            //       border: Border.all(color: mainColor, width: 3.w),
-            //       borderRadius: BorderRadius.circular(5.sp),
-            //     ),
-            //     child: OctoImage(
-            //       image: CachedNetworkImageProvider(
-            //         data!.photo![0],
-            //       ),
-            //       placeholderBuilder: OctoPlaceholder.blurHash(
-            //           'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
-            //           fit: BoxFit.cover),
-            //       errorBuilder: (context, url, error) {
-            //         return BlurHash(hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
-            //       },
-            //       fit: BoxFit.cover,
-            //     )),
-
 
           ///88888888888
-                Obx(() => CarouselSlider(
+                CarouselSlider(
                                     options: CarouselOptions(
                                         autoPlay: false,
                                         height: Get.height / 2.5.h,
@@ -69,12 +48,12 @@ class ProductDetails extends StatelessWidget {
                                         onPageChanged: (index, reason) {
                                           subCategoriesController.currentImageIndex.value = index;
                                         }),
-                                    items: subCategoriesController.proImages.map((item) => Container(
+                                    items: data!.photo!.map((item) => Container(
+                                    // items: subCategoriesController.proImages.value.map((item) => Container(
                                             clipBehavior: Clip.antiAlias,
                                             width: MediaQuery.of(context).size.width - 30,
                                             decoration: BoxDecoration(
-                                              border:
-                                                  Border.all(color: mainColor, width: 2),
+                                              border:  Border.all(color: mainColor, width: 2),
                                               borderRadius: BorderRadius.circular(5),
                                             ),
                                             child: OctoImage(
@@ -91,17 +70,17 @@ class ProductDetails extends StatelessWidget {
                                               fit: BoxFit.cover,
                                             )))
                                         .toList(),
-                                  )),
+                                  ) ,
                               SizedBox(
                                 height: 20.h,
                               ),
                               Obx(() => AnimatedSmoothIndicator(
                                     activeIndex: subCategoriesController.currentImageIndex.value,
-                                    count: 3,
+                                    count:data!.photo!.length,
                                     effect: WormEffect(
                                         spacing:  8.0,
                                         radius:  4.0,
-                                        dotWidth:  24.0,
+                                        dotWidth:  5,
                                         dotHeight:  5.0,
                                         paintStyle:  PaintingStyle.stroke,
                                         strokeWidth:  1.5,
@@ -112,14 +91,16 @@ class ProductDetails extends StatelessWidget {
                                   )),
           ///88888888888
           Obx(()=>  Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(data!.name.toString().tr, style: TextStyle(fontSize: 25.sp, color: kPrimaryColor)),
+                  Container(
+                    width:Get.width/2,
+                      child: Text(data!.name.toString().tr, style: TextStyle(fontSize: 20.sp, color: kPrimaryColor,overflow: TextOverflow.ellipsis))),
 
              controller.totalPrice.value == 0 ?
-               Text('${data!.price}  ${'coin_jordan'.tr}',style: TextStyle(fontSize: 25.sp),):
+               Text('${data!.price}  ${'coin_jordan'.tr}',style: TextStyle(fontSize: 20.sp, ),):
                Text(
                "   ${controller.totalPrice.value.toStringAsFixed(2)}  ${'coin_jordan'.tr}    ",
         style: TextStyle(
@@ -145,7 +126,6 @@ class ProductDetails extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       controller.decreaseOrderCounter(data!.price!);
-
                     },
                     child: Container(
                       width: 45.w,

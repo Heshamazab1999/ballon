@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../cart/controllers/cart_controller.dart';
 
 class SignUpController extends GetxController {
-  //
+
   TextEditingController phoneTextEditingController = TextEditingController();
   String? userNameTextEditingController;
   String? passwordTextEditingController;
@@ -26,7 +26,6 @@ class SignUpController extends GetxController {
   var userId;
   Future<void> sendVerificationCode({phone, name}) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      // phoneNumber: '+201112134871',
       phoneNumber: '$phone' ?? "",
        verificationCompleted: (PhoneAuthCredential phoneAuthCredentials) async {
         await FirebaseAuth.instance

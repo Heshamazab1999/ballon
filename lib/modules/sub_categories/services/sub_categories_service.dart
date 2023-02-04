@@ -32,6 +32,3 @@ class SubCategoriesService {
     return null;
   }
 }
-//final translateName =
-//                             CacheHelper.getDataToSharedPrefrence(
-//                                 "localeIsArabic");

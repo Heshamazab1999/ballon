@@ -34,10 +34,9 @@ class SubCategoriesController extends GetxController {
   List<Drink> other_additional = [];
   final currentImageIndex = 0.obs;
 
-  // SubCategories? subCategories;
   ProductModel? productModel;
   final product = <ProductData>[].obs;
-  List proImages = [].obs;
+  final proImages = [].obs;
 
   var value;
 
@@ -49,14 +48,13 @@ class SubCategoriesController extends GetxController {
       print("204");
     } else {
       product.assignAll(await productModel!.data!);
-
+      proImages.value=[];
       for (int i = 0; i < product.length; i++) {
         product[i].photo!.forEach((element) {
           proImages.add(element);
         });
 
       }
-
       print(product.length);
     }
     isFirstLoadRunning.value = false;
@@ -83,42 +81,13 @@ class SubCategoriesController extends GetxController {
 
   @override
   dispose() {
-    // refreshController;
-    // totalPrice.value=0;
-    // orderCounter.value=1;
-    // listOfPComponents;
-    // productPrice.value;
-    //   isFirstLoadRunning ;
-    //   hasNextPage ;
-    //   isLoadMoreRunning  ;
-    //   drinkRadioButtonSelectedValue ;
-    //   typeRadioButtonSelectedValue ;
-    //   valueGroupType;
-    //    sizesList;
-    //   other_additional;
-    //     subCategories;
 
     update();
   }
 
   void onClose() {
     increaseOrderCounter;
-    // totalPrice.value=0;
-    // orderCounter.value=1;
-    // orderPrice.value;
-    // refreshController;
-    //   listOfPComponents;
-    // isFirstLoadRunning ;
-    // hasNextPage ;
-    // isLoadMoreRunning  ;
-    // sizeDropDownValue=Sizes();
-    // drinkRadioButtonSelectedValue ;
-    // typeRadioButtonSelectedValue ;
-    // valueGroupType;
-    // sizesList;
-    // orderCounter.value=1;
-    // other_additional;
-    // subCategories;
+
     update();
   }
 
@@ -126,12 +95,6 @@ class SubCategoriesController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
 
-    // final MainCategoriesController mainCategoriesController =
-    //     Get.put(MainCategoriesController());
-    // mainCategoryId = mainCategoriesController
-    //         .categories[mainCategoriesController.index].id ??
-    //     0;
-    // getSubCategories();
   }
 
   selectDrinkRadioButton(var v) {

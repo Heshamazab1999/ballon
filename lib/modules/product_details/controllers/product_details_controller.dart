@@ -112,7 +112,6 @@ class ProductDetailsController extends GetxController {
           ? FirebaseDatabase.instance
           .reference()
           .child('Cart')
-          // .child('branch1')
           .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
           .child(CacheHelper.getDataToSharedPrefrence('userID'))
           .child(dateID)

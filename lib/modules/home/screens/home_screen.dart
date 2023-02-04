@@ -179,7 +179,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-// mainCategoriesController.index = index;
-// Get.to(() => SubCategoriesScreen(
-//     title: mainCategoriesController
-//         .categories[index].name!.tr));
