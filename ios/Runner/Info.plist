@@ -7,11 +7,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Balloonz Up</string>
+	<string>Amman Corner</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.arrows.balloonz</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -31,7 +31,15 @@
 			<string>Client</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app-1-753422497532-ios-efb90662fc6ae99949c979</string>
+				<string>app-1-777381198786-ios-a3cf36599bf3d185a7b45b</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>app-1-777381198786-ios-a3cf36599bf3d185a7b45b</string>
 			</array>
 		</dict>
 	</array>

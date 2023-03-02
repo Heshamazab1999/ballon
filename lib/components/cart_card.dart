@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
@@ -17,17 +18,18 @@ class CartIngrediantRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          widget!,
+          Text(
+            '  $textKey  :',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp),
+          ),
           SizedBox(
             width: 1,
           ),
-          Text(
-            ': $textKey',
-            style: TextStyle(
-                color: kPrimaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 14.sp),
-          ),
+          Expanded(child: widget!),
+
         ],
       ),
     );

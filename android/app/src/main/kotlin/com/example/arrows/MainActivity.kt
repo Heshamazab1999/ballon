@@ -1,4 +1,4 @@
-package com.example.arrowss
+package com.arrows.ammancorner
 
 import io.flutter.embedding.android.FlutterActivity
 

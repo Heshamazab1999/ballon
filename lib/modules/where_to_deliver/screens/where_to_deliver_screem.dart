@@ -55,11 +55,8 @@ class _WhereToDeliverScreenState extends State<WhereToDeliverScreen> {
               child: Text(
                 "checkOut_onOrder_title".tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18.sp, color: kPrimaryColor),
+                style: TextStyle(fontSize: 18.sp, color: Colors.black),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
             ),
             Row(
               mainAxisSize: MainAxisSize.max,

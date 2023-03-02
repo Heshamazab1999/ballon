@@ -28,6 +28,7 @@ class PhoneNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isValidPhoneNumber = false;
     return Container(
+      height: 100.h,
       width: 348.w,
       child: GetBuilder<SignUpController>(
         init: SignUpController(),
@@ -58,7 +59,7 @@ class PhoneNumberField extends StatelessWidget {
             trailingSpace: false,
           ),
           ignoreBlank: true,
-          textStyle: TextStyle(color: kPrimaryColor, fontSize: 18.sp),
+          textStyle: TextStyle(color: mainColor, fontSize: 18.sp),
           inputDecoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
@@ -66,7 +67,7 @@ class PhoneNumberField extends StatelessWidget {
             hintText: "phone_number".tr,
             isDense: true,
             // Added this
-            contentPadding: EdgeInsets.all(20.w),
+            contentPadding: EdgeInsets.all(10.sp),
             hintStyle: TextStyle(
                 color: mainColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
             border: OutlineInputBorder(
@@ -100,7 +101,7 @@ class PhoneNumberField extends StatelessWidget {
           // autoValidateMode: AutovalidateMode.disabled,
           autoValidateMode: AutovalidateMode.always,
 
-          selectorTextStyle: TextStyle(color: Colors.black, fontSize: 18.sp),
+          selectorTextStyle: TextStyle(color: mainColor, fontSize: 18.sp),
           hintText: "ادخل رقم ",
           textFieldController: controller,
           // formatInput: false,

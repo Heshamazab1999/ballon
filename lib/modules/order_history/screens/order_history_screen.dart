@@ -9,7 +9,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:arrows/constants/more_info_constants.dart';
 
 import '../../../components/arrows_app_bar.dart';
 import '../../../components/custom_button.dart';
@@ -116,9 +116,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                                     color: mainColor, width: 3),
                                                 borderRadius:
                                                     BorderRadius.circular(15)),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Row(
+                                            child:  Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   crossAxisAlignment:
@@ -133,50 +131,59 @@ class OrderHistoryScreen extends StatelessWidget {
                                                             MainAxisAlignment
                                                                 .start,
                                                         children: [
+                                                       Container(
+                                                         padding: EdgeInsets.all(10.sp),
+                                                         decoration: BoxDecoration(
+                                                         color:mainColor,
+                                                             borderRadius:
+                                                             BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15),)),
+
+                                                         child:    Row(
+                                                         mainAxisAlignment:
+                                                         MainAxisAlignment
+                                                             .spaceBetween,
+                                                         children: [
+                                                           Text(
+                                                             "order_time".tr,
+                                                             style: TextStyle(
+                                                                 color:
+                                                                 Colors.white,
+                                                                 fontSize:
+                                                                 20.sp,
+                                                                 fontWeight:
+                                                                 FontWeight
+                                                                     .bold),
+                                                           ),
+                                                           Text(
+                                                             snapshot.value["order_id"]
+                                                                 .toString(),
+                                                             style: TextStyle(
+                                                                 color:   Colors.white,
+                                                                 fontSize:
+                                                                 14.sp,
+                                                                 fontWeight:
+                                                                 FontWeight
+                                                                     .bold),
+                                                           ),
+                                                         ],
+                                                       ),),
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
                                                             children: [
-                                                              Text(
-                                                                "order_time".tr,
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kPrimaryColor,
-                                                                    fontSize:
-                                                                        20.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                              Text(
-                                                                snapshot.value[
-                                                                        "order_id"]
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        14.sp,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
+                                                              k.sizedBoxW,
+
                                                               Text(
                                                                 "total_price".tr,
                                                                 style: TextStyle(
                                                                     color: Colors
-                                                                        .grey,
+                                                                        .black,
                                                                     fontSize:
                                                                         18.sp),
                                                               ),
+                                                              k.sizedBoxW,
+
                                                               Text(
                                                                 double.parse(snapshot
                                                                             .value[
@@ -192,6 +199,8 @@ class OrderHistoryScreen extends StatelessWidget {
                                                                     fontSize:
                                                                         16.sp),
                                                               ),
+                                                              k.sizedBoxW,
+
                                                             ],
                                                           ),
                                                           Row(
@@ -199,14 +208,17 @@ class OrderHistoryScreen extends StatelessWidget {
                                                                 MainAxisAlignment
                                                                     .spaceBetween,
                                                             children: [
+                                                              k.sizedBoxW,
+
                                                               Text(
                                                                 "order_status".tr,
                                                                 style: TextStyle(
                                                                     color: Colors
-                                                                        .grey,
+                                                                        .black,
                                                                     fontSize:
                                                                         18.sp),
                                                               ),
+                                                              k.sizedBoxW,
                                                               Text('${snapshot.value["order_status"]}'.tr,
                                                                 style: TextStyle(
                                                                     color: Colors
@@ -217,6 +229,8 @@ class OrderHistoryScreen extends StatelessWidget {
                                                                     fontSize:
                                                                         18.sp),
                                                               ),
+                                                              k.sizedBoxW,
+
                                                             ],
                                                           ),
                                                           Padding(
@@ -239,7 +253,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                                                         ? SizedBox()
                                                                         : Button(
                                                                             isFramed:
-                                                                                true,
+                                                                            false,
                                                                             text:
                                                                                 "cancel".tr,
                                                                             size:
@@ -252,7 +266,6 @@ class OrderHistoryScreen extends StatelessWidget {
                                                                               FirebaseDatabase.instance.reference().child("Orders").
                                                                               child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
                                                                               .child(order2.orderId.toString()).remove();
-
                                                                               FirebaseDatabase.instance.reference().child("UserOrders")
                                                                                   .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
                                                                                   .child(CacheHelper.getDataToSharedPrefrence('userID'))
@@ -263,7 +276,7 @@ class OrderHistoryScreen extends StatelessWidget {
 
                                                                     Button(
                                                                       isFramed:
-                                                                      true,
+                                                                      false,
                                                                       text:
 
                                                                         "order_details"
@@ -290,7 +303,7 @@ class OrderHistoryScreen extends StatelessWidget {
                                                     ),
                                                   ]),
                                             ),
-                                          )));
+                                          ));
                                 }
                               });
                         });

@@ -38,7 +38,7 @@ class DioHelper {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'lang': translateName ? 'ar' : "en",
-      'resturant': 'y7b42yskv43l_baloons',
+      'resturant': 'y7b42yskv43l_ammancorner',
       // 'resturant': restaurantName,
       'Authorization': token == null ? "" : 'Bearer $token',
     };
@@ -58,7 +58,7 @@ class DioHelper {
     dio!.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'resturant': 'y7b42yskv43l_baloons',
+      'resturant': 'y7b42yskv43l_ammancorner',
       // 'resturant': restaurantName,
       'Authorization': token == null ? "" : 'Bearer $token',
     };

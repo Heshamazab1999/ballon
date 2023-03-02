@@ -296,7 +296,7 @@ cartController.update();
 
     Get.snackbar('done'.tr, '${'your_order_sent_successfully'.tr}',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: kPrimaryColor,
+          backgroundColor: Colors.grey.shade800,
           duration: Duration(seconds: 2),
           dismissDirection: DismissDirection.startToEnd,
           barBlur: 10,

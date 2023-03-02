@@ -50,7 +50,7 @@ class BottomNavBarScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/icons/ic_no_connection.png',
+                    'assets/icons/no_connection.png',
                     height: 300.h,
                     width: 300.w,
                     color: mainColor,
@@ -63,7 +63,8 @@ class BottomNavBarScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ],
-              )))),
+              )))
+        ),
         bottomNavigationBar:
         Material(
           elevation: 2,
@@ -87,7 +88,7 @@ class BottomNavBarScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 4
-                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
+                                    ? mainColor
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -97,13 +98,13 @@ class BottomNavBarScreen extends StatelessWidget {
                                       animationDuration:
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
-                                        "assets/icons/ic_more.png",
+                                        "assets/icons/ic_more_filled.png",
                                         width: 25.w,
                                         height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 4
-                                            ? Colors.white
+                                            ? kPrimaryColor
                                             : Colors.black,
                                       ))
                                   : Image.asset(
@@ -113,7 +114,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               4
-                                          ? Colors.white
+                                          ? kPrimaryColor
                                           : Colors.black,
                                     ),
                               bottomNavBarController.currentIndex.value == 4
@@ -125,9 +126,10 @@ class BottomNavBarScreen extends StatelessWidget {
                                               color: bottomNavBarController
                                                           .currentIndex.value ==
                                                       4
-                                                  ? Colors.white
+                                                  ? kPrimaryColor
                                                   : Colors.black,
-                                              fontSize: 16.sp)),
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold)),
                                     )
                                   : SizedBox()
                             ],
@@ -146,7 +148,7 @@ class BottomNavBarScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
                             color: bottomNavBarController.currentIndex.value == 3
-                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
+                                    ? mainColor
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -156,13 +158,13 @@ class BottomNavBarScreen extends StatelessWidget {
                                       animationDuration:
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
-                                        "assets/icons/ic_cart.png",
+                                        "assets/icons/ic_cart_filled.png",
                                         width: 25.w,
                                         height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 3
-                                            ? Colors.white
+                                            ? kPrimaryColor
                                             : Colors.black,
                                       ))
                                   : Image.asset(
@@ -172,7 +174,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               3
-                                          ? Colors.white
+                                          ? kPrimaryColor
                                           : Colors.black,
 
                                     ),
@@ -185,9 +187,11 @@ class BottomNavBarScreen extends StatelessWidget {
                                               color: bottomNavBarController
                                                           .currentIndex.value ==
                                                       3
-                                                  ? Colors.white
+                                                  ? kPrimaryColor
                                                   : Colors.black,
-                                          fontSize: 16.sp)))
+                                          fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold
+                                          )))
                                   : SizedBox()
                             ],
                           ),
@@ -208,7 +212,7 @@ class BottomNavBarScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 2
-                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
+                                    ? mainColor
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -218,13 +222,13 @@ class BottomNavBarScreen extends StatelessWidget {
                                       animationDuration:
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
-                                        "assets/icons/ic_home.png",
+                                        "assets/icons/ic_home_filled.png",
                                         width: 25.w,
                                         height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 2
-                                            ? Colors.white
+                                            ? kPrimaryColor
                                             : Colors.black,
                                       ))
                                   : Image.asset(
@@ -234,7 +238,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               2
-                                          ? Colors.white
+                                          ? kPrimaryColor
                                           : Colors.black,
                                     ),
                               bottomNavBarController.currentIndex.value == 2
@@ -246,9 +250,10 @@ class BottomNavBarScreen extends StatelessWidget {
                                               color: bottomNavBarController
                                                           .currentIndex.value ==
                                                       2
-                                                  ? Colors.white
+                                                  ? kPrimaryColor
                                                   : Colors.black,
-                                              fontSize: 16.sp)))
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold)))
                                   : SizedBox()
                             ],
                           ),
@@ -267,7 +272,7 @@ class BottomNavBarScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 1
-                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
+                                    ? mainColor
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -283,7 +288,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 1
-                                            ? Colors.white
+                                            ? kPrimaryColor
                                             : Colors.black,
                                       ))
                                   : Image.asset(
@@ -293,7 +298,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               1
-                                          ? Colors.white
+                                          ? kPrimaryColor
                                           : Colors.black,
                                     ),
                               bottomNavBarController.currentIndex.value == 1
@@ -302,9 +307,10 @@ class BottomNavBarScreen extends StatelessWidget {
                                           color: bottomNavBarController
                                                       .currentIndex.value ==
                                                   1
-                                              ? Colors.white
+                                              ? kPrimaryColor
                                               : Colors.black,
-                                          fontSize: 16.sp))
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold))
                                   : SizedBox()
                             ],
                           ),
@@ -324,7 +330,7 @@ class BottomNavBarScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.r),
                             color:
                                 bottomNavBarController.currentIndex.value == 0
-                                    ? Colors.pinkAccent.shade100.withOpacity(.7)
+                                    ? mainColor
                                     : Colors.transparent,
                           ),
                           child: Column(
@@ -334,13 +340,13 @@ class BottomNavBarScreen extends StatelessWidget {
                                       animationDuration:
                                           Duration(milliseconds: 200),
                                       child: Image.asset(
-                                        "assets/icons/ic_menu.png",
+                                        "assets/icons/ic_menu_filled.png",
                                         width: 25.w,
                                         height: 25.h,
                                         color: bottomNavBarController
                                                     .currentIndex.value ==
                                                 0
-                                            ? Colors.white
+                                            ? kPrimaryColor
                                             : Colors.black,
                                       ))
                                   : Image.asset(
@@ -350,7 +356,7 @@ class BottomNavBarScreen extends StatelessWidget {
                                       color: bottomNavBarController
                                                   .currentIndex.value ==
                                               0
-                                          ? Colors.white
+                                          ? kPrimaryColor
                                           : Colors.black,
                                     ),
                               bottomNavBarController.currentIndex.value == 0
@@ -362,9 +368,10 @@ class BottomNavBarScreen extends StatelessWidget {
                                               color: bottomNavBarController
                                                           .currentIndex.value ==
                                                       0
-                                                  ? Colors.white
+                                                  ? kPrimaryColor
                                                   : Colors.black,
-                                              fontSize: 16.sp)))
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold)))
                                   : SizedBox()
                             ],
                           ),

@@ -1,4 +1,5 @@
 import 'package:arrows/constants/colors.dart';
+import 'package:arrows/constants/more_info_constants.dart';
 import 'package:arrows/modules/home/controllers/home_controller.dart';
 import 'package:arrows/modules/sub_categories/screens/sub_categories_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../../components/arrows_app_bar.dart';
 import '../../bottom_nav_bar/controllers/bottom_nav_bar_controller.dart';
 
@@ -21,21 +21,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     //
-     final bottomNavBarController = Get.put(BottomNavBarController());
-    // PageController pageController = PageController(initialPage: 0);
-
+    final bottomNavBarController = Get.put(BottomNavBarController());
     return Scaffold(
       appBar: ArrowsAppBar(
         'home'.tr,
       ),
       body: SingleChildScrollView(
           child: Obx(
-        () => homeController.isLoading.value
-            ? Container(
+        () => homeController.isLoading.value ?
+        Container(
                 height: 500.h,
                 child: Center(
                   child: CircularProgressIndicator(
+                    // color: Colors.white,
                     color: mainColor,
                   ),
                 ))
@@ -51,32 +49,34 @@ class HomeScreen extends StatelessWidget {
                               homeController.currentImageIndex.value = index;
                             }),
                         items: homeController.homeAdsImages
-                            .map((item) => Container(
-                                clipBehavior: Clip.antiAlias,
-                                width: MediaQuery.of(context).size.width - 30,
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: mainColor, width: 2),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: OctoImage(
-                                  image: CachedNetworkImageProvider(
-                                    item!,
-                                  ),
-                                  placeholderBuilder: OctoPlaceholder.blurHash(
-                                      'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
-                                      fit: BoxFit.cover),
-                                  errorBuilder: (context, url, error) {
-                                    return BlurHash(
-                                        hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
-                                  },
-                                  fit: BoxFit.cover,
-                                )))
+                            .map((item) =>  Container(
+                            clipBehavior: Clip.antiAlias,
+                            width: MediaQuery.of(context).size.width - 30,
+                             decoration: BoxDecoration(
+                              color:Colors.white,
+                              // color: mainColor,
+                              border:
+                              Border.all(color: Colors.black26.withOpacity(.1), width: 1),
+                              // Border.all(color: mainColor.withOpacity(.5), width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: OctoImage(
+                              image: CachedNetworkImageProvider(
+                                item!,
+                              ),
+                              placeholderBuilder: OctoPlaceholder.blurHash(
+                                  'LEHV6nWB2yk8pyo0adR*.7kCMdnj',
+                                  fit: BoxFit.cover),
+                              errorBuilder: (context, url, error) {
+                                return BlurHash(
+                                    hash: 'LEHV6nWB2yk8pyo0adR*.7kCMdnj');
+                              },
+                              fit: BoxFit.cover,
+                            ),
+                        ))
                             .toList(),
                       )),
-                  SizedBox(
-                    height: 20.h,
-                  ),
+                 k.sizedBoxH,
                   Obx(() => AnimatedSmoothIndicator(
                         activeIndex: homeController.currentImageIndex.value,
                         count: 3,
@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'category'.tr,
                           style: TextStyle(
-                              color: kPrimaryColor,
+                              color: Colors.black,
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold),
                         ),
@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                           child: Text(
                             'more'.tr,
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: mainColor,
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold),
                           ),onTap: (){
@@ -125,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                                   childAspectRatio: 6 / 7,
                                   crossAxisSpacing: 10.w,
                                   mainAxisSpacing: 20.w),
-                          itemCount: homeController.category!.data!.length>8?
+                          itemCount: homeController.category!.data!.length>4?
                               8:
                           homeController.category!.data!.length,
                           itemBuilder: (BuildContext ctx, index) {
@@ -173,6 +173,7 @@ class HomeScreen extends StatelessWidget {
                               ],
                             );
                           }))),
+                  ///categories
                 ],
               ),
       )),

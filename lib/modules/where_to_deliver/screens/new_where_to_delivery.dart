@@ -31,14 +31,12 @@ class WhereToDeliver2 extends StatelessWidget {
       length: 2,
       child: Scaffold(
           extendBodyBehindAppBar: true,
-
           appBar: ArrowsAppBar(
             'checkOut_onOrder',
           ),
           body: SafeArea(
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.start,
-
               children: [
                 SizedBox(height: 20.h,),
                 TabBar(
@@ -55,7 +53,6 @@ class WhereToDeliver2 extends StatelessWidget {
                       isFramed: true,
                       size: 200,
                       text: "  ${'receive_from'.tr} :",
-
                     )
                     ),
                     Tab(   child: Button(
@@ -63,10 +60,7 @@ class WhereToDeliver2 extends StatelessWidget {
                       isFramed: true,
                       size: 200,
                       text: "add_new_address".tr,)
-
-
                     ),
-
                   ],
                 ),
                 SizedBox(),

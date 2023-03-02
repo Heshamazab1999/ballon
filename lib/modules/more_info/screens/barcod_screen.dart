@@ -167,7 +167,7 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
                                                        controller
                                                            .barcodeController
                                                            .clear();
-                                                       Get.snackbar('user_barcode_inserted_successfully'.tr,
+                                                       Get.snackbar('on_item_added_to_favourite_successfully'.tr,
                                                            '',
                                                            snackPosition: SnackPosition
                                                                .TOP,

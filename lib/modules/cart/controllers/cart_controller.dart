@@ -190,8 +190,10 @@ bool   wallet=false;
     };
 
     BaseOptions options = new BaseOptions(
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: Duration(milliseconds: 5000),
+      // connectTimeout: 5000,
+      // receiveTimeout: 3000,
+      receiveTimeout: Duration(milliseconds: 3000),
       headers: headers,
     );
 
@@ -208,11 +210,9 @@ bool   wallet=false;
           if(snapshot.exists) {
             forsale = int.parse(snapshot.value['for_sale']);
             forbuy = int.parse(snapshot.value['for_buy']);
-
             update();
           }
           update();
-         
     });
 
     update();

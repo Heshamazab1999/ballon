@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
-
 import 'Translations/translations.dart';
 import 'constants/colors.dart';
 
@@ -72,12 +71,11 @@ class MyApp extends StatelessWidget {
             translations: Languages(),
             locale: language,
             fallbackLocale: Locale('ar'),
-            title: 'Balloonz',
+            title: 'Amman Corner',
             theme: ThemeData(
-              fontFamily: 'Saudagar',
+              fontFamily: 'cairo',
               scaffoldBackgroundColor: Colors.white,
               iconTheme: IconThemeData(color: kPrimaryColor, size: 33),
-
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 selectedIconTheme: IconThemeData(color: mainColor),
                 selectedLabelStyle: TextStyle(color: mainColor),
@@ -90,7 +88,7 @@ class MyApp extends StatelessWidget {
                  backgroundColor: mainColor,
                ),
             ),
-            home: SplashScreen(),
+             home: SplashScreen(),
           );
         });
   }

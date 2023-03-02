@@ -95,7 +95,7 @@ class ProductDetailsController extends GetxController {
     }
     else if (CacheHelper.loginShared == null) {
       showLoaderDialog(context);
-      Get.offAll(SignUpScreen());
+      Get.off(SignUpScreen());
     }
     else {
       oneProduct = NewCartModel2(
@@ -119,7 +119,7 @@ class ProductDetailsController extends GetxController {
           .then((value) {
         return Get.snackbar('done'.tr, 'one_item_added_successfully'.tr,
             snackPosition: SnackPosition.TOP,
-            backgroundColor: kPrimaryColor,
+            backgroundColor: Colors.grey.shade800,
             duration: Duration(seconds: 2),
             dismissDirection: DismissDirection.startToEnd,
             barBlur: 10,
@@ -139,7 +139,7 @@ class ProductDetailsController extends GetxController {
     } else {
       Get.snackbar('sorry'.tr, 'you_can\'t_order_less_than_one'.tr,
           snackPosition: SnackPosition.TOP,
-          backgroundColor: kPrimaryColor,
+          backgroundColor: Colors.grey.shade800,
           duration: Duration(seconds: 2),
           dismissDirection: DismissDirection.startToEnd,
           barBlur: 10,
@@ -147,20 +147,20 @@ class ProductDetailsController extends GetxController {
     }
   }
   increaseOrderCounter(num limit,double price) {
-     if (orderCounter.value < limit) {
+     // if (orderCounter.value < limit) {
          orderCounter.value++;
         totalPrice.value =  orderCounter.value * price ;
          print(totalPrice.value);
 
-    } else {
-      Get.snackbar('sorry'.tr, 'there_is_no_sufficient_quantity'.tr,
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: kPrimaryColor,
-          duration: Duration(seconds: 2),
-          dismissDirection: DismissDirection.startToEnd,
-          barBlur: 10,
-          colorText: Colors.white);
-    }
+    // } else {
+    //   Get.snackbar('sorry'.tr, 'there_is_no_sufficient_quantity'.tr,
+    //       snackPosition: SnackPosition.TOP,
+    //       backgroundColor: Colors.grey.shade800,
+    //       duration: Duration(seconds: 2),
+    //       dismissDirection: DismissDirection.startToEnd,
+    //       barBlur: 10,
+    //       colorText: Colors.white);
+    // }
   }
 
 

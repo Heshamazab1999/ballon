@@ -178,14 +178,14 @@ class AddNewAddress extends StatelessWidget {
                             Expanded(
                               child: Container(
                                 width: ScreenUtil.defaultSize.width,
-                                height: !landScape ? Get.height/11.h : 40.h,
+                                height: !landScape ? 55.h : 40.h,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10.w, vertical: 5.h),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                      color: kPrimaryColor,
+                                      color: mainColor,
                                     )),
                                 child: GetBuilder<WhereToController>(
                                     builder: (whereToController) {
@@ -197,7 +197,7 @@ class AddNewAddress extends StatelessWidget {
                                               BorderRadius.circular(8.r),
                                           style: TextStyle(
                                               fontSize: 16.sp,
-                                              color: kPrimaryColor),
+                                              color: mainColor),
                                           items: whereToController
                                               .deliveryAreaList!
                                               .map((element) {
@@ -206,7 +206,7 @@ class AddNewAddress extends StatelessWidget {
                                                 '${element.area}'.tr,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18.sp,
+                                                    fontSize: 12.sp,
                                                      color: mainColor),
                                               ),
                                               value: element,

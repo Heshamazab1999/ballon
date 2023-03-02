@@ -33,10 +33,10 @@ class _ArrowsAppBarState extends State<ArrowsAppBar> {
       elevation: 1,
       centerTitle: true,
       title: Image.asset(
-        'assets/images/appBar.png',
-        // width: 120.w,
-        height: 35.h,
-        fit: BoxFit.cover,
+        'assets/images/logo33.png',
+        fit: BoxFit.contain,
+        width: 200.w,
+        height: 50.h,
       ),
       actions: [
         IconButton(
@@ -47,7 +47,7 @@ class _ArrowsAppBarState extends State<ArrowsAppBar> {
             icon: Icon(
               Icons.search,
               color: Colors.grey,
-              size: 30.sp,
+              size: 20.sp,
             )),
       ],
       leading: widget.icon,

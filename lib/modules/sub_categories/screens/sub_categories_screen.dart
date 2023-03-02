@@ -38,13 +38,13 @@ class SubCategoriesScreen extends StatelessWidget {
             centerTitle: true,
             title: Text(
               title.toString().tr,
-              style: TextStyle(color: kPrimaryColor,fontSize: 16.sp),
+              style: TextStyle(color: mainColor,fontSize: 20.sp),
             ),
             leading: IconButton(
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back_ios, color: kPrimaryColor),
+              icon: Icon(Icons.arrow_back_ios, color: mainColor,size: 20.sp,),
             )),
         body: SingleChildScrollView(
             child: Obx(() => subCategoriesController.isFirstLoadRunning.value
@@ -121,42 +121,45 @@ class SubCategoriesScreen extends StatelessWidget {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
                                                 children: [
+
                                                   Text(
                                                     subCategoriesController
-                                                            .product[index]
-                                                            .name ??
+                                                        .product[index]
+                                                        .name ??
                                                         "",
                                                     style: TextStyle(
                                                       fontSize:
-                                                          subCategoriesController
-                                                                      .product[
-                                                                          index]
-                                                                      .availability ==
-                                                                  0
-                                                              ? 22.sp
-                                                              : 18.sp,
+                                                      subCategoriesController
+                                                          .product[
+                                                      index]
+                                                          .availability ==
+                                                          0
+                                                          ? 22.sp
+                                                          : 18.sp,
                                                       color: subCategoriesController
-                                                                  .product[
-                                                                      index]
-                                                                  .availability ==
-                                                              1
-                                                          ? Colors.black
+                                                          .product[
+                                                      index]
+                                                          .availability ==
+                                                          1
+                                                          ? Colors.white
                                                           : Colors.grey,
                                                       decoration:
-                                                          subCategoriesController
-                                                                      .product[
-                                                                          index]
-                                                                      .availability ==
-                                                                  0
-                                                              ? TextDecoration
-                                                                  .lineThrough
-                                                              : null,
+                                                      subCategoriesController
+                                                          .product[
+                                                      index]
+                                                          .availability ==
+                                                          0
+                                                          ? TextDecoration
+                                                          .lineThrough
+                                                          : null,
                                                       fontWeight:
-                                                          FontWeight.w600,
+                                                      FontWeight.w600,
                                                       overflow:
-                                                          TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
+
                                                     ),
                                                   ),
+
                                                   Container(
                                                     height: 80.h,
                                                     decoration: BoxDecoration(
@@ -173,8 +176,18 @@ class SubCategoriesScreen extends StatelessWidget {
                                                                         15))),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.end,
+                                                          MainAxisAlignment.spaceEvenly,
                                                       children: [
+                                                        Text(
+                                                          'coin_jordan'.tr,
+                                                          style: TextStyle(
+                                                              color:
+                                                              Colors.black,
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .bold,
+                                                              fontSize: 20.sp),
+                                                        ),                                                        SizedBox(width: 20.w),
                                                         Text(
                                                           "${replaceFarsiNumber(subCategoriesController.product[index].price.toString() ?? "")} ",
                                                           style: TextStyle(
@@ -182,10 +195,10 @@ class SubCategoriesScreen extends StatelessWidget {
                                                         ),
                                                         SizedBox(width: 20.w),
                                                         Text(
-                                                          'Price',
+                                                          'price'.tr,
                                                           style: TextStyle(
                                                               color:
-                                                                  kPrimaryColor,
+                                                                  Colors.black,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,

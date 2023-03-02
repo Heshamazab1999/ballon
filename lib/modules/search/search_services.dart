@@ -19,4 +19,3 @@ class SearchService {
     return null;
   }
 }
-//https://atom.crinklegypt.com/api/Customer/getCustomer

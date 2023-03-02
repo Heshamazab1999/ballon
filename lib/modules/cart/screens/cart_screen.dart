@@ -20,6 +20,7 @@ import '../../../components/cart_card.dart';
 import '../../../components/custom_button.dart';
 import '../../sub_categories/models/SubCategories.dart';
 import '../models/new_cart_model.dart';
+import 'package:arrows/constants/more_info_constants.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({
@@ -180,10 +181,10 @@ class _CartScreenState extends State<CartScreen> {
                                             }
 
                                             var sum = ((double.parse(snapshot.value["price"]) +
-                                                double.parse(additionalPrice.toString() ?? '') +
+                                                double.parse(additionalPrice.toStringAsFixed(2) ?? '') +
                                                 double.parse(
                                                     otherAdditionalPrice
-                                                        .toString() ??
+                                                        .toStringAsFixed(2) ??
                                                         '')) *
                                                 (double.parse(snapshot
                                                     .value[
@@ -247,27 +248,26 @@ class _CartScreenState extends State<CartScreen> {
                                                                       "${snapshot.value['name']}"
                                                                           .toUpperCase(),
                                                                       style:
-                                                                      TextStyle(fontWeight: FontWeight.bold),
+                                                                      TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp,color: Colors.white),
                                                                     ),
-                                                                    Directionality(
-                                                                      textDirection: translateName
-                                                                          ? TextDirection.ltr
-                                                                          : TextDirection.rtl,
-                                                                      child:
-
+                                                        Directionality(
+                                                            textDirection:
+                                                            translateName ? TextDirection.rtl : TextDirection.ltr,
+                                                            child:
                                                                       Container(
                                                                         decoration: BoxDecoration(color: Colors.white,
-                                                                            borderRadius: translateName ?
-                                                                            BorderRadius.only(bottomRight: Radius.circular(15))
-                                                                                : BorderRadius.only(bottomLeft: Radius.circular(15))),
+                                                                            borderRadius:BorderRadius
+                                                                                .circular(
+                                                                                15.sp
+                                                                            )
+                                                                        ),
                                                                         child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
                                                                           CartIngrediantRow(
                                                                               textKey: 'price'.tr,
                                                                               widget: Text(
                                                                                 '${snapshot.value['price']}',
-                                                                                style: TextStyle(fontSize: 12.sp),
+                                                                                style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),
                                                                               )),
-
                                                                           Divider(
                                                                             thickness: .7,
                                                                             height: 2,
@@ -278,15 +278,16 @@ class _CartScreenState extends State<CartScreen> {
                                                                             widget: Row(
                                                                               children: [
                                                                                 Text(
-                                                                                  ' ${sum}'.tr,
-                                                                                  style: TextStyle(fontSize:12.sp),
+                                                                                  '${sum}'.tr,
+                                                                                  style: TextStyle(fontSize:16.sp,fontWeight: FontWeight.bold),
                                                                                 ),
                                                                                 Text(
                                                                                   ' : ',
-                                                                                  style: TextStyle(fontSize: 12.sp),
+                                                                                  style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),
                                                                                 ),Text(
                                                                                   '${'coin_jordan'.tr} ',
-                                                                                  style: TextStyle(fontSize: 11.sp),
+                                                                                  style: TextStyle(fontSize: 12.sp),
+                                                                                  overflow: TextOverflow.ellipsis,
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -304,10 +305,9 @@ class _CartScreenState extends State<CartScreen> {
                                                                                 children: [
                                                                                   CircleAvatar(
                                                                                     backgroundColor: mainColor,
-                                                                                    radius: 13.r,
+                                                                                    radius: 15.r,
                                                                                     child: IconButton(
-                                                                                        padding:  EdgeInsets.only(bottom: 5),
-
+                                                                                        padding:  EdgeInsets.all( 5),
                                                                                         onPressed: () async {  /*************tmm**********/
 
                                                                                           String newNumber = (int.parse(snapshot.value['quantity']) + 1).toString();
@@ -316,21 +316,12 @@ class _CartScreenState extends State<CartScreen> {
                                                                                               .child(snapshot.key!).child('quantity').set(newNumber);
                                                                                           await FirebaseDatabase.instance.reference().child("Cart").child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID')).child(CacheHelper.getDataToSharedPrefrence('userID'))
                                                                                               .child(snapshot.key!).child('total_price').set(cartController.totalPrice.value.toStringAsFixed(2));
-
                                                                                           cartController.quantity.value = (int.parse(snapshot.value['quantity']) + 1).toInt();
-
                                                                                           cartController.update();
-
-                                                                                          // print( cartController.cartItemList[index].id);
-                                                                                          // print(cartController.cartItemList[index]);
-
-                                                                                          // } else {
-                                                                                          //   Get.snackbar('sorry'.tr, 'there_is_no_sufficient_quantity'.tr, snackPosition: SnackPosition.TOP, backgroundColor: kPrimaryColor, duration: Duration(seconds: 2), dismissDirection: DismissDirection.startToEnd, barBlur: 10, colorText: mainColor);
-                                                                                          // }
                                                                                         },
                                                                                         icon: Icon(
                                                                                           Icons.add,
-                                                                                          size: 13.sp,
+                                                                                          size: 15.sp,
                                                                                           color: Colors.white,
                                                                                         )),
                                                                                   ),
@@ -338,43 +329,38 @@ class _CartScreenState extends State<CartScreen> {
                                                                                     width: 15,
                                                                                   ),
                                                                                   SizedBox(
-                                                                                    child: Text('${snapshot.value['quantity']}'.tr,style: TextStyle(fontSize: 12.sp),),
+                                                                                    child: Text('${snapshot.value['quantity']}'.tr,style: TextStyle(fontSize: 15.sp),),
                                                                                   ),
                                                                                   SizedBox(
                                                                                     width: 15,
                                                                                   ),
                                                                                   CircleAvatar(
                                                                                     backgroundColor: mainColor,
-                                                                                    radius: 13.r,
-
-                                                                                    child: IconButton(
-                                                                                      padding:  EdgeInsets.only(bottom: 5),
-
-                                                                                      onPressed: () async {
-                                                                                        if ((int.parse(snapshot.value['quantity']) > 1)) {
-                                                                                          String newNumber = (int.parse(snapshot.value['quantity']) - 1).toString();
-                                                                                          print(newNumber);
-                                                                                          await FirebaseDatabase.instance.reference().child("Cart")
-                                                                                              .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
-                                                                                              .child(CacheHelper.getDataToSharedPrefrence('userID')).child(snapshot.key!)
-                                                                                              .child('quantity').set(newNumber);
-                                                                                          await FirebaseDatabase.instance.reference().child("Cart").child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID')).child(CacheHelper.getDataToSharedPrefrence('userID'))
-                                                                                              .child(snapshot.key!).child('total_price').set(cartController.totalPrice.value.toStringAsFixed(2));
-
-                                                                                          //cartController  .totalPrice.value .toStringAsFixed(2)
-                                                                                          cartController.quantity.value = (int.parse(snapshot.value['quantity']) - 1).toInt();
-                                                                                          cartController.update();
-                                                                                        }
-                                                                                        // print(cartController.cartList[index]);
-                                                                                        print(cartController.cartItemList2[index]);
-                                                                                      },
-                                                                                      icon: Icon(
-                                                                                        Icons.minimize,
-                                                                                        size: 10.sp,
-                                                                                        color: Colors.white,
+                                                                                    radius: 15.r,
+                                                                                    child:   IconButton(
+                                                                                      padding:  EdgeInsets.only(bottom: 50.h),
+                                                                                        onPressed: () async {
+                                                                                          if ((int.parse(snapshot.value['quantity']) > 1)) {
+                                                                                            String newNumber = (int.parse(snapshot.value['quantity']) - 1).toString();
+                                                                                            print(newNumber);
+                                                                                            await FirebaseDatabase.instance.reference().child("Cart")
+                                                                                                .child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID'))
+                                                                                                .child(CacheHelper.getDataToSharedPrefrence('userID')).child(snapshot.key!)
+                                                                                                .child('quantity').set(newNumber);
+                                                                                            await FirebaseDatabase.instance.reference().child("Cart").child(CacheHelper.getDataToSharedPrefrence('restaurantBranchID')).child(CacheHelper.getDataToSharedPrefrence('userID'))
+                                                                                                .child(snapshot.key!).child('total_price').set(cartController.totalPrice.value.toStringAsFixed(2));
+                                                                                            cartController.quantity.value = (int.parse(snapshot.value['quantity']) - 1).toInt();
+                                                                                            cartController.update();
+                                                                                          }
+                                                                                          print(cartController.cartItemList2[index]);
+                                                                                        },
+                                                                                        icon: Icon(
+                                                                                          Icons.minimize,
+                                                                                          size: 20.sp,
+                                                                                          color: Colors.white,
+                                                                                        ),
                                                                                       ),
                                                                                     ),
-                                                                                  )
                                                                                 ],
                                                                               ),
                                                                             );
@@ -389,8 +375,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                                         child: Container(  padding:EdgeInsets.only(top:10.h,bottom:10.h),
                                                                                        child: snapshot.value['message']!=''?
                                                                                        Text(
-                                                                                      '${snapshot.value['message']}'.tr,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),):
-                                                                                       Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
+                                                                                      '${snapshot.value['message']}'.tr,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold,),):
+                                                                                       Text('No Messages',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold,),),
                                                                                     ),
                                                                           ),
 
@@ -429,7 +415,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                     ),
                                                                   ),
                                                                   Container(    child: Text(
-                                                                      'No Massages'),
+                                                                      'No Massages',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.white),),
                                                                   ),
                                                                 ],
                                                               ),
@@ -509,7 +495,6 @@ class _CartScreenState extends State<CartScreen> {
                           text: 'proceed_check_out'.tr,
                           size: 150,
                           fontSize: 14,
-
                           height:!landScape ?  Get.height/19.h: 100.h,
                           onPressed: (){
                             Get.to(() => WhereToDeliverScreen());
@@ -519,23 +504,22 @@ class _CartScreenState extends State<CartScreen> {
                         )),
                       ],
                     ),
-                    Column(
-                      children: [
+
                         GetBuilder<CartController>(
                           init: CartController(),
-                          builder: (controller)=> Card(      elevation: 1.5,
+                          builder: (controller)=> Card(
+                            elevation: 1.5,
                             shadowColor: Colors.white,
                             color: mainColor,
-                            // ),
                             child: Column(
                               children: [
-                                Row(
+                                 Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
                                     Text("${'total'.tr} : ",
                                         style: TextStyle(
-                                            fontSize: 18.sp,
+                                            fontSize: 18.sp, color: Colors.white,
                                             fontWeight:
                                             FontWeight.w600)),
                                     GetBuilder<CartController>(
@@ -557,6 +541,7 @@ class _CartScreenState extends State<CartScreen> {
                                     Text("${'coin_jordan'.tr}  ",
                                         style: TextStyle(
                                             fontSize: 18.sp,
+                                            color: Colors.white,
                                             fontWeight:
                                             FontWeight.w600)),
                                   ],
@@ -567,17 +552,15 @@ class _CartScreenState extends State<CartScreen> {
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
+                                k.sizedBoxH
                               ],
                             ),
 
                           ),),
-                        SizedBox(
-                          height: 30.h,
-                        ),
+
                         /**********************************************the End********************************************************/
 
-                      ],
-                    ),
+
 
 
                   ],

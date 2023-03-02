@@ -22,7 +22,7 @@ class CustomAddressTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: textEditingController,
-        cursorColor: kPrimaryColor,
+        cursorColor: mainColor,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
@@ -56,7 +56,7 @@ class CustomAddressTextField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: kPrimaryColor,
+              color: mainColor,
             ),
             borderRadius: BorderRadius.circular(8.r),
           ),

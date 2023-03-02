@@ -1,6 +1,7 @@
 import 'package:arrows/api_base/api_endpoints.dart';
 import 'package:arrows/api_base/dio_helper.dart';
 import 'package:arrows/modules/cart/services/coupon_used_body.dart';
+import 'package:arrows/modules/favorite_screen/model/fav_model.dart';
 import 'package:dio/dio.dart';
 
 class CouponUsedService{
@@ -12,4 +13,6 @@ class CouponUsedService{
     print(response.data);
     return response;
   }
+
+
 }

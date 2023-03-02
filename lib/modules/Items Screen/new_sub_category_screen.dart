@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../components/arrows_app_bar.dart';
 import '../search/search_screen.dart';
  import 'controller/new_sub_cat_controller.dart';
 
@@ -14,27 +15,8 @@ class NewSubCategoryScreen extends StatelessWidget {
     final controller = Get.put(NewSubCategoryController());
 
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 1,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.to(SearchScreen());
-                },
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: 25.sp,
-                )),
-          ],
-          toolbarHeight: 60,
-          title: Image.asset(
-            'assets/images/logo99.png',
-            fit: BoxFit.fill,
-            height: 80.h,
-          ),
+        appBar: ArrowsAppBar(
+          'home'.tr,
         ),
         body: Obx(() => controller.loading.value
             ? Center(child: CircularProgressIndicator())
@@ -58,7 +40,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                                                 BorderRadius.circular(20.sp),
                                           ),
                                         primary:  controller.selectedIndex.value == index
-                                              ?Colors.grey.shade300
+                                              ?mainColor.withOpacity(.5)
                                               : Colors.transparent,
                                           elevation: 0,
                                           minimumSize:
@@ -67,6 +49,7 @@ class NewSubCategoryScreen extends StatelessWidget {
                                         controller.category!.data![index].name!.tr,
                                         style:   TextStyle(
                                           fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold,
                                             color: Colors.black),
                                       )),
                                 ),
