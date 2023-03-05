@@ -135,7 +135,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> with TickerProviderStat
                   await CacheHelper.saveDataToSharedPrefrence("localeIsArabic", true);
                 }
               },
-            )),
+            )
+        ),
         body: SafeArea(
             child: Stack(children: [
               SingleChildScrollView(

@@ -96,31 +96,12 @@ class SignUpController extends GetxController {
         if(value.additionalUserInfo!.isNewUser==true){
           addUserToRealTime(name,phone1);
           Get.back();
-          //   var users = await user.User(
-          //       name: userNameTextEditingController,
-          //       phone: fullPhoneNumber,
-          //       password: passwordTextEditingController,
-          //     userDeviceToken:await CacheHelper.getDataToSharedPrefrence("deviceToken"),
-          //     points:cartController.totalPoints!=null?cartController.totalPoints.toString():0.toString(),
-          //     id:FirebaseAuth.instance.currentUser!.uid,
-          // );
-          //   CacheHelper.saveDataToSharedPrefrence("user", users.toJson());
-          //   CacheHelper.loginShared = users;
-          //   FirebaseDatabase.instance
-          //       .reference()
-          //       .child("Users")
-          //       .child(FirebaseAuth.instance.currentUser!.uid)
-          //       .set(users.toJson());
-          // CacheHelper.saveDataToSharedPrefrence("userID", FirebaseAuth.instance.currentUser!.uid);
-          // CacheHelper.saveDataToSharedPrefrence("userName", users.name.toString());
           Get.offAll(() => BottomNavBarScreen());
         }
         else if(value.additionalUserInfo!.isNewUser==false){
           var users = await user.User(
             name: name,
-            // name: userNameTextEditingController??'',
             phone: phone1,
-            // phone: fullPhoneNumber,
             password: passwordTextEditingController,
             userDeviceToken:await CacheHelper.getDataToSharedPrefrence("deviceToken"),
             id:FirebaseAuth.instance.currentUser!.uid,
@@ -133,7 +114,6 @@ class SignUpController extends GetxController {
               .update({
             'name':  name,
             'phone':  phone1,
-            // 'name':  userNameTextEditingController??'',
             'device_token' :CacheHelper.getDataToSharedPrefrence("deviceToken"),
           }).then((value) {
             CacheHelper.saveDataToSharedPrefrence("user", users.toJson());
