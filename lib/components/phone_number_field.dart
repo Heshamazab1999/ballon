@@ -30,11 +30,12 @@ class PhoneNumberField extends StatelessWidget {
     return Container(
       height: 100.h,
       width: 348.w,
-      child: GetBuilder<SignUpController>(
+       child: GetBuilder<SignUpController>(
         init: SignUpController(),
         builder: (signUpController) => InternationalPhoneNumberInput(
           cursorColor: mainColor,
           keyboardType: TextInputType.number,
+
 
           locale: "ar,en",
           textAlignVertical: TextAlignVertical.top,
@@ -55,7 +56,7 @@ class PhoneNumberField extends StatelessWidget {
           selectorConfig: SelectorConfig(
             selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
             setSelectorButtonAsPrefixIcon: true,
-            leadingPadding: 10,
+            leadingPadding: 22,
             trailingSpace: false,
           ),
           ignoreBlank: true,
@@ -66,8 +67,9 @@ class PhoneNumberField extends StatelessWidget {
 
             hintText: "phone_number".tr,
             isDense: true,
+            contentPadding: EdgeInsets.only(top: 30.h),
+
             // Added this
-            contentPadding: EdgeInsets.all(10.sp),
             hintStyle: TextStyle(
                 color: mainColor, fontSize: 18.sp, fontWeight: FontWeight.bold),
             border: OutlineInputBorder(
