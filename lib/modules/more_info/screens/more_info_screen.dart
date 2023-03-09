@@ -838,7 +838,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> with TickerProviderStat
                                                           null) {
                                                         showLoaderDialog(
                                                             context);
-                                                        Get.offAll(
+                                                        Get.to(
                                                             SignUpScreen());
                                                       } else {
                                                         FirebaseDatabase

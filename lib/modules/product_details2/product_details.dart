@@ -277,7 +277,7 @@ class ProductDetails extends StatelessWidget {
                           // } else if (CacheHelper.loginShared == null) {
 
                             showLoaderDialog(context);
-                            Get.offAll(SignUpScreen());
+                            Get.to(SignUpScreen());
                           } else {
                             await controller.addToCart(context,
                                 price: data!.price,

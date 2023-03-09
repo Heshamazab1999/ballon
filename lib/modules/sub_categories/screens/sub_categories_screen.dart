@@ -20,6 +20,7 @@ class SubCategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final subCategoriesController = Get.put(SubCategoriesController());
     subCategoriesController.getProducts(id!);
+    final translateName = CacheHelper.getDataToSharedPrefrence("localeIsArabic");
 
     String replaceFarsiNumber(String input) {
       const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -73,177 +74,180 @@ class SubCategoriesScreen extends StatelessWidget {
                             TextStyle(fontSize: 20.sp, color:kPrimaryColor),
                       ))
                     : Obx(
-                        () => SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          child: SmartRefresher(
-                            controller:
-                                subCategoriesController.refreshController,
-                            enablePullUp: true,
-                            enablePullDown: false,
-                            onLoading: () async {
-                              await subCategoriesController.loadMore(id!);
-                              subCategoriesController.refreshController
-                                  .loadComplete();
-                            },
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: BouncingScrollPhysics(),
-                                itemCount:
-                                    subCategoriesController.product.length,
-                                itemBuilder: (context, index) {
-                                  final translateName =
-                                      CacheHelper.getDataToSharedPrefrence(
-                                          "localeIsArabic"); //
-                                  print(subCategoriesController.product.length);
-                                  return InkWell(
-                                    onTap: () async {
-                                      Get.to(() => ProductDetails(
-                                            data: subCategoriesController
-                                                .product[index],
-                                          ));
-                                    },
-                                    child: Card(
-                                        elevation: 5,
-                                        color: mainColor,
-                                        shadowColor: mainColor,
-                                        shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                                color: mainColor, width: 3),
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
+                        () => Directionality(
+                          textDirection: translateName?TextDirection.ltr:TextDirection.rtl,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: SmartRefresher(
+                              controller:
+                                  subCategoriesController.refreshController,
+                              enablePullUp: true,
+                              enablePullDown: false,
+                              onLoading: () async {
+                                await subCategoriesController.loadMore(id!);
+                                subCategoriesController.refreshController
+                                    .loadComplete();
+                              },
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount:
+                                      subCategoriesController.product.length,
+                                  itemBuilder: (context, index) {
+                                    final translateName =
+                                        CacheHelper.getDataToSharedPrefrence(
+                                            "localeIsArabic"); //
+                                    print(subCategoriesController.product.length);
+                                    return InkWell(
+                                      onTap: () async {
+                                        Get.to(() => ProductDetails(
+                                              data: subCategoriesController
+                                                  .product[index],
+                                            ));
+                                      },
+                                      child: Card(
+                                          elevation: 5,
+                                          color: mainColor,
+                                          shadowColor: mainColor,
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: mainColor, width: 3),
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
 
-                                                  Text(
-                                                    subCategoriesController
-                                                        .product[index]
-                                                        .name ??
-                                                        "",
-                                                    style: TextStyle(
-                                                      fontSize:
+                                                    Text(
                                                       subCategoriesController
-                                                          .product[
-                                                      index]
-                                                          .availability ==
-                                                          0
-                                                          ? 22.sp
-                                                          : 18.sp,
-                                                      color: subCategoriesController
-                                                          .product[
-                                                      index]
-                                                          .availability ==
-                                                          1
-                                                          ? Colors.white
-                                                          : Colors.grey,
-                                                      decoration:
-                                                      subCategoriesController
-                                                          .product[
-                                                      index]
-                                                          .availability ==
-                                                          0
-                                                          ? TextDecoration
-                                                          .lineThrough
-                                                          : null,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-
-                                                    ),
-                                                  ),
-
-                                                  Container(
-                                                    height: 80.h,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius: translateName
-                                                            ? BorderRadius.only(
-                                                                bottomRight:
-                                                                    Radius
-                                                                        .circular(
-                                                                            15))
-                                                            : BorderRadius.only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        15))),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.spaceEvenly,
-                                                      children: [
-                                                        Text(
-                                                          'coin_jordan'.tr,
-                                                          style: TextStyle(
-                                                              color:
-                                                              Colors.black,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold,
-                                                              fontSize: 20.sp),
-                                                        ),                                                        SizedBox(width: 20.w),
-                                                        Text(
-                                                          "${replaceFarsiNumber(subCategoriesController.product[index].price.toString() ?? "")} ",
-                                                          style: TextStyle(
-                                                              fontSize: 25.sp),
-                                                        ),
-                                                        SizedBox(width: 20.w),
-                                                        Text(
-                                                          'price'.tr,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20.sp),
-                                                        ),
-                                                        SizedBox(width: 20.w),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  bottomLeft:
-                                                      Radius.circular(15)),
-                                              child: CachedNetworkImage(
-                                                  height: 120.h,
-                                                  width: 150.w,
-                                                  imageUrl:
-                                                      subCategoriesController
-                                                              .product[index]
-                                                              .photo![0] ??
+                                                          .product[index]
+                                                          .name ??
                                                           "",
-                                                  fit: BoxFit.cover,
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Center(
-                                                            child: SizedBox(
-                                                              height: 30,
-                                                              width: 30,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                color: kPrimaryColor
-                                                                    .withOpacity(
-                                                                        0.6),
+                                                      style: TextStyle(
+                                                        fontSize:
+                                                        subCategoriesController
+                                                            .product[
+                                                        index]
+                                                            .availability ==
+                                                            0
+                                                            ? 22.sp
+                                                            : 18.sp,
+                                                        color: subCategoriesController
+                                                            .product[
+                                                        index]
+                                                            .availability ==
+                                                            1
+                                                            ? Colors.white
+                                                            : Colors.grey,
+                                                        decoration:
+                                                        subCategoriesController
+                                                            .product[
+                                                        index]
+                                                            .availability ==
+                                                            0
+                                                            ? TextDecoration
+                                                            .lineThrough
+                                                            : null,
+                                                        fontWeight:
+                                                        FontWeight.w600,
+                                                        overflow:
+                                                        TextOverflow.ellipsis,
+
+                                                      ),
+                                                    ),
+
+                                                    Container(
+                                                      height: 80.h,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius: translateName
+                                                              ? BorderRadius.only(
+                                                                  bottomLeft:
+                                                                      Radius
+                                                                          .circular(
+                                                                              15))
+                                                              : BorderRadius.only(
+                                                              bottomRight: Radius
+                                                                      .circular(
+                                                                          15))),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.spaceEvenly,
+                                                        children: [
+                                                          Text(
+                                                            'coin_jordan'.tr,
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.black,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold,
+                                                                fontSize: 20.sp),
+                                                          ),                                                        SizedBox(width: 20.w),
+                                                          Text(
+                                                            "${replaceFarsiNumber(subCategoriesController.product[index].price.toString() ?? "")} ",
+                                                            style: TextStyle(
+                                                                fontSize: 25.sp),
+                                                          ),
+                                                          SizedBox(width: 20.w),
+                                                          Text(
+                                                            'price'.tr,
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20.sp),
+                                                          ),
+                                                          SizedBox(width: 20.w),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(15),
+                                                    bottomLeft:
+                                                        Radius.circular(15)),
+                                                child: CachedNetworkImage(
+                                                    height: 120.h,
+                                                    width: 150.w,
+                                                    imageUrl:
+                                                        subCategoriesController
+                                                                .product[index]
+                                                                .photo![0] ??
+                                                            "",
+                                                    fit: BoxFit.cover,
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Center(
+                                                              child: SizedBox(
+                                                                height: 30,
+                                                                width: 30,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: kPrimaryColor
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          )),
-                                            ),
-                                          ],
-                                        )),
-                                  );
-                                }),
+                                                            )),
+                                              ),
+                                            ],
+                                          )),
+                                    );
+                                  }),
+                            ),
                           ),
                         ),
                       )))));

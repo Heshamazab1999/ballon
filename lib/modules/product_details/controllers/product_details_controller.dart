@@ -95,7 +95,7 @@ class ProductDetailsController extends GetxController {
     }
     else if (CacheHelper.loginShared == null) {
       showLoaderDialog(context);
-      Get.off(SignUpScreen());
+      Get.to(SignUpScreen());
     }
     else {
       oneProduct = NewCartModel2(
